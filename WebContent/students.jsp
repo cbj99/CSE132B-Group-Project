@@ -13,10 +13,15 @@
                 <%-- Set the scripting language to java and --%>
                 <%-- import the java.sql package --%>
                 <%@ page language="java" import="java.sql.*" %>
-                <%  try { 
-                        DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
-                        Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@feast.ucsd.edu:1521:source", "user", "pass");
-                    
+                <%  
+                	try { 
+                		String url       = "jdbc:mysql://localhost:3306/information";
+                    	String user      = "root";
+                    	String password  = "" ;
+                    	
+                    	Class.forName("com.mysql.jdbc.Driver");
+                    // create a connection to the database
+                   Connection conn = DriverManager.getConnection(url, user, password);
                 %>
 
 
@@ -30,9 +35,9 @@
                         pstmt.setString(3, request.getParameter("FIRSTNAME"));
                         pstmt.setString(4, request.getParameter("LASTNAME"));
                         pstmt.setString(5, request.getParameter("COLLEGE"));
-                      	//...
                         pstmt.executeUpdate();
-                        conn.commit(); conn.setAutoCommit(true); 
+                        conn.commit();
+                        conn.setAutoCommit(true); 
                     }
                 %>
 
@@ -77,6 +82,7 @@
                 <table>
                     <tr>
                         <th>SSN</th>
+                        <th>ID</th>
                         <th>First</th>
                         <th>Last</th>
                         <th>College</th>
@@ -108,7 +114,7 @@
                             <%-- ... --%>
                             <td><input type="submit" value="Update"></td>
                         </form>
-                        <form action="students2.jsp" method="get">
+                        <form action="students.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
                             <input type="hidden" value="<%= rs.getInt("SSN") %>" name="SSN">
                             <td><input type="submit" value="Delete"></td>
@@ -128,6 +134,7 @@
                     } catch (SQLException sqle) {
                         out.println(sqle.getMessage());
                     } catch (Exception e) {
+                    	out.println("second exception\n"); 
                         out.println(e.getMessage());
                     }
                 %>
