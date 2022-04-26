@@ -15,7 +15,7 @@
                 <%@ page language="java" import="java.sql.*" %>
                 <%  try { 
                         DriverManager.registerDriver (new oracle.jdbc.driver.OracleDriver());
-                        Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@feast.ucsd.edu:1521:source", "user", "€œpass");
+                        Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@feast.ucsd.edu:1521:source", "user", "Â€Âœpass");
                     
                 %>
 
@@ -27,7 +27,10 @@
                         PreparedStatement pstmt=conn.prepareStatement( ("INSERT INTO Student VALUES(?, ?, ?, ?, ?)"));
                         pstmt.setInt(1,Integer.parseInt(request.getParameter("SSN")));
                         pstmt.setString(2, request.getParameter("ID"));
-                        //...
+                        pstmt.setString(3, request.getParameter("FIRSTNAME"));
+                        pstmt.setString(4, request.getParameter("LASTNAME"));
+                        pstmt.setString(5, request.getParameter("COLLEGE"));
+                      	//...
                         pstmt.executeUpdate();
                         conn.commit(); conn.setAutoCommit(true); 
                     }
@@ -40,6 +43,9 @@
                         PreparedStatement pstatement = conn.prepareStatement("UPDATE Student SET ID = ?, FIRSTNAME = ?, " + "LASTNAME = ?, COLLEGE = ? WHERE SSN = ?");
                         pstatement.setString(1, request.getParameter("ID"));
                         pstatement.setString(2, request.getParameter("FIRSTNAME"));
+                        pstatement.setString(3, request.getParameter("LASTNAME"));
+                        pstatement.setString(4, request.getParameter("COLLEGE"));
+                        pstatement.setInt(5, Integer.parseInt(request.getParameter("SSN")));
                         //...
                         int rowCount = pstatement.executeUpdate();
                         conn.setAutoCommit(false);
@@ -96,6 +102,9 @@
                             <input type="hidden" value="update" name="action">
                             <td><input value="<%= rs.getInt("SSN") %>" name="SSN"></td>
                             <td><input value="<%= rs.getString("ID") %>" name="ID"></td>
+                            <td><input value="<%= rs.getString("FIRSTNAME") %>" name="FIRSTNAME"></td>
+                            <td><input value="<%= rs.getString("LASTNAME") %>" name="LASTNAME"></td>
+                            <td><input value="<%= rs.getString("COLLEGE") %>" name="COLLEGE"></td>
                             <%-- ... --%>
                             <td><input type="submit" value="Update"></td>
                         </form>
