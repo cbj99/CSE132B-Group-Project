@@ -15,8 +15,8 @@
                 <%@ page language="java" import="java.sql.*" %>
                 <%  
                 	try { 
-                		String url       = "jdbc:mysql://localhost:3306/information";
-                    	String user      = "root";
+                		String url = "jdbc:mysql://localhost:3306/information";
+                    	String user = "root";
                     	String password  = "" ;
                         
                     	// select the driver for the respective database and register the drive, and there are two ways:
