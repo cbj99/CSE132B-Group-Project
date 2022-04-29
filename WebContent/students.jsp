@@ -18,7 +18,7 @@
                 		DriverManager.registerDriver(new org.postgresql.Driver()); 
                 		String url       = "jdbc:postgresql://localhost:5432/Test";
                     	String user      = "postgres";
-                    	String password  = "vhgjhbgibiyy1234" ;
+                    	String password  = "" ;
                     	
                     // create a connection to the database
                    Connection conn = DriverManager.getConnection(url, user, password);
