@@ -53,3 +53,30 @@ CREATE TABLE underGradudateDegreeRequiarment(
         FOREIGN KEY(course_number) REFERENCES courses(course_number)
         ON DELETE SET NULL
 ); 
+
+CREATE TABLE thesisCommitte(
+    student_id int, 
+    faculty_name char(20), 
+    PRIMARY KEY(student_id, faculty_name), 
+    CONSTRAINT FK_student_id 
+        FOREIGN KEY(student_id) REFERENCES student(student_id)
+        ON DELETE SET NULL, 
+    CONSTRAINT FK_faculty_name
+        FOREIGN KEY(faculty_name) REFERENCES faculty(faculty_name)
+        ON DELETE SET NULL
+); 
+
+CREATE TABLE degreeRecord(
+    student_id int,
+    degree_id int, 
+    institution char(50),
+    status char(20), 
+
+    PRIMARY KEY(student_id, degree_id, institution), 
+    CONSTRAINT FK_degree
+        FOREIGN KEY(degree_id, institution) REFERENCES degree_(degree_id, institution)
+        ON DELETE SET NULL,
+    CONSTRAINT FK_student_id 
+        FOREIGN KEY(student_id) REFERENCES student(student_id)
+        ON DELETE SET NULL
+); 

@@ -17,29 +17,30 @@ create table undergraduateStudent(
     first_name char(50), 
     last_name char(50), 
     middle_name char(50),  
+    
     major char(50), 
     minor char(50), 
     college char(50), 
     PRIMARY KEY (student_id),
     CONSTRAINT FK_student_id 
         FOREIGN KEY(student_id) REFERENCES student(student_id)
-        ON DELETE SET NULL
+        ON DELETE CASCADE
 );
 
-create table graduateStudent(
-    student_id int,
-	SSN int,  
-    identity_ char(50), 
-    enrollment_status char(20),
-    first_name char(50), 
-    last_name char(50), 
-    middle_name char(50), 
-    department char(50), 
-    PRIMARY KEY (student_id),
-    CONSTRAINT FK_student_id 
-        FOREIGN KEY(student_id) REFERENCES student(student_id)
-        ON DELETE SET NULL
-);
+-- create table graduateStudent(
+--     student_id int,
+-- 	SSN int,  
+--     identity_ char(50), 
+--     enrollment_status char(20),
+--     first_name char(50), 
+--     last_name char(50), 
+--     middle_name char(50), 
+--     department char(50), 
+--     PRIMARY KEY (student_id),
+--     CONSTRAINT FK_student_id 
+--         FOREIGN KEY(student_id) REFERENCES student(student_id)
+--         ON DELETE SET NULL
+-- );
 
 create table BSMSStudent(
     student_id int, 
@@ -50,10 +51,11 @@ create table BSMSStudent(
     last_name char(50), 
     middle_name char(50), 
     department char(50), 
+
     PRIMARY KEY (student_id),
     CONSTRAINT FK_student_id 
         FOREIGN KEY(student_id) REFERENCES student(student_id)
-        ON DELETE SET NULL
+        ON DELETE CASCADE
 );
 
 create table MSStudent(
@@ -68,23 +70,23 @@ create table MSStudent(
     PRIMARY KEY (student_id),
     CONSTRAINT FK_student_id 
         FOREIGN KEY(student_id) REFERENCES student(student_id)
-        ON DELETE SET NULL
+        ON DELETE CASCADE
 );
 
-create table PHDStudent(
-    student_id int, 
-	SSN int,  
-    identity_ char(50), 
-    enrollment_status char(20),
-    first_name char(50), 
-    last_name char(50), 
-    middle_name char(50), 
-    department char(50), 
-    PRIMARY KEY (student_id),
-    CONSTRAINT FK_student_id 
-        FOREIGN KEY(student_id) REFERENCES student(student_id)
-        ON DELETE SET NULL
-);
+-- create table PHDStudent(
+--     student_id int, 
+-- 	SSN int,  
+--     identity_ char(50), 
+--     enrollment_status char(20),
+--     first_name char(50), 
+--     last_name char(50), 
+--     middle_name char(50), 
+--     department char(50), 
+--     PRIMARY KEY (student_id),
+--     CONSTRAINT FK_student_id 
+--         FOREIGN KEY(student_id) REFERENCES student(student_id)
+--         ON DELETE SET NULL
+-- );
 
 create table PHDPreCandidacyStudent(
     student_id int, 
@@ -95,10 +97,11 @@ create table PHDPreCandidacyStudent(
     last_name char(50), 
     middle_name char(50), 
     department char(50), 
+    
     PRIMARY KEY (student_id),
     CONSTRAINT FK_student_id 
         FOREIGN KEY(student_id) REFERENCES student(student_id)
-        ON DELETE SET NULL
+        ON DELETE CASCADE
 );
 
 CREATE TABLE probation(
@@ -111,7 +114,7 @@ CREATE TABLE probation(
     PRIMARY KEY(student_id, year, quarter, university),
     CONSTRAINT FK_student_id 
         FOREIGN KEY(student_id) REFERENCES student(student_id)
-        ON DELETE SET NULL
+        ON DELETE CASCADE
 ); 
 
 CREATE TABLE faculty(
@@ -138,7 +141,7 @@ create table PHDCandidateStudent(
     PRIMARY KEY (student_id),
     CONSTRAINT FK_student_id 
         FOREIGN KEY(student_id) REFERENCES student(student_id)
-        ON DELETE SET NULL,
+        ON DELETE CASCADE,
 
     CONSTRAINT FK_faculty_name
         FOREIGN KEY(faculty_name) REFERENCES faculty(faculty_name)
