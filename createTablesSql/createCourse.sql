@@ -1,11 +1,9 @@
 CREATE TABLE courses(
     course_number char(20), 
-    course_id int, 
     grading_option char(20), 
     unit int, 
     department char(20), 
     lab_required int, 
-    pre_requisite_course_id int, 
 
     PRIMARY KEY(course_number) 
 ); 
@@ -17,10 +15,10 @@ CREATE TABLE coursePrequisite(
     PRIMARY KEY(course_number, prerequisite),
     CONSTRAINT FK_course 
         FOREIGN KEY(course_number) REFERENCES courses(course_number)
-        ON DELETE SET NULL,
+        ON DELETE CASCADE,
     CONSTRAINT FK_prerequisite
         FOREIGN KEY(prerequisite) REFERENCES courses(course_number)
-        ON DELETE SET NULL
+        ON DELETE CASCADE
 );
 
 CREATE TABLE classes(
