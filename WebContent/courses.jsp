@@ -20,13 +20,8 @@
 				<%@ page language="java" import="java.sql.*" %>
 				<%  
                 try { 
-                	DriverManager.registerDriver(new org.postgresql.Driver()); 
-                	String url       = "jdbc:postgresql://localhost:5432/Test";
-                    String user      = "postgres";
-                    String password  = "vhgjhbgibiyy1234" ;
-                    	
-                    // create a connection to the database
-                   	Connection conn = DriverManager.getConnection(url, user, password);
+                	DriverManager.registerDriver (new org.postgresql.Driver());
+                    Connection conn=DriverManager.getConnection("jdbc:postgresql:milestone_2?user=postgres&password=cbj991112");
                 %>
 
 				<%-- Insertion Code --%>
@@ -115,12 +110,13 @@
 				<%-- Presentation code --%>
 				<table>
 					<tr>
-						<th>course_number</th>
-						<th>grading_option</th>
-						<th>unit </th>
-						<th>department</th>
-						<th>lab_required</th>
-						<th>pre_requisite_course_number</th>
+						<th>Course Number</th>
+						<th>Grading Option</th>
+						<th>Unit </th>
+						<th>Department</th>
+						<th>Lab Required</th>
+						<th>Pre Requisite Course Number</th>
+						<th>Action</th>
 					</tr>
 
 					<tr>
@@ -128,25 +124,27 @@
 						<form action = "courses.jsp" method="get"> 
 							<input type="hidden" value="insert" name="action"> 
 							<th><input value="" name="COURSENUMBER" size="10"></th>
-							<th><input value="" name="GRADINGOPTION" size="10"></th>
+							<th><input value="" name="GRADINGOPTION" size="15"></th>
 							<th><input value="" name="UNITS" size="10"></th>
 							<th><input value="" name="DEPARTMENT" size="10"></th>
 							<th><input value="" name="LABREQUIRED" size="10"></th>
-							<th><input value="" name="PREREQUISITE" size="10"></th>
-							<th><input type="submit" value="Insert"></th>
+							<th><input value="" name="PREREQUISITE" size="25"></th>
+							<th><input style="width:60px;" type="submit" value="Insert"></th>
 						</form>
-					</th>
+					</tr>
+					
+					<tr style="height:20px"></tr>
 
 					<%-- Iteration code for Courses--%>
 					<% while(result.next()){ %> 
 					<tr>
 						<form action="courses.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= result.getString("course_number") %>" name="COURSENUMBER"></td>
-                            <td><input value="<%= result.getString("grading_option") %>" name="GRADINGOPTION"></td>
-                            <td><input value="<%= result.getInt("unit") %>" name="UNITS"></td>
-                            <td><input value="<%= result.getString("department") %>" name="DEPARTMENT"></td>
-                            <td><input value="<%= result.getInt("lab_required") %>" name="LABREQUIRED"></td>
+                            <td><input value="<%= result.getString("course_number") %>" name="COURSENUMBER" size="10"></td>
+                            <td><input value="<%= result.getString("grading_option") %>" name="GRADINGOPTION" size="15"></td>
+                            <td><input value="<%= result.getInt("unit") %>" name="UNITS" size="10"></td>
+                            <td><input value="<%= result.getString("department") %>" name="DEPARTMENT" size="10"></td>
+                            <td><input value="<%= result.getInt("lab_required") %>" name="LABREQUIRED" size="10"></td>
 							<% 
 							preRequisiteState.setString(1, result.getString("course_number")); 
 							ResultSet preRequisite = preRequisiteState.executeQuery(); 
@@ -160,13 +158,13 @@
 								preRequisiteStr = preRequisiteStr.substring(0, preRequisiteStr.length() - 1); 
 							}
 							%>
-                            <td><input value="<%= preRequisiteStr %>" name="PREREQUISITE"></td>
-                            <td><input type="submit" value="Update"></td>
+                            <td><input value="<%= preRequisiteStr %>" name="PREREQUISITE" size="25"></td>
+                            <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
 						<form action="courses.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
                             <input type="hidden" value="<%= result.getString("course_number") %>" name="COURSENUMBER">
-                            <td><input type="submit" value="Delete"></td>
+                            <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
 					</tr>
 					<% } %>
