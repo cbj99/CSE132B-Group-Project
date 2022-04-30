@@ -376,7 +376,7 @@
                             <td><input value="<%= rsUnderGraduateStudent.getString("last_name").trim() %>" name="LASTNAME" size="10"></td>
                             <td><input value="<%= rsUnderGraduateStudent.getString("middle_name").trim() %>" name="MIDDLENAME" size="10"></td>
                             <td><input value="<%= rsUnderGraduateStudent.getString("major").trim() %>" name="MAJOR" size="10"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("minor").trim() %>" name="MINOR" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("minor")%>" name="MINOR" size="10"></td>
                             <td><input value="<%= rsUnderGraduateStudent.getString("college").trim() %>" name="COLLEGE" size="10"></td>
                             <td><input value="null" name="DEPARTMENT" size="25"></td>
                             <th><input value="null" name="ADVISOR" size="10"></th>
