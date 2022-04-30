@@ -15,10 +15,12 @@ CREATE TABLE coursePrequisite(
     PRIMARY KEY(course_number, prerequisite),
     CONSTRAINT FK_course 
         FOREIGN KEY(course_number) REFERENCES courses(course_number)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     CONSTRAINT FK_prerequisite
         FOREIGN KEY(prerequisite) REFERENCES courses(course_number)
         ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE classes(

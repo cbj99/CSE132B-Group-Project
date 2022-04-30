@@ -16,7 +16,9 @@
                 <%  
                 	try { 
                 		DriverManager.registerDriver (new org.postgresql.Driver());
-                        Connection conn=DriverManager.getConnection("jdbc:postgresql:milestone_2?user=postgres&password=cbj991112");
+                		String strCBJ = "jdbc:postgresql:milestone_2?user=postgres&password=cbj991112"; 
+                    	String StrD = "jdbc:postgresql:Test?user=postgres&password=vhgjhbgibiyy1234"; 
+                        Connection conn=DriverManager.getConnection(StrD);
                 %>
 
 
@@ -109,7 +111,18 @@
                 <%-- Update Code --%>
                 <%  if (action != null && action.equals("update")) {
                 		conn.setAutoCommit(false);
-            			PreparedStatement studentUpdate = conn.prepareStatement("UPDATE student SET SSN=?, identity_=?, enrollment_status=?, first_name=?, last_name=?, middle_name=? where student_id=?;");
+            			PreparedStatement studentUpdate = conn.prepareStatement("UPDATE student SET student_id=?, SSN=?, identity_=?, enrollment_status=?, first_name=?, last_name=?, middle_name=? where student_id=?;");
+            			// update main table no matter what
+            			studentUpdate.setInt(1, Integer.parseInt(request.getParameter("ID")));
+                        studentUpdate.setInt(2, Integer.parseInt(request.getParameter("SSN")));
+                        studentUpdate.setString(3, request.getParameter("IDENTITY"));
+                        studentUpdate.setString(4, request.getParameter("ENROLLMENTSTATUS"));
+                        studentUpdate.setString(5, request.getParameter("FIRSTNAME"));
+                        studentUpdate.setString(6, request.getParameter("LASTNAME"));
+                        studentUpdate.setString(7, request.getParameter("MIDDLENAME"));
+                        studentUpdate.setInt(8,Integer.parseInt(request.getParameter("IDKEY")));
+                        studentUpdate.executeUpdate();
+                        
                 		if(!request.getParameter("previousStudentStatus").equals(request.getParameter("STUDENTTYPE"))){
                 			// delete from original table
             				String deleteStatement = ""; 
@@ -129,7 +142,7 @@
                             	deleteStatement = "DELETE FROM PHDCandidateStudent WHERE student_id = ?;"; 
                             }
                             PreparedStatement pstmt = conn.prepareStatement(deleteStatement);
-                            pstmt.setInt(1, Integer.parseInt(request.getParameter("ID")));
+                            pstmt.setInt(1, Integer.parseInt(request.getParameter("IDKEY")));
                             int rowCount = pstmt.executeUpdate();
                             
                             // add into new table
@@ -141,7 +154,7 @@
                             PreparedStatement PHDCandidateStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"));
                             
                             if(request.getParameter("STUDENTTYPE").equals("UNDERGRADUATE")){
-                            	underGraduatestudentInsertState.setInt(1,Integer.parseInt(request.getParameter("ID")));
+                            	underGraduatestudentInsertState.setInt(1,Integer.parseInt(request.getParameter("IDKEY")));
                             	underGraduatestudentInsertState.setInt(2, Integer.parseInt(request.getParameter("SSN")));
                             	underGraduatestudentInsertState.setString(3, request.getParameter("IDENTITY"));
                             	underGraduatestudentInsertState.setString(4, request.getParameter("ENROLLMENTSTATUS"));
@@ -154,7 +167,7 @@
                                 underGraduatestudentInsertState.executeUpdate(); 
                             }
                             if(request.getParameter("STUDENTTYPE").equals("MASTERSTUDENT")){
-                            	masterStudentState.setInt(1,Integer.parseInt(request.getParameter("ID")));
+                            	masterStudentState.setInt(1,Integer.parseInt(request.getParameter("IDKEY")));
                             	masterStudentState.setInt(2, Integer.parseInt(request.getParameter("SSN")));
                             	masterStudentState.setString(3, request.getParameter("IDENTITY"));
                             	masterStudentState.setString(4, request.getParameter("ENROLLMENTSTATUS"));
@@ -165,7 +178,7 @@
                             	masterStudentState.executeUpdate(); 
                             }
                             if(request.getParameter("STUDENTTYPE").equals("BSMSSTUDENT")){
-                            	BSMSStudentState.setInt(1,Integer.parseInt(request.getParameter("ID")));
+                            	BSMSStudentState.setInt(1,Integer.parseInt(request.getParameter("IDKEY")));
                             	BSMSStudentState.setInt(2, Integer.parseInt(request.getParameter("SSN")));
                             	BSMSStudentState.setString(3, request.getParameter("IDENTITY"));
                             	BSMSStudentState.setString(4, request.getParameter("ENROLLMENTSTATUS"));
@@ -176,7 +189,7 @@
                             	BSMSStudentState.executeUpdate(); 
                             }
                             if(request.getParameter("STUDENTTYPE").equals("PHDPRECANDIDACYSTUDENT")){
-                            	PHDPreStudentState.setInt(1,Integer.parseInt(request.getParameter("ID")));
+                            	PHDPreStudentState.setInt(1,Integer.parseInt(request.getParameter("IDKEY")));
                             	PHDPreStudentState.setInt(2, Integer.parseInt(request.getParameter("SSN")));
                             	PHDPreStudentState.setString(3, request.getParameter("IDENTITY"));
                             	PHDPreStudentState.setString(4, request.getParameter("ENROLLMENTSTATUS"));
@@ -187,7 +200,7 @@
                             	PHDPreStudentState.executeUpdate(); 
                             }
                             if(request.getParameter("STUDENTTYPE").equals("PHDCANDIDATESTUDENT")){
-                            	PHDCandidateStudentState.setInt(1,Integer.parseInt(request.getParameter("ID")));
+                            	PHDCandidateStudentState.setInt(1,Integer.parseInt(request.getParameter("IDKEY")));
                             	PHDCandidateStudentState.setInt(2, Integer.parseInt(request.getParameter("SSN")));
                             	PHDCandidateStudentState.setString(3, request.getParameter("IDENTITY"));
                             	PHDCandidateStudentState.setString(4, request.getParameter("ENROLLMENTSTATUS"));
@@ -267,18 +280,6 @@
                             }
                 		}
                         
-                		// update main table no matter what
-                        studentUpdate.setInt(1, Integer.parseInt(request.getParameter("SSN")));
-                        studentUpdate.setString(2, request.getParameter("IDENTITY"));
-                        studentUpdate.setString(3, request.getParameter("ENROLLMENTSTATUS"));
-                        studentUpdate.setString(4, request.getParameter("FIRSTNAME"));
-                        studentUpdate.setString(5, request.getParameter("LASTNAME"));
-                        studentUpdate.setString(6, request.getParameter("MIDDLENAME"));
-                        studentUpdate.setInt(7,Integer.parseInt(request.getParameter("ID")));
-                        studentUpdate.executeUpdate();
-                        
-                        
-                        int rowCount = studentUpdate.executeUpdate();
                         conn.commit(); 
                         conn.setAutoCommit(true);
                     }
@@ -289,7 +290,7 @@
                 <%  if (action != null && action.equals("delete")){
                         conn.setAutoCommit(false);
                         PreparedStatement pstmt = conn.prepareStatement("DELETE FROM Student WHERE student_id = ?;");
-                        pstmt.setInt(1, Integer.parseInt(request.getParameter("ID")));
+                        pstmt.setInt(1, Integer.parseInt(request.getParameter("IDKEY")));
                         int rowCount = pstmt.executeUpdate();
                         conn.setAutoCommit(false);
                         conn.setAutoCommit(true);
@@ -366,16 +367,17 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
+                            <input type="hidden" value="<%= rsUnderGraduateStudent.getInt("student_id") %>" name="IDKEY" size="10">
                             <td><input value="<%= rsUnderGraduateStudent.getInt("student_id") %>" name="ID" size="10"></td>
                             <td><input value="<%= rsUnderGraduateStudent.getInt("SSN") %>" name="SSN" size="10"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("major") %>" name="MAJOR" size="10"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("minor") %>" name="MINOR" size="10"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("college") %>" name="COLLEGE" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("enrollment_status").trim() %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("first_name").trim() %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("last_name").trim() %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("middle_name").trim() %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("major").trim() %>" name="MAJOR" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("minor").trim() %>" name="MINOR" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("college").trim() %>" name="COLLEGE" size="10"></td>
                             <td><input value="null" name="DEPARTMENT" size="25"></td>
                             <th><input value="null" name="ADVISOR" size="10"></th>
                             <input type="hidden" value="UNDERGRADUATE" name="previousStudentStatus">
@@ -403,13 +405,14 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
+                            <input type="hidden" value="<%= rsBSMSStudent.getInt("student_id") %>" name="IDKEY" size="10">
                             <td><input value="<%= rsBSMSStudent.getInt("student_id") %>" name="ID" size="10"></td>
                             <td><input value="<%= rsBSMSStudent.getInt("SSN") %>" name="SSN" size="10"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("enrollment_status").trim() %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("first_name").trim() %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("last_name").trim() %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("middle_name").trim() %>" name="MIDDLENAME" size="10"></td>
                             <td><input value="null" name="MAJOR" size="10"></td>
                             <td><input value="null" name="MINOR" size="10"></td>
                             <td><input value="null" name="COLLEGE" size="10"></td>
@@ -440,13 +443,14 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
+                            <input type="hidden" value="<%= rsMSStudent.getInt("student_id") %>" name="IDKEY" size="10">
                             <td><input value="<%= rsMSStudent.getInt("student_id") %>" name="ID" size="10"></td>
                             <td><input value="<%= rsMSStudent.getInt("SSN") %>" name="SSN" size="10"></td>
-                            <td><input value="<%= rsMSStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
-                            <td><input value="<%= rsMSStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
-                            <td><input value="<%= rsMSStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
-                            <td><input value="<%= rsMSStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
-                            <td><input value="<%= rsMSStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="<%= rsMSStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= rsMSStudent.getString("enrollment_status").trim() %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= rsMSStudent.getString("first_name").trim() %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= rsMSStudent.getString("last_name").trim() %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= rsMSStudent.getString("middle_name").trim() %>" name="MIDDLENAME" size="10"></td>
                             <td><input value="null" name="MAJOR" size="10"></td>
                             <td><input value="null" name="MINOR" size="10"></td>
                             <td><input value="null" name="COLLEGE" size="10"></td>
@@ -477,13 +481,14 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
+                            <input type="hidden" value="<%= PHDPreStudent.getInt("student_id") %>" name="IDKEY" size="10">
                             <td><input value="<%= PHDPreStudent.getInt("student_id") %>" name="ID" size="10"></td>
                             <td><input value="<%= PHDPreStudent.getInt("SSN") %>" name="SSN" size="10"></td>
-                            <td><input value="<%= PHDPreStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
-                            <td><input value="<%= PHDPreStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
-                            <td><input value="<%= PHDPreStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
-                            <td><input value="<%= PHDPreStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
-                            <td><input value="<%= PHDPreStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="<%= PHDPreStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= PHDPreStudent.getString("enrollment_status").trim() %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= PHDPreStudent.getString("first_name").trim() %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= PHDPreStudent.getString("last_name").trim() %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= PHDPreStudent.getString("middle_name").trim() %>" name="MIDDLENAME" size="10"></td>
                             <td><input value="null" name="MAJOR" size="10"></td>
                             <td><input value="null" name="MINOR" size="10"></td>
                             <td><input value="null" name="COLLEGE" size="10"></td>
@@ -514,13 +519,14 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
+                            <input type="hidden" value="<%= PHDCandidateStudent.getInt("student_id") %>" name="IDKEY" size="10">
                             <td><input value="<%= PHDCandidateStudent.getInt("student_id") %>" name="ID" size="10"></td>
                             <td><input value="<%= PHDCandidateStudent.getInt("SSN") %>" name="SSN" size="10"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("enrollment_status".trim()) %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("first_name").trim() %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("last_name").trim() %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("middle_name").trim() %>" name="MIDDLENAME" size="10"></td>
                             <td><input value="null" name="MAJOR" size="10"></td>
                             <td><input value="null" name="MINOR" size="10"></td>
                             <td><input value="null" name="COLLEGE" size="10"></td>

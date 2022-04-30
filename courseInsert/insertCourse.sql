@@ -13,7 +13,7 @@ INSERT INTO coursePrequisite VALUES
 
 
 UPDATE courses SET
-    grading_option = 'P/NP', unit=5, department='CSE', lab_required=0
-    where course_number='CSE6';
+    course_number='CSE55', grading_option = 'P/NP', unit=5, department='CSE', lab_required=0
+    where course_number='CSE5';
 
 DELETE FROM coursePrequisite where course_number='CSE6'; 

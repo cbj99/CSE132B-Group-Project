@@ -21,7 +21,9 @@
 				<%  
                 try { 
                 	DriverManager.registerDriver (new org.postgresql.Driver());
-                    Connection conn=DriverManager.getConnection("jdbc:postgresql:milestone_2?user=postgres&password=cbj991112");
+                	String strCBJ = "jdbc:postgresql:milestone_2?user=postgres&password=cbj991112"; 
+                	String StrD = "jdbc:postgresql:Test?user=postgres&password=vhgjhbgibiyy1234"; 
+                    Connection conn=DriverManager.getConnection(StrD);
                 %>
 
 				<%-- Insertion Code --%>
@@ -57,15 +59,16 @@
 				<% 
 				if(action != null && action.equals("update")){
 					conn.setAutoCommit(false); 
-					PreparedStatement statement = conn.prepareStatement("UPDATE courses SET grading_option=?, unit=?, department=?, lab_required=? where course_number=?;");
+					PreparedStatement statement = conn.prepareStatement("UPDATE courses SET course_number=?, grading_option=?, unit=?, department=?, lab_required=? where course_number=?;");
 					PreparedStatement deleteStatement = conn.prepareStatement("DELETE FROM coursePrequisite where course_number=?;");
 					PreparedStatement preStatement = conn.prepareStatement("INSERT INTO coursePrequisite VALUES(?, ?)");
 					
-					statement.setString(5, request.getParameter("COURSENUMBER"));
-					statement.setString(1, request.getParameter("GRADINGOPTION"));
-					statement.setInt(2, Integer.parseInt(request.getParameter("UNITS")));
-					statement.setString(3, request.getParameter("DEPARTMENT"));
-					statement.setInt(4, Integer.parseInt(request.getParameter("LABREQUIRED")));
+					statement.setString(1, request.getParameter("COURSENUMBER"));
+					statement.setString(2, request.getParameter("GRADINGOPTION"));
+					statement.setInt(3, Integer.parseInt(request.getParameter("UNITS")));
+					statement.setString(4, request.getParameter("DEPARTMENT"));
+					statement.setInt(5, Integer.parseInt(request.getParameter("LABREQUIRED")));
+					statement.setString(6, request.getParameter("COURSENUMBERKEY"));
 					statement.executeUpdate();
 					
 					String courseNumber = request.getParameter("COURSENUMBER"); 
@@ -75,16 +78,17 @@
 					
 					// reinsert into database
 					String preReqStr = request.getParameter("PREREQUISITE"); 
-					String[] preReqStrArr =  preReqStr.split(",");
-					for(int i = 0; i < preReqStrArr.length; i++){
-						preStatement.setString(1, courseNumber); 
-						preStatement.setString(2, preReqStrArr[i].replace(" ", "")); 
-						preStatement.executeUpdate(); 
+					preReqStr = preReqStr.replace(" ", ""); 
+					if(preReqStr.length()>0){
+						String[] preReqStrArr =  preReqStr.split(",");
+						for(int i = 0; i < preReqStrArr.length; i++){
+							preStatement.setString(1, courseNumber); 
+							preStatement.setString(2, preReqStrArr[i].replace(" ", "").toUpperCase()); 
+							preStatement.executeUpdate(); 
+						}
 					}
-					
 					conn.commit();
                     conn.setAutoCommit(true); 
-
 				}
 				%>
 				<%-- Delete Code --%>
@@ -140,10 +144,11 @@
 					<tr>
 						<form action="courses.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= result.getString("course_number") %>" name="COURSENUMBER" size="10"></td>
-                            <td><input value="<%= result.getString("grading_option") %>" name="GRADINGOPTION" size="15"></td>
+                            <input type="hidden" value="<%= result.getString("course_number").trim()%>" name="COURSENUMBERKEY" size="10">
+                            <td><input value="<%= result.getString("course_number").trim() %>" name="COURSENUMBER" size="10"></td>
+                            <td><input value="<%= result.getString("grading_option").trim() %>" name="GRADINGOPTION" size="15"></td>
                             <td><input value="<%= result.getInt("unit") %>" name="UNITS" size="10"></td>
-                            <td><input value="<%= result.getString("department") %>" name="DEPARTMENT" size="10"></td>
+                            <td><input value="<%= result.getString("department").trim() %>" name="DEPARTMENT" size="10"></td>
                             <td><input value="<%= result.getInt("lab_required") %>" name="LABREQUIRED" size="10"></td>
 							<% 
 							preRequisiteState.setString(1, result.getString("course_number")); 
