@@ -15,13 +15,8 @@
                 <%@ page language="java" import="java.sql.*" %>
                 <%  
                 	try { 
-                		DriverManager.registerDriver(new org.postgresql.Driver()); 
-                		String url       = "jdbc:postgresql://localhost:5432/Test";
-                    	String user      = "postgres";
-                    	String password  = "" ;
-                    	
-                    // create a connection to the database
-                   Connection conn = DriverManager.getConnection(url, user, password);
+                		DriverManager.registerDriver (new org.postgresql.Driver());
+                        Connection conn=DriverManager.getConnection("jdbc:postgresql:milestone_2?user=postgres&password=cbj991112");
                 %>
 
 
@@ -35,7 +30,6 @@
                         PreparedStatement BSMSStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                         PreparedStatement PHDPreStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                         PreparedStatement PHDCandidateStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"));
-
                         
                         studentInsertState.setInt(1,Integer.parseInt(request.getParameter("ID")));
                         studentInsertState.setInt(2, Integer.parseInt(request.getParameter("SSN")));
@@ -116,7 +110,6 @@
                 <%  if (action != null && action.equals("update")) {
                 		conn.setAutoCommit(false);
             			PreparedStatement studentUpdate = conn.prepareStatement("UPDATE student SET SSN=?, identity_=?, enrollment_status=?, first_name=?, last_name=?, middle_name=? where student_id=?;");
-
                 		if(!request.getParameter("previousStudentStatus").equals(request.getParameter("STUDENTTYPE"))){
                 			// delete from original table
             				String deleteStatement = ""; 
@@ -336,6 +329,7 @@
                         <th>Department</th>
                         <th>Advisor</th>
                         <th>Student Type</th>
+                        <th>Action</th>
                     </tr>
                     
                     <%-- Insert Form Code --%>
@@ -344,16 +338,16 @@
                             <input type="hidden" value="insert" name="action">
                             <th><input value="" name="ID" size="10"></th>
                             <th><input value="" name="SSN" size="10"></th>
-                            <th><input value="" name="IDENTITY" size="10"></th>
-                            <th><input value="" name="ENROLLMENTSTATUS" size="10"></th>
-                            <th><input value="" name="FIRSTNAME" size="15"></th>
-                            <th><input value="" name="LASTNAME" size="15"></th>
-                            <th><input value="" name="MIDDLENAME" size="15"></th>
-                            <th><input value="" name="MAJOR" size="15"></th>
-                            <th><input value="" name="MINOR" size="15"></th>
-                            <th><input value="" name="COLLEGE" size="15"></th>
-                            <th><input value="" name="DEPARTMENT" size="15"></th>
-                            <th><input value="" name="ADVISOR" size="15"></th>
+                            <th><input value="" name="IDENTITY" size="15"></th>
+                            <th><input value="" name="ENROLLMENTSTATUS" size="15"></th>
+                            <th><input value="" name="FIRSTNAME" size="10"></th>
+                            <th><input value="" name="LASTNAME" size="10"></th>
+                            <th><input value="" name="MIDDLENAME" size="10"></th>
+                            <th><input value="" name="MAJOR" size="10"></th>
+                            <th><input value="" name="MINOR" size="10"></th>
+                            <th><input value="" name="COLLEGE" size="10"></th>
+                            <th><input value="" name="DEPARTMENT" size="25"></th>
+                            <th><input value="" name="ADVISOR" size="10"></th>
                             <th>
                             	<select name="STUDENTTYPE">
                             		<option value="UNDERGRADUATE">undergraduate student</option>
@@ -363,27 +357,27 @@
                             		<option value="PHDCANDIDATESTUDENT">PHD-candidate student</option>
                             	</select>
                             </th>
-                            <th><input type="submit" value="Insert"></th>
+                            <th><input style="width:60px;" type="submit" value="Insert"></th>
                         </form>
                     </tr>
-
+    				<tr style="height:20px"></tr>
                     <%-- Iteration Code for under-graduate student--%>
                     <% while (rsUnderGraduateStudent.next()) {%>
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= rsUnderGraduateStudent.getInt("student_id") %>" name="ID"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getInt("SSN") %>" name="SSN"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("identity_") %>" name="IDENTITY"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("first_name") %>" name="FIRSTNAME"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("last_name") %>" name="LASTNAME"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("middle_name") %>" name="MIDDLENAME"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("major") %>" name="MAJOR"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("minor") %>" name="MINOR"></td>
-                            <td><input value="<%= rsUnderGraduateStudent.getString("college") %>" name="COLLEGE"></td>
-                            <td><input value="null" name="DEPARTMENT"></td>
-                            <th><input value="null" name="ADVISOR" size="15"></th>
+                            <td><input value="<%= rsUnderGraduateStudent.getInt("student_id") %>" name="ID" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getInt("SSN") %>" name="SSN" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("major") %>" name="MAJOR" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("minor") %>" name="MINOR" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getString("college") %>" name="COLLEGE" size="10"></td>
+                            <td><input value="null" name="DEPARTMENT" size="25"></td>
+                            <th><input value="null" name="ADVISOR" size="10"></th>
                             <input type="hidden" value="UNDERGRADUATE" name="previousStudentStatus">
                             <th>
                             	<select name="STUDENTTYPE">
@@ -394,12 +388,12 @@
                             		<option value="PHDCANDIDATESTUDENT">PHD-candidate student</option>
                             	</select>
                             </th>
-                            <td><input type="submit" value="Update"></td>
+                            <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
                             <input type="hidden" value="<%= rsUnderGraduateStudent.getInt("student_id") %>" name="ID">
-                            <td><input type="submit" value="Delete"></td>
+                            <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
                     </tr>
                     <% } %>
@@ -409,19 +403,19 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= rsBSMSStudent.getInt("student_id") %>" name="ID"></td>
-                            <td><input value="<%= rsBSMSStudent.getInt("SSN") %>" name="SSN"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("identity_") %>" name="IDENTITY"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("first_name") %>" name="FIRSTNAME"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("last_name") %>" name="LASTNAME"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("middle_name") %>" name="MIDDLENAME"></td>
-                            <td><input value="null" name="MAJOR"></td>
-                            <td><input value="null" name="MINOR"></td>
-                            <td><input value="null" name="COLLEGE"></td>
-                            <td><input value="<%= rsBSMSStudent.getString("department") %>" name="DEPARTMENT"></td>
+                            <td><input value="<%= rsBSMSStudent.getInt("student_id") %>" name="ID" size="10"></td>
+                            <td><input value="<%= rsBSMSStudent.getInt("SSN") %>" name="SSN" size="10"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="null" name="MAJOR" size="10"></td>
+                            <td><input value="null" name="MINOR" size="10"></td>
+                            <td><input value="null" name="COLLEGE" size="10"></td>
+                            <td><input value="<%= rsBSMSStudent.getString("department") %>" name="DEPARTMENT" size="25"></td>
                             <input type="hidden" value="BSMSSTUDENT" name="previousStudentStatus">
-                            <th><input value="null" name="ADVISOR" size="15"></th>
+                            <th><input value="null" name="ADVISOR" size="10"></th>
                             <th>
                             	<select name="STUDENTTYPE">
                             		<option value="UNDERGRADUATE">undergraduate student</option>
@@ -431,12 +425,12 @@
                             		<option value="PHDCANDIDATESTUDENT">PHD-candidate student</option>
                             	</select>
                             </th>
-                            <td><input type="submit" value="Update"></td>
+                            <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
                             <input type="hidden" value="<%= rsBSMSStudent.getInt("student_id") %>" name="ID">
-                            <td><input type="submit" value="Delete"></td>
+                            <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
                     </tr>
                     <% } %>
@@ -446,19 +440,19 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= rsMSStudent.getInt("student_id") %>" name="ID"></td>
-                            <td><input value="<%= rsMSStudent.getInt("SSN") %>" name="SSN"></td>
-                            <td><input value="<%= rsMSStudent.getString("identity_") %>" name="IDENTITY"></td>
-                            <td><input value="<%= rsMSStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS"></td>
-                            <td><input value="<%= rsMSStudent.getString("first_name") %>" name="FIRSTNAME"></td>
-                            <td><input value="<%= rsMSStudent.getString("last_name") %>" name="LASTNAME"></td>
-                            <td><input value="<%= rsMSStudent.getString("middle_name") %>" name="MIDDLENAME"></td>
-                            <td><input value="null" name="MAJOR"></td>
-                            <td><input value="null" name="MINOR"></td>
-                            <td><input value="null" name="COLLEGE"></td>
-                            <td><input value="<%= rsMSStudent.getString("department") %>" name="DEPARTMENT"></td>
+                            <td><input value="<%= rsMSStudent.getInt("student_id") %>" name="ID" size="10"></td>
+                            <td><input value="<%= rsMSStudent.getInt("SSN") %>" name="SSN" size="10"></td>
+                            <td><input value="<%= rsMSStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= rsMSStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= rsMSStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= rsMSStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= rsMSStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="null" name="MAJOR" size="10"></td>
+                            <td><input value="null" name="MINOR" size="10"></td>
+                            <td><input value="null" name="COLLEGE" size="10"></td>
+                            <td><input value="<%= rsMSStudent.getString("department") %>" name="DEPARTMENT" size="25"></td>
                             <input type="hidden" value="MASTERSTUDENT" name="previousStudentStatus">
-                            <th><input value="null" name="ADVISOR" size="15"></th>
+                            <th><input value="null" name="ADVISOR" size="10"></th>
                             <th>
                             	<select name="STUDENTTYPE">
                             		<option value="UNDERGRADUATE">undergraduate student</option>
@@ -468,12 +462,12 @@
                             		<option value="PHDCANDIDATESTUDENT">PHD-candidate student</option>
                             	</select>
                             </th>
-                            <td><input type="submit" value="Update"></td>
+                            <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
                             <input type="hidden" value="<%= rsMSStudent.getInt("student_id") %>" name="ID">
-                            <td><input type="submit" value="Delete"></td>
+                            <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
                     </tr>
                     <% } %>
@@ -483,19 +477,19 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= PHDPreStudent.getInt("student_id") %>" name="ID"></td>
-                            <td><input value="<%= PHDPreStudent.getInt("SSN") %>" name="SSN"></td>
-                            <td><input value="<%= PHDPreStudent.getString("identity_") %>" name="IDENTITY"></td>
-                            <td><input value="<%= PHDPreStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS"></td>
-                            <td><input value="<%= PHDPreStudent.getString("first_name") %>" name="FIRSTNAME"></td>
-                            <td><input value="<%= PHDPreStudent.getString("last_name") %>" name="LASTNAME"></td>
-                            <td><input value="<%= PHDPreStudent.getString("middle_name") %>" name="MIDDLENAME"></td>
-                            <td><input value="null" name="MAJOR"></td>
-                            <td><input value="null" name="MINOR"></td>
-                            <td><input value="null" name="COLLEGE"></td>
-                            <td><input value="<%= PHDPreStudent.getString("department") %>" name="DEPARTMENT"></td>
-                            <input type="hidden" value="PHDPRECANDIDACYSTUDENT" name="previousStudentStatus">
-                            <th><input value="null" name="ADVISOR" size="15"></th>
+                            <td><input value="<%= PHDPreStudent.getInt("student_id") %>" name="ID" size="10"></td>
+                            <td><input value="<%= PHDPreStudent.getInt("SSN") %>" name="SSN" size="10"></td>
+                            <td><input value="<%= PHDPreStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= PHDPreStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= PHDPreStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= PHDPreStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= PHDPreStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="null" name="MAJOR" size="10"></td>
+                            <td><input value="null" name="MINOR" size="10"></td>
+                            <td><input value="null" name="COLLEGE" size="10"></td>
+                            <td><input value="<%= PHDPreStudent.getString("department") %>" name="DEPARTMENT" size="25"></td>
+                            <input type="hidden" value="PHDPRECANDIDACYSTUDENT" name="previousStudentStatus" size="10">
+                            <th><input value="null" name="ADVISOR" size="10"></th>
                             <th>
                             	<select name="STUDENTTYPE">
                             		<option value="UNDERGRADUATE">undergraduate student</option>
@@ -505,12 +499,12 @@
                             		<option value="PHDCANDIDATESTUDENT">PHD-candidate student</option>
                             	</select>
                             </th>
-                            <td><input type="submit" value="Update"></td>
+                            <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
                             <input type="hidden" value="<%= PHDPreStudent.getInt("student_id") %>" name="ID">
-                            <td><input type="submit" value="Delete"></td>
+                            <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
                     </tr>
                     <% } %>
@@ -520,19 +514,19 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= PHDCandidateStudent.getInt("student_id") %>" name="ID"></td>
-                            <td><input value="<%= PHDCandidateStudent.getInt("SSN") %>" name="SSN"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("identity_") %>" name="IDENTITY"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("first_name") %>" name="FIRSTNAME"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("last_name") %>" name="LASTNAME"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("middle_name") %>" name="MIDDLENAME"></td>
-                            <td><input value="null" name="MAJOR"></td>
-                            <td><input value="null" name="MINOR"></td>
-                            <td><input value="null" name="COLLEGE"></td>
-                            <td><input value="<%= PHDCandidateStudent.getString("department") %>" name="DEPARTMENT"></td>
-                            <input type="hidden" value="PHDCANDIDATESTUDENT" name="previousStudentStatus">
-                            <th><input value="<%= PHDCandidateStudent.getString("faculty_name") %>" name="ADVISOR" size="15"></th>
+                            <td><input value="<%= PHDCandidateStudent.getInt("student_id") %>" name="ID" size="10"></td>
+                            <td><input value="<%= PHDCandidateStudent.getInt("SSN") %>" name="SSN" size="10"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("identity_") %>" name="IDENTITY" size="15"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("enrollment_status") %>" name="ENROLLMENTSTATUS" size="15"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("first_name") %>" name="FIRSTNAME" size="10"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("last_name") %>" name="LASTNAME" size="10"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("middle_name") %>" name="MIDDLENAME" size="10"></td>
+                            <td><input value="null" name="MAJOR" size="10"></td>
+                            <td><input value="null" name="MINOR" size="10"></td>
+                            <td><input value="null" name="COLLEGE" size="10"></td>
+                            <td><input value="<%= PHDCandidateStudent.getString("department") %>" name="DEPARTMENT" size="25"></td>
+                            <input type="hidden" value="PHDCANDIDATESTUDENT" name="previousStudentStatus" size="10">
+                            <th><input value="<%= PHDCandidateStudent.getString("faculty_name") %>" name="ADVISOR" size="10"></th>
                             <th>
                             	<select name="STUDENTTYPE">
                             		<option value="UNDERGRADUATE">undergraduate student</option>
@@ -542,12 +536,12 @@
                             		<option value="PHDCANDIDATESTUDENT" selected>PHD-candidate student</option>
                             	</select>
                             </th>
-                            <td><input type="submit" value="Update"></td>
+                            <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
                             <input type="hidden" value="<%= PHDCandidateStudent.getInt("student_id") %>" name="ID">
-                            <td><input type="submit" value="Delete"></td>
+                            <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
                     </tr>
                     <% } %>
