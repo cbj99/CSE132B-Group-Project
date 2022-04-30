@@ -33,13 +33,18 @@
 					conn.setAutoCommit(false); 
 					PreparedStatement statement = conn.prepareStatement("INSERT INTO probation VALUES(?, ?, ?, ?, ?)"); 
 					
-					statement.setInt(1, Integer.parseInt(request.getParameter("ID")));
-					statement.setInt(2, Integer.parseInt(request.getParameter("YEAR")));
-					statement.setString(3, request.getParameter("QUARTER"));
-					statement.setString(4, request.getParameter("UNIVERSITY"));
-					statement.setString(5, request.getParameter("REASON"));
-					statement.executeUpdate(); 
-					
+					/* make sure all strings are not empty */
+					String quarterStr = request.getParameter("QUARTER").trim();
+					String universityStr = request.getParameter("UNIVERSITY").trim();
+					String reasonStr = request.getParameter("REASON").trim();
+					if(quarterStr.length()>0 && universityStr.length()>0 && reasonStr.length()>0){
+						statement.setInt(1, Integer.parseInt(request.getParameter("ID")));
+						statement.setInt(2, Integer.parseInt(request.getParameter("YEAR")));
+						statement.setString(3, request.getParameter("QUARTER"));
+						statement.setString(4, request.getParameter("UNIVERSITY"));
+						statement.setString(5, request.getParameter("REASON"));
+						statement.executeUpdate(); 
+					}
 					
 					conn.commit();
                     conn.setAutoCommit(true); 
@@ -50,16 +55,25 @@
 				<% 
 				if(action != null && action.equals("update")){
 					conn.setAutoCommit(false); 
-					PreparedStatement statement = conn.prepareStatement("UPDATE probation SET reason=? where student_id=?, year=?, quarter=?, university=?;");
+					PreparedStatement statement = conn.prepareStatement("UPDATE probation SET student_id=?, year=?, quarter=?, university=?, reason=? where student_id=? and year=? and quarter=? and university=?");
 					
-					statement.setString(1, request.getParameter("REASON"));
-					statement.setInt(2, Integer.parseInt(request.getParameter("ID")));
-					statement.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
-					statement.setString(4, request.getParameter("QUARTER"));
-					statement.setString(5, request.getParameter("UNIVERSITY"));
+					String quarterStr = request.getParameter("QUARTER").trim();
+					String universityStr = request.getParameter("UNIVERSITY").trim();
+					String reasonStr = request.getParameter("REASON").trim();
 					
-					statement.executeUpdate();
-					
+					if(quarterStr.length()>0 && universityStr.length()>0 && reasonStr.length()>0){
+						statement.setInt(1, Integer.parseInt(request.getParameter("ID")));
+						statement.setInt(2, Integer.parseInt(request.getParameter("YEAR")));
+						statement.setString(3, request.getParameter("QUARTER"));
+						statement.setString(4, request.getParameter("UNIVERSITY"));
+						statement.setString(5, request.getParameter("REASON"));
+						
+						statement.setInt(6, Integer.parseInt(request.getParameter("IDKEY")));
+						statement.setInt(7, Integer.parseInt(request.getParameter("YEARKEY")));
+						statement.setString(8, request.getParameter("QUARTERKEY"));
+						statement.setString(9, request.getParameter("UNIVERSITYKEY"));
+						statement.executeUpdate(); 
+					}
 					
 					conn.commit();
                     conn.setAutoCommit(true); 
@@ -70,7 +84,7 @@
 				<%
 				if(action != null && action.equals("delete")){
 					conn.setAutoCommit(false); 
-					PreparedStatement deletestatement = conn.prepareStatement("DELETE FROM probation where student_id=?, year=?, quarter=?, university=?;");
+					PreparedStatement deletestatement = conn.prepareStatement("DELETE FROM probation where student_id=? and year=? and quarter=? and university=?;");
 					
 					deletestatement.setInt(1, Integer.parseInt(request.getParameter("ID")));
 					deletestatement.setInt(2, Integer.parseInt(request.getParameter("YEAR")));
@@ -85,8 +99,12 @@
 				<%-- Statement code --%>
 				<%
 				Statement statement = conn.createStatement(); 
+				Statement studentStatement = conn.createStatement(); 
+				PreparedStatement secondStudentState = conn.prepareStatement("select student_id from student where not student_id=?");
+				
 				ResultSet result = statement.executeQuery("select * from probation"); 
-
+				ResultSet studentResult = studentStatement.executeQuery("select student_id from student"); 
+				
 				%>
 				<%-- Presentation code --%>
 				<table>
@@ -103,7 +121,14 @@
 					<%-- Insert form Code--%>
 						<form action = "probation.jsp" method="get"> 
 							<input type="hidden" value="insert" name="action"> 
-							<th><input value="" name="ID" size="10"></th>
+							<th>
+                            	<select name="ID">
+                            	<option value="Please select an ID" selected>Please select an ID</option>
+                            	<% while (studentResult.next()){ %>
+                            		<option value=<%= studentResult.getInt("student_id")%>> <%= studentResult.getInt("student_id")%></option>
+                            	<% } %>
+                            	</select>
+                            </th>
 							<th><input value="" name="YEAR" size="10"></th>
 							<th><input value="" name="QUARTER" size="10"></th>
 							<th><input value="" name="UNIVERSITY" size="10"></th>
@@ -112,12 +137,31 @@
 						</form>
 					</th>
 					<tr style="height:20px"></tr>
+					
 					<%-- Iteration code for Courses--%>
 					<% while(result.next()){ %> 
 					<tr>
 						<form action="probation.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= result.getInt("student_id") %>" name="ID" size="10"></td>
+                            <input type="hidden" value="delete" name="action">
+                            <input type="hidden" value="<%= result.getInt("student_id") %>" name="IDKEY">
+                            <input type="hidden" value="<%= result.getInt("year") %>" name="YEARKEY">
+                            <input type="hidden" value="<%= result.getString("quarter") %>" name="QUARTERKEY">
+                            <input type="hidden" value="<%= result.getString("university") %>" name="UNIVERSITYKEY">
+                            
+                            <th>
+                            	<select name="ID">
+                            	<option value=<%= result.getInt("student_id")%> selected> <%= result.getInt("student_id")%></option>
+                            	<% 
+                            	secondStudentState.setInt(1, result.getInt("student_id")); 
+                            	ResultSet seocndStuResultSet = secondStudentState.executeQuery(); 
+                            	%>
+                            	<% while (seocndStuResultSet.next()){ %>
+                            		<option value=<%= seocndStuResultSet.getInt("student_id")%>> <%= seocndStuResultSet.getInt("student_id")%></option>
+                            	<% } %>
+                            	</select>
+                            </th>
+                            
                             <td><input value="<%= result.getInt("year") %>" name="YEAR" size="10"></td>
                             <td><input value="<%= result.getString("quarter") %>" name="QUARTER" size="10"></td>
                             <td><input value="<%= result.getString("university") %>" name="UNIVERSITY" size="10"></td>
@@ -140,8 +184,10 @@
 				<% 
 				// close Resultset 
 				result.close(); 
+				studentResult.close(); 
 				// close Statement 
 				statement.close(); 
+				studentStatement.close(); 
 				// close Connection
 				conn.close(); 
 				} catch (SQLException sqle) {
