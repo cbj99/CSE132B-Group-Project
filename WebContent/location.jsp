@@ -49,7 +49,7 @@
 				<% 
 				if(action != null && action.equals("update")){
 					conn.setAutoCommit(false); 
-					PreparedStatement statement = conn.prepareStatement("UPDATE location SET capacity=? where room_number=?, building_number=?;");
+					PreparedStatement statement = conn.prepareStatement("UPDATE location SET capacity=? where room_number=? and building_number=?;");
 					
 					statement.setInt(1, Integer.parseInt(request.getParameter("CAPACITY")));
 					statement.setString(2, request.getParameter("ROOM"));
@@ -67,7 +67,7 @@
 				<%
 				if(action != null && action.equals("delete")){
 					conn.setAutoCommit(false); 
-					PreparedStatement deletestatement = conn.prepareStatement("DELETE FROM location where room_number=?, building_number=?;");
+					PreparedStatement deletestatement = conn.prepareStatement("DELETE FROM location where room_number=? and building_number=?;");
 					
 					deletestatement.setString(1, request.getParameter("ROOM"));
 					deletestatement.setString(2, request.getParameter("BUILDING"));
