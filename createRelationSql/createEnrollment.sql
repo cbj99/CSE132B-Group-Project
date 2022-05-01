@@ -23,7 +23,7 @@ CREATE TABLE gradudateDegreeRequiarment(
     degree_id int, 
     institution char(50),
     course_number char(20), 
-    is_required int, 
+    is_required char(10), 
     concentration char(20) NOT NULL, 
 
     PRIMARY KEY(degree_id, course_number), 
@@ -39,11 +39,11 @@ CREATE TABLE underGradudateDegreeRequiarment(
     degree_id int, 
     institution char(50),
     course_number char(20), 
-    is_core int, 
-    is_technical_elective int, 
-    is_major_elective int, 
-    is_college_required int, 
-    minimun_grade int, 
+    is_core char(10), 
+    is_technical_elective char(10), 
+    is_major_elective char(10), 
+    is_college_required char(10), 
+    minimum_grade int, 
 
     PRIMARY KEY(degree_id, course_number), 
     CONSTRAINT FK_degree
