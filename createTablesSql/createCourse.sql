@@ -32,7 +32,8 @@ CREATE TABLE classes(
     PRIMARY KEY(course_number, year_, quarter, section_id), 
     CONSTRAINT FK_course_number 
         FOREIGN KEY(course_number) REFERENCES courses(course_number)
-        ON DELETE SET NULL
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 ); 
 
 CREATE TABLE meetings(
@@ -40,18 +41,22 @@ CREATE TABLE meetings(
     year_ int, 
     quarter char(10), 
     section_id int, 
+    
     type_ char(20), 
-    date char(20), 
-    time char(20), 
+    date_ date NOT NULL DEFAULT CURRENT_DATE, 
+    begin_time time NOT NULL DEFAULT CURRENT_TIME,
+    end_time time NOT NULL DEFAULT CURRENT_TIME, 
     mandatory int, 
     room_number char(20), 
     building_number char(20),
 
-    PRIMARY KEY(course_number, year_, quarter, section_id, type_, date),
+    PRIMARY KEY(course_number, year_, quarter, section_id, type_, date_),
     CONSTRAINT FK_classes 
         FOREIGN KEY(course_number, year_, quarter, section_id) REFERENCES classes(course_number, year_, quarter, section_id)
-        ON DELETE SET NULL, 
+        ON DELETE CASCADE
+        ON UPDATE CASCADE, 
     CONSTRAINT FK_location
         FOREIGN KEY(room_number, building_number) REFERENCES location(room_number, building_number)
         ON DELETE SET NULL
+        ON UPDATE CASCADE
 ); 
