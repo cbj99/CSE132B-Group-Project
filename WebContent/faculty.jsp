@@ -23,7 +23,7 @@
                 	DriverManager.registerDriver (new org.postgresql.Driver());
                 	String strCBJ = "jdbc:postgresql:milestone_2?user=postgres&password=cbj991112"; 
                 	String StrD = "jdbc:postgresql:Test?user=postgres&password=vhgjhbgibiyy1234"; 
-                    Connection conn=DriverManager.getConnection(StrD);
+                    Connection conn=DriverManager.getConnection(strCBJ);
                 %>
                 <%-- Insertion Code --%>
                 <%
@@ -80,9 +80,10 @@
 				<%-- Presentation code --%>
 				<table>
 					<tr>
-						<th>faculty_name</th>
-						<th>title</th>
-						<th>department</th>
+						<th>Faculty Name</th>
+						<th>Title</th>
+						<th>Department</th>
+						<th>Action</th>
 					</tr>
 					<tr>
 					<%-- Insert form Code--%>
@@ -94,6 +95,8 @@
 							<th><input style="width:60px;" type="submit" value="Insert"></th>
 						</form>
 					</tr>
+					
+					<tr style="height:20px"></tr>
 					
 					<%-- Iteration code for Courses--%>
 					<% while(result.next()){ %> 
