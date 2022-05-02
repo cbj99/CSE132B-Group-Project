@@ -135,7 +135,7 @@
                             	<option value="LE">Lecture</option>
                             	<option value="DI">Discussion</option>
                             	<option value="LAB">Lab</option>
-                            	<option value="SPECIAL">Special]</option>
+                            	<option value="SPECIAL">Review Session</option>
                             	</select>
                             </th>
                             
