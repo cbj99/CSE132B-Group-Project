@@ -3,7 +3,7 @@
 */ 
 CREATE TABLE degreeRecord(
     student_id int,
-    degree_id int, 
+    degree_id char(50), 
     institution char(50),
     status char(20), 
 

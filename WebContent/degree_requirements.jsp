@@ -33,7 +33,7 @@
                         
                         
                         if(request.getParameter("DEGREETYPE").equals("UNDERGRADUATE")){
-                        	UG_State.setInt(1,Integer.parseInt(request.getParameter("DEGREEID")));
+                        	UG_State.setString(1, request.getParameter("DEGREEID"));
                         	UG_State.setString(2, request.getParameter("INSTITUTION"));
                         	UG_State.setString(3, request.getParameter("COURSENUMBER"));
                         	UG_State.setString(4, request.getParameter("ISCORE"));
@@ -44,7 +44,7 @@
                         	UG_State.executeUpdate(); 
                         }
                         if(request.getParameter("DEGREETYPE").equals("GRADUATE")){
-                        	G_State.setInt(1,Integer.parseInt(request.getParameter("DEGREEID")));
+                        	G_State.setString(1, request.getParameter("DEGREEID"));
                         	G_State.setString(2, request.getParameter("INSTITUTION"));
                         	G_State.setString(3, request.getParameter("COURSENUMBER"));
                         	G_State.setString(4, request.getParameter("ISREQUIRED"));
@@ -75,7 +75,7 @@
                         	UG_Update.setString(4, request.getParameter("ISMAJORELECTIVE"));
                         	UG_Update.setString(5, request.getParameter("ISCOLLEGEREQUIRED"));
                         	UG_Update.setInt(6,Integer.parseInt(request.getParameter("MINIMUMGRADE")));
-                        	UG_Update.setInt(7,Integer.parseInt(request.getParameter("DEGREEID")));
+                        	UG_Update.setString(7, request.getParameter("DEGREEID"));
                         	UG_Update.setString(8, request.getParameter("COURSENUMBER"));
                         	UG_Update.executeUpdate(); 
                         }
@@ -84,7 +84,7 @@
                         	G_Update.setString(1, request.getParameter("INSTITUTION"));
                         	G_Update.setString(2, request.getParameter("ISREQUIRED"));
                         	G_Update.setString(3, request.getParameter("CONCENTRATION"));
-                        	G_Update.setInt(4,Integer.parseInt(request.getParameter("DEGREEID")));
+                        	G_Update.setString(4, request.getParameter("DEGREEID"));
                         	G_Update.setString(5, request.getParameter("COURSENUMBER"));
                         	G_Update.executeUpdate();  
                         }
@@ -107,14 +107,14 @@
                         if(request.getParameter("DEGREETYPE").equals("UNDERGRADUATE")){
                         	
                         	
-                        	UG_Delete.setInt(7,Integer.parseInt(request.getParameter("DEGREEID")));
+                        	UG_Delete.setString(7, request.getParameter("DEGREEID"));
                         	UG_Delete.setString(8, request.getParameter("COURSENUMBER"));
                         	UG_Delete.executeUpdate(); 
                         }
                         if(request.getParameter("DEGREETYPE").equals("GRADUATE")){
                         	
                         	
-                        	G_Delete.setInt(4,Integer.parseInt(request.getParameter("DEGREEID")));
+                        	G_Delete.setString(4, request.getParameter("DEGREEID"));
                         	G_Delete.setString(5, request.getParameter("COURSENUMBER"));
                         	G_Delete.executeUpdate();  
                         }
@@ -208,7 +208,7 @@
                     <tr>
                         <form action="degree_requirements.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= UG_rs.getInt("degree_id") %>" name="DEGREEID" size="10"></td>
+                            <td><input value="<%= UG_rs.getString("degree_id").trim() %>" name="DEGREEID" size="10"></td>
                             <td><input value="<%= UG_rs.getString("institution").trim() %>" name="INSTITUTION" size="10"></td>
                             <td><input value="<%= UG_rs.getString("course_number").trim() %>" name="COURSENUMBER" size="15"></td>
                             <% if ((UG_rs.getString("is_core").trim()).equals("YES")){%>
@@ -280,7 +280,7 @@
                         </form>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
-                            <input type="hidden" value="<%= UG_rs.getInt("degree_id") %>" name="DEGREEID">
+                            <input type="hidden" value="<%= UG_rs.getString("degree_id").trim() %>" name="DEGREEID">
                             <input type="hidden" value="<%= UG_rs.getString("course_number").trim() %>" name="COURSENUMBER">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
@@ -292,7 +292,7 @@
                     <tr>
                         <form action="degree_requirements.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= G_rs.getInt("degree_id") %>" name="DEGREEID" size="10"></td>
+                            <td><input value="<%= G_rs.getString("degree_id").trim() %>" name="DEGREEID" size="10"></td>
                             <td><input value="<%= G_rs.getString("institution").trim() %>" name="INSTITUTION" size="10"></td>
                             <td><input value="<%= G_rs.getString("course_number").trim() %>" name="COURSENUMBER" size="15"></td>
                             <td></td>
@@ -322,7 +322,7 @@
                         </form>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
-                            <input type="hidden" value="<%= G_rs.getInt("degree_id") %>" name="DEGREEID">
+                            <input type="hidden" value="<%= G_rs.getString("degree_id").trim() %>" name="DEGREEID">
                             <input type="hidden" value="<%= G_rs.getString("course_number").trim() %>" name="COURSENUMBER">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>

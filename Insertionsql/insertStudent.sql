@@ -14,6 +14,12 @@ INSERT INTO student VALUES
 INSERT INTO undergraduateStudent VALUES 
     (1, 1, 'CA_resident', 'enrolled', 'fist_1', 'last_1', 'middle_1', 'CS', NULL, 'sixth'); 
 
+INSERT INTO graduateStudent VALUES 
+    (2, 2, 'CA_resident', 'enrolled', 'fist_2', 'last_2', 'middle_2', 'computer science department'),
+    (3, 3, 'CA_resident', 'enrolled', 'fist_3', 'last_3', 'middle_2', 'computer science department'),
+    (4, 4, 'non_CA_resident', 'enrolled', 'fist_4', 'last_4', 'middle_4', 'computer science department'),
+    (5, 5, 'CA_resident', 'enrolled', 'fist_5', 'last_5', 'middle_5', 'computer science department'); 
+
 INSERT INTO BSMSStudent VALUES 
     (2, 2, 'CA_resident', 'enrolled', 'fist_2', 'last_2', 'middle_2', 'computer science department'); 
 
@@ -22,8 +28,6 @@ INSERT INTO MSStudent VALUES
 
 INSERT INTO PHDPreCandidacyStudent VALUES 
     (4, 4, 'non_CA_resident', 'enrolled', 'fist_4', 'last_4', 'middle_4', 'computer science department'); 
-
-
 
 INSERT INTO PHDCandidateStudent VALUES 
     (5, 5, 'CA_resident', 'enrolled', 'fist_5', 'last_5', 'middle_5', 'computer science department', 'faculty_1'); 

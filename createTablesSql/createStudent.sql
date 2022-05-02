@@ -127,20 +127,21 @@ create table PHDCandidateStudent(
         ON UPDATE CASCADE
 );
 
--- create table graduateStudent(
---     student_id int,
--- 	SSN int,  
---     identity_ char(50), 
---     enrollment_status char(20),
---     first_name char(50), 
---     last_name char(50), 
---     middle_name char(50), 
---     department char(50), 
---     PRIMARY KEY (student_id),
---     CONSTRAINT FK_student_id 
---         FOREIGN KEY(student_id) REFERENCES student(student_id)
---         ON DELETE SET NULL
--- );
+create table graduateStudent(
+    student_id int,
+	SSN int,  
+    identity_ char(50), 
+    enrollment_status char(20),
+    first_name char(50), 
+    last_name char(50), 
+    middle_name char(50), 
+    department char(50), 
+    PRIMARY KEY (student_id),
+    CONSTRAINT FK_student_id 
+        FOREIGN KEY(student_id) REFERENCES student(student_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
 
 -- create table PHDStudent(
 --     student_id int, 

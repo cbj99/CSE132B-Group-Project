@@ -5,7 +5,7 @@ CREATE TABLE course_offering_ny(
     quarter char(10), 
     section_id int,
 
-    PRIMARY KEY(faculty_name, course_number),
+    PRIMARY KEY(faculty_name, course_number, year_, quarter, section_id),
     
     CONSTRAINT FK_faculty_name
         FOREIGN KEY(faculty_name) REFERENCES faculty(faculty_name)
