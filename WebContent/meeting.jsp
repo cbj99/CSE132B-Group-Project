@@ -31,6 +31,19 @@
 				String action = request.getParameter("action"); 
 				if(action != null && action.equals("insert")){
 					conn.setAutoCommit(false); 
+					PreparedStatement insertMeeting = conn.prepareStatement("INSERT INTO meetings VALUES(?, ?, ?, ?, ?, ?::date, ?::time, ?::time, ?, ?, ?);");
+					insertMeeting.setString(1, request.getParameter("COURSENUMBER")); 
+					insertMeeting.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
+					insertMeeting.setString(3, request.getParameter("QUARTER")); 
+					insertMeeting.setInt(4, Integer.parseInt(request.getParameter("SECTION"))); 
+					insertMeeting.setString(5, request.getParameter("TYPE")); 
+					insertMeeting.setString(6, request.getParameter("DATE"));
+					insertMeeting.setString(7, request.getParameter("BEGINTIME"));
+					insertMeeting.setString(8, request.getParameter("ENDTIME"));
+					insertMeeting.setString(9, request.getParameter("MANDATORY"));
+					insertMeeting.setString(10, request.getParameter("ROOMNUMBER"));
+					insertMeeting.setString(11, request.getParameter("BUILDINGNUMBER"));
+					insertMeeting.executeUpdate();
 					
 					conn.commit();
                     conn.setAutoCommit(true); 
@@ -41,6 +54,19 @@
 				<% 
 				if(action != null && action.equals("update")){
 					conn.setAutoCommit(false); 
+					PreparedStatement updatemeeting = conn.prepareStatement("UPDATE meetings SET begin_time=?::time, end_time=?::time, mandatory=?, room_number=?, building_number=? WHERE course_number=? and year_=? and quarter=? and section_id=? and type_=? and date_=?::date;"); 
+					updatemeeting.setString(6, request.getParameter("COURSENUMBER")); 
+					updatemeeting.setInt(7, Integer.parseInt(request.getParameter("YEAR"))); 
+					updatemeeting.setString(8, request.getParameter("QUARTER")); 
+					updatemeeting.setInt(9, Integer.parseInt(request.getParameter("SECTION"))); 
+					updatemeeting.setString(10, request.getParameter("TYPE")); 
+					updatemeeting.setString(11, request.getParameter("DATE"));
+					updatemeeting.setString(1, request.getParameter("BEGINTIME"));
+					updatemeeting.setString(2, request.getParameter("ENDTIME"));
+					updatemeeting.setString(3, request.getParameter("MANDATORY"));
+					updatemeeting.setString(4, request.getParameter("ROOMNUMBER"));
+					updatemeeting.setString(5, request.getParameter("BUILDINGNUMBER"));
+					updatemeeting.executeUpdate(); 
 					
 					conn.commit();
                     conn.setAutoCommit(true); 
@@ -51,7 +77,14 @@
 				<%
 				if(action != null && action.equals("delete")){
 					conn.setAutoCommit(false); 
-					
+					PreparedStatement deleteMeeting = conn.prepareStatement("DELETE FROM meetings WHERE course_number=? and year_=? and quarter=? and section_id=? and type_=? and date_=?::date;");
+					deleteMeeting.setString(1, request.getParameter("COURSENUMBER")); 
+					deleteMeeting.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
+					deleteMeeting.setString(3, request.getParameter("QUARTER")); 
+					deleteMeeting.setInt(4, Integer.parseInt(request.getParameter("SECTION"))); 
+					deleteMeeting.setString(5, request.getParameter("TYPE")); 
+					deleteMeeting.setString(6, request.getParameter("DATE"));
+					deleteMeeting.executeUpdate(); 
 					conn.commit();
                     conn.setAutoCommit(true); 
 				}
@@ -60,8 +93,10 @@
 				<%-- Statement code --%>
 				<%
 				Statement courseState = conn.createStatement(); 
+				Statement meetingState = conn.createStatement(); 
 				
 				ResultSet courseRS = courseState.executeQuery("select course_number from courses;"); 
+				ResultSet meetingRS = meetingState.executeQuery("select * from meetings;"); 
 				%>
 				
 				<%-- Presentation code --%>
@@ -70,23 +105,20 @@
 						<th>course_number</th>
 						<th>year</th>
 						<th>quarter</th>
+						<th>section</th>
 						<th>type</th>
-						<th>begin_date</th>
-						<th>end_date</th>
-						<th>Mon</th>
-						<th>Tue</th>
-						<th>Wed</th>
-						<th>Thr</th>
-						<th>Fri</th>
+						<th>date</th>
 						<th>begin_time</th>
 						<th>end_time</th>
+						<th>mandatory</th>
 						<th>room_number</th>
 						<th>building_number</th>
 					</tr>
-					<tr>
+					
 					
 					<%-- Insert form Code--%>
-						<form action = "classes.jsp" method="get"> 
+					<tr>
+						<form action = "meeting.jsp" method="get"> 
 							<input type="hidden" value="insert" name="action"> 
 							<th>
                             	<select name="COURSENUMBER">                            	
@@ -95,19 +127,27 @@
                             	<% } %>
                             	</select>
                             </th>
-                            
 							<th><input value="" name="YEAR" size="20"></th>
 							<th><input value="" name="QUARTER" size="20"></th>
-							<th><input value="" name="TYPE" size="20"></th>
-							<th><input value="" name="BEGINDATE" size="20"></th>
-							<th><input value="" name="ENDDATE" size="20"></th>
-							<th><input type="checkbox" name="MONDAY"></th>
-							<th><input type="checkbox" name="TUESDAY"></th>
-							<th><input type="checkbox" name="WEDNEDAY"></th>
-							<th><input type="checkbox" name="THURSDAY"></th>
-							<th><input type="checkbox" name="FRIDAY"></th>
+							<th><input value="" name="SECTION" size="20"></th>
+							<th>
+                            	<select name="TYPE">                            	
+                            	<option value="LE">Lecture</option>
+                            	<option value="DI">Discussion</option>
+                            	<option value="LAB">Lab</option>
+                            	<option value="SPECIAL">Special]</option>
+                            	</select>
+                            </th>
+                            
+							<th><input value="" name="DATE" size="20"></th>
 							<th><input value="" name="BEGINTIME" size="20"></th>
 							<th><input value="" name="ENDTIME" size="20"></th>
+							<th>
+                            	<select name="MANDATORY">                            	
+                            	<option value="YES">Yes</option>
+                            	<option value="NO">No</option>
+                            	</select>
+                            </th>
 							<th><input value="" name="ROOMNUMBER" size="20"></th>
 							<th><input value="" name="BUILDINGNUMBER" size="20"></th>
 							
@@ -116,20 +156,47 @@
 					</tr>
 					
 					<%-- Iteration code for Courses--%>
-					<% while(result.next()){ %> 
+					<% while(meetingRS.next()){ %> 
 					<tr>
-						<form action="classes.jsp" method="get">
+						<form action="meeting.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <input type="hidden" value="<%= result.getString("faculty_name") %>" name="FACULTYNAMEKEY" size="20">
                             
-                            <td><input value="<%= result.getString("faculty_name").trim() %>" name="FACULTYNAME" size="20"></td>
-                            <td><input value="<%= result.getString("title").trim() %>" name="TITLE" size="20"></td>
-                            <td><input value="<%= result.getString("department").trim() %>" name="DEPARTMENT" size="20"></td>
+                            <td><input value="<%= meetingRS.getString("course_number").trim()%>" name="COURSENUMBER" size="20"></td>
+                            <td><input value="<%= meetingRS.getInt("year_") %>" name="YEAR" size="20"></td>
+                            <td><input value="<%= meetingRS.getString("quarter").trim() %>" name="QUARTER" size="20"></td>
+                            <td><input value="<%= meetingRS.getInt("section_id") %>" name="SECTION" size="20"></td>
+                            <td><input value="<%= meetingRS.getString("type_").trim() %>" name="TYPE" size="20"></td>
+                            <td><input value="<%= meetingRS.getDate("date_") %>" name="DATE" size="20"></td>
+                            <td><input value="<%= meetingRS.getTime("begin_time") %>" name="BEGINTIME" size="20"></td>
+                            <td><input value="<%= meetingRS.getTime("end_time") %>" name="ENDTIME" size="20"></td>
+                            <% if(meetingRS.getString("mandatory").equals("Yes")){ %>
+                            <th>
+                            	<select name="MANDATORY">                            	
+                            	<option value="YES" selected>Yes</option>
+                            	<option value="NO">No</option>
+                            	</select>
+                            </th>
+                            <% } else{%>
+                             <th>
+                            	<select name="MANDATORY">                            	
+                            	<option value="YES">Yes</option>
+                            	<option value="NO" selected>No</option>
+                            	</select>
+                            </th>
+                            <% } %>
+                            
+                            <td><input value="<%= meetingRS.getString("room_number").trim() %>" name="ROOMNUMBER" size="20"></td>
+                            <td><input value="<%= meetingRS.getString("building_number").trim() %>" name="BUILDINGNUMBER" size="20"></td>
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
-						<form action="classes.jsp" method="get">
+						<form action="meeting.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
-                            <input type="hidden" value="<%= result.getString("faculty_name") %>" name="FACULTYNAME">
+                            <input type="hidden" value="<%= meetingRS.getString("course_number") %>" name="COURSENUMBER">
+                            <input type="hidden" value="<%= meetingRS.getInt("year_") %>" name="YEAR" size="20">
+                            <input type="hidden" value="<%= meetingRS.getString("quarter").trim() %>" name="QUARTER" size="20">
+                            <input type="hidden" value="<%= meetingRS.getInt("section_id") %>" name="SECTION" size="20">
+                            <input type="hidden" value="<%= meetingRS.getString("type_").trim() %>" name="TYPE" size="20">
+                            <input type="hidden" value="<%= meetingRS.getDate("date_") %>" name="DATE" size="20">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
 					</tr>
@@ -139,9 +206,15 @@
                 <%-- Close connection code --%>
 				<% 
 				// close Resultset 
+				courseRS.close(); 
+				meetingRS.close(); 
 				// close Statement 
+				courseState.close(); 
+				meetingState.close(); 
 				// close Connection
+				conn.close(); 
 				} catch (SQLException sqle) {
+					String err = sqle.getMessage(); 
                     out.println(sqle.getMessage());
                 } catch (Exception e) {
                     out.println("second exception\n"); 

@@ -12,7 +12,7 @@ CREATE TABLE course_offering_ny(
         ON DELETE CASCADE
         ON UPDATE CASCADE,
 
-    CONSTRAINT FK_course_number 
+   CONSTRAINT FK_course_number 
         FOREIGN KEY(course_number) REFERENCES courses(course_number)
         ON DELETE CASCADE
         ON UPDATE CASCADE

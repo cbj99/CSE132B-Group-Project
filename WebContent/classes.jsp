@@ -31,7 +31,13 @@
 				String action = request.getParameter("action"); 
 				if(action != null && action.equals("insert")){
 					conn.setAutoCommit(false); 
+					PreparedStatement insertClass = conn.prepareStatement("INSERT INTO classes VALUES(?, ?, ?, ?);");
 					
+					insertClass.setString(1, request.getParameter("COURSENUMBER")); 
+					insertClass.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
+					insertClass.setString(3, request.getParameter("QUARTER")); 
+					insertClass.setInt(4, Integer.parseInt(request.getParameter("SECTIONID"))); 
+					insertClass.executeUpdate(); 
 					conn.commit();
                     conn.setAutoCommit(true); 
 				}
@@ -41,7 +47,18 @@
 				<% 
 				if(action != null && action.equals("update")){
 					conn.setAutoCommit(false); 
+					PreparedStatement updateClass = conn.prepareStatement("UPDATE classes SET course_number=?, year_=?, quarter=?,section_id=? WHERE course_number=? and year_=? and quarter=? and section_id=?;");
 					
+					updateClass.setString(1, request.getParameter("COURSENUMBER")); 
+					updateClass.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
+					updateClass.setString(3, request.getParameter("QUARTER")); 
+					updateClass.setInt(4, Integer.parseInt(request.getParameter("SECTIONID"))); 
+					updateClass.setString(5, request.getParameter("COURSENUMBERKEY")); 
+					updateClass.setInt(6, Integer.parseInt(request.getParameter("YEARKEY"))); 
+					updateClass.setString(7, request.getParameter("QUARTERKEY")); 
+					updateClass.setInt(8, Integer.parseInt(request.getParameter("SECTIONIDKEY"))); 
+					
+					updateClass.executeUpdate(); 
 					conn.commit();
                     conn.setAutoCommit(true); 
 				}
@@ -51,7 +68,13 @@
 				<%
 				if(action != null && action.equals("delete")){
 					conn.setAutoCommit(false); 
+					PreparedStatement deleteClass = conn.prepareStatement("DELETE FROM classes WHERE course_number=? and year_=? and quarter=? and section_id=?;");
 					
+					deleteClass.setString(1, request.getParameter("COURSENUMBER")); 
+					deleteClass.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
+					deleteClass.setString(3, request.getParameter("QUARTER")); 
+					deleteClass.setInt(4, Integer.parseInt(request.getParameter("SECTIONID"))); 
+					deleteClass.executeUpdate(); 
 					conn.commit();
                     conn.setAutoCommit(true); 
 				}
@@ -99,6 +122,11 @@
 					<tr>
 						<form action="classes.jsp" method="get">
                             <input type="hidden" value="update" name="action">
+                            <input type="hidden" value="<%= classesRS.getString("course_number").trim() %>" name="COURSENUMBERKEY" size="20">
+                            <input type="hidden" value="<%= classesRS.getInt("year_") %>" name="YEARKEY" size="20">
+                            <input type="hidden" value="<%= classesRS.getString("quarter").trim() %>" name="QUARTERKEY" size="20">
+                            <input type="hidden" value="<%= classesRS.getInt("section_id") %>" name="SECTIONIDKEY" size="20">
+                            
                             <td><input value="<%= classesRS.getString("course_number").trim() %>" name="COURSENUMBER" size="20"></td>
                             <td><input value="<%= classesRS.getInt("year_") %>" name="YEAR" size="20"></td>
                             <td><input value="<%= classesRS.getString("quarter").trim() %>" name="QUARTER" size="20"></td>
@@ -107,6 +135,7 @@
                         </form>
 						<form action="classes.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
+                            <input type="hidden" value="<%= classesRS.getString("course_number").trim() %>" name="COURSENUMBER" size="20">
                             <input type="hidden" value="<%= classesRS.getInt("year_") %>" name="YEAR" size="20">
                             <input type="hidden" value="<%= classesRS.getString("quarter").trim() %>" name="QUARTER" size="20">
                             <input type="hidden" value="<%= classesRS.getInt("section_id") %>" name="SECTIONID" size="20">
