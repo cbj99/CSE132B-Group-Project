@@ -25,3 +25,4 @@ INSERT INTO location VALUES('room_1', 'location_1');
 
 INSERT INTO meetings VALUES('CSE1', 2021, 'fall', 1, 'LE', '2021-5-2', '12:00:00', '13:00:00', 1, 'room_1', 'location_1'); 
 INSERT INTO meetings VALUES('CSE1', 2021, 'fall', 1, 'LE', '2021-5-5', '12:00:00', '13:00:00', 1, 'room_1', 'location_1'); 
+
