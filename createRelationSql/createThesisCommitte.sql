@@ -1,4 +1,4 @@
-CREATE TABLE thesisCommitte(
+CREATE TABLE thesisCommittee(
     student_id int, 
     faculty_name char(20), 
     PRIMARY KEY(student_id, faculty_name), 
