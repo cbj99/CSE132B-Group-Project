@@ -329,7 +329,7 @@
                 <%  if (action != null && action.equals("delete")){
                         conn.setAutoCommit(false);
                         PreparedStatement pstmt = conn.prepareStatement("DELETE FROM Student WHERE student_id = ?;");
-                        pstmt.setInt(1, Integer.parseInt(request.getParameter("IDKEY")));
+                        pstmt.setInt(1, Integer.parseInt(request.getParameter("ID")));
                         int rowCount = pstmt.executeUpdate();
                         conn.commit();
                         conn.setAutoCommit(true);
