@@ -18,7 +18,7 @@
                 		DriverManager.registerDriver (new org.postgresql.Driver());
                 		String strCBJ = "jdbc:postgresql:milestone_2?user=postgres&password=cbj991112"; 
                     	String StrD = "jdbc:postgresql:Test?user=postgres&password=vhgjhbgibiyy1234"; 
-                        Connection conn=DriverManager.getConnection(strCBJ);
+                        Connection conn=DriverManager.getConnection(StrD);
                 %>
 
 

@@ -41,12 +41,12 @@ CREATE TABLE meetings(
     year_ int, 
     quarter char(10), 
     section_id int, 
-    
     type_ char(20), 
     date_ date NOT NULL DEFAULT CURRENT_DATE, 
+
     begin_time time NOT NULL DEFAULT CURRENT_TIME,
     end_time time NOT NULL DEFAULT CURRENT_TIME, 
-    mandatory int, 
+    mandatory char(10), 
     room_number char(20), 
     building_number char(20),
 

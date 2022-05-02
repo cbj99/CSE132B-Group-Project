@@ -12,8 +12,7 @@ CREATE TABLE course_offering_ny(
         ON DELETE CASCADE
         ON UPDATE CASCADE,
 
-    CONSTRAINT FK_course_number 
-        FOREIGN KEY(course_number) REFERENCES courses(course_number)
+    CONSTRAINT FK_courses 
+        FOREIGN KEY(course_number) REFERENCES classes(course_number, year_, quarter, section_id)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
 ); 

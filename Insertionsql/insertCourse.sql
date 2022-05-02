@@ -23,6 +23,7 @@ INSERT INTO classes VALUES('CSE1', 2021, 'fall', 1);
 
 INSERT INTO location VALUES('room_1', 'location_1'); 
 
-INSERT INTO meetings VALUES('CSE1', 2021, 'fall', 1, 'LE', '2021-5-2', '12:00:00', '13:00:00', 1, 'room_1', 'location_1'); 
-INSERT INTO meetings VALUES('CSE1', 2021, 'fall', 1, 'LE', '2021-5-5', '12:00:00', '13:00:00', 1, 'room_1', 'location_1'); 
+INSERT INTO meetings VALUES('CSE1', 2021, 'fall', 1, 'LE', '2021-5-2', '12:00:00', '13:00:00', 'yes', 'room_1', 'location_1'); 
+INSERT INTO meetings VALUES('CSE1', 2021, 'fall', 1, 'LE', '2021-5-5', '12:00:00', '13:00:00', 'no', 'room_1', 'location_1'); 
 
+http://localhost:8080/UseDatabase/classes.jsp?action=insert&COURSENUMBER=CSE1&YEAR=2021&QUARTER=fall&SECTION=1&TYPE=DI&DATE=2021-05-02&BEGINTIME=12%3A00%3A00&ENDTIME=13%3A00%3A00&MANDATORY=YES&ROOMNUMBER=room_1&BUILDINGNUMBER=location_1
