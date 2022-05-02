@@ -28,6 +28,7 @@
                         conn.setAutoCommit(false); 
                         PreparedStatement studentInsertState = conn.prepareStatement( ("INSERT INTO Student VALUES(?, ?, ?, ?, ?, ?, ?)"));
                         PreparedStatement underGraduatestudentInsertState = conn.prepareStatement( ("INSERT INTO undergraduateStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"));
+                        PreparedStatement graduatestudentState = conn.prepareStatement( ("INSERT INTO graduateStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                         PreparedStatement masterStudentState = conn.prepareStatement( ("INSERT INTO MSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                         PreparedStatement BSMSStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                         PreparedStatement PHDPreStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
@@ -54,6 +55,17 @@
                         	underGraduatestudentInsertState.setString(9, request.getParameter("MINOR"));
                         	underGraduatestudentInsertState.setString(10, request.getParameter("COLLEGE"));
                             underGraduatestudentInsertState.executeUpdate(); 
+                        }
+                        if(!request.getParameter("STUDENTTYPE").equals("UNDERGRADUATE")){
+                        	graduatestudentState.setInt(1,Integer.parseInt(request.getParameter("ID")));
+                        	graduatestudentState.setInt(2, Integer.parseInt(request.getParameter("SSN")));
+                        	graduatestudentState.setString(3, request.getParameter("IDENTITY"));
+                        	graduatestudentState.setString(4, request.getParameter("ENROLLMENTSTATUS"));
+                        	graduatestudentState.setString(5, request.getParameter("FIRSTNAME"));
+                        	graduatestudentState.setString(6, request.getParameter("LASTNAME"));
+                        	graduatestudentState.setString(7, request.getParameter("MIDDLENAME"));
+                        	graduatestudentState.setString(8, request.getParameter("DEPARTMENT"));
+                        	graduatestudentState.executeUpdate(); 
                         }
                         if(request.getParameter("STUDENTTYPE").equals("MASTERSTUDENT")){
                         	masterStudentState.setInt(1,Integer.parseInt(request.getParameter("ID")));
@@ -129,6 +141,9 @@
                 			if(request.getParameter("previousStudentStatus").equals("UNDERGRADUATE")){
                 				deleteStatement = "DELETE FROM undergraduateStudent WHERE student_id = ?;"; 
                             }
+                			if(!request.getParameter("previousStudentStatus").equals("UNDERGRADUATE")){
+                            	deleteStatement = "DELETE FROM graduateStudent WHERE student_id = ?;"; 
+                            }
                             if(request.getParameter("previousStudentStatus").equals("MASTERSTUDENT")){
                             	deleteStatement = "DELETE FROM MSStudent WHERE student_id = ?;"; 
                             }
@@ -148,6 +163,7 @@
                             // add into new table
                             PreparedStatement studentInsertState = conn.prepareStatement( ("INSERT INTO Student VALUES(?, ?, ?, ?, ?, ?, ?)"));
                             PreparedStatement underGraduatestudentInsertState = conn.prepareStatement( ("INSERT INTO undergraduateStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"));
+                            PreparedStatement graduateStudentState = conn.prepareStatement( ("INSERT INTO graduateStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                             PreparedStatement masterStudentState = conn.prepareStatement( ("INSERT INTO MSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                             PreparedStatement BSMSStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                             PreparedStatement PHDPreStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
@@ -165,6 +181,17 @@
                             	underGraduatestudentInsertState.setString(9, request.getParameter("MINOR"));
                             	underGraduatestudentInsertState.setString(10, request.getParameter("COLLEGE"));
                                 underGraduatestudentInsertState.executeUpdate(); 
+                            }
+                            if(!request.getParameter("STUDENTTYPE").equals("UNDERGRADUATE")){
+                            	graduateStudentState.setInt(1,Integer.parseInt(request.getParameter("IDKEY")));
+                            	graduateStudentState.setInt(2, Integer.parseInt(request.getParameter("SSN")));
+                            	graduateStudentState.setString(3, request.getParameter("IDENTITY"));
+                            	graduateStudentState.setString(4, request.getParameter("ENROLLMENTSTATUS"));
+                            	graduateStudentState.setString(5, request.getParameter("FIRSTNAME"));
+                            	graduateStudentState.setString(6, request.getParameter("LASTNAME"));
+                            	graduateStudentState.setString(7, request.getParameter("MIDDLENAME"));
+                            	graduateStudentState.setString(8, request.getParameter("DEPARTMENT"));
+                            	graduateStudentState.executeUpdate(); 
                             }
                             if(request.getParameter("STUDENTTYPE").equals("MASTERSTUDENT")){
                             	masterStudentState.setInt(1,Integer.parseInt(request.getParameter("IDKEY")));
@@ -214,6 +241,7 @@
                 		}
                 		else{
                             PreparedStatement undergraduateStudentUpdate = conn.prepareStatement("UPDATE undergraduateStudent SET SSN=?, identity_=?, enrollment_status=?, first_name=?, last_name=?, middle_name=?, major=?, minor=?, college=? where student_id=?;");
+                            PreparedStatement graduateStudentUpdate = conn.prepareStatement("UPDATE graduateStudent SET SSN=?, identity_=?, enrollment_status=?, first_name=?, last_name=?, middle_name=?, department=? where student_id=?;");
                             PreparedStatement masterStudentUpdate = conn.prepareStatement("UPDATE MSStudent SET SSN=?, identity_=?, enrollment_status=?, first_name=?, last_name=?, middle_name=?, department=? where student_id=?;");
                             PreparedStatement BSMSStudentUpdate = conn.prepareStatement("UPDATE BSMSStudent SET SSN=?, identity_=?, enrollment_status=?, first_name=?, last_name=?, middle_name=?, department=? where student_id=?;");
                             PreparedStatement PHDPreStudentUpdate = conn.prepareStatement("UPDATE PHDPreCandidacyStudent SET SSN=?, identity_=?, enrollment_status=?, first_name=?, last_name=?, middle_name=?, department=? where student_id=?;");
@@ -231,6 +259,17 @@
                             	undergraduateStudentUpdate.setString(9, request.getParameter("COLLEGE"));
                             	undergraduateStudentUpdate.setInt(10,Integer.parseInt(request.getParameter("ID")));
                             	undergraduateStudentUpdate.executeUpdate(); 
+                            }
+                            if(!request.getParameter("STUDENTTYPE").equals("UNDERGRADUATE")){
+                            	graduateStudentUpdate.setInt(1, Integer.parseInt(request.getParameter("SSN")));
+                            	graduateStudentUpdate.setString(2, request.getParameter("IDENTITY"));
+                            	graduateStudentUpdate.setString(3, request.getParameter("ENROLLMENTSTATUS"));
+                            	graduateStudentUpdate.setString(4, request.getParameter("FIRSTNAME"));
+                            	graduateStudentUpdate.setString(5, request.getParameter("LASTNAME"));
+                            	graduateStudentUpdate.setString(6, request.getParameter("MIDDLENAME"));
+                            	graduateStudentUpdate.setString(7, request.getParameter("DEPARTMENT"));
+                            	graduateStudentUpdate.setInt(8,Integer.parseInt(request.getParameter("ID")));
+                            	graduateStudentUpdate.executeUpdate(); 
                             }
                             if(request.getParameter("STUDENTTYPE").equals("MASTERSTUDENT")){
                             	masterStudentUpdate.setInt(1, Integer.parseInt(request.getParameter("SSN")));
@@ -292,7 +331,7 @@
                         PreparedStatement pstmt = conn.prepareStatement("DELETE FROM Student WHERE student_id = ?;");
                         pstmt.setInt(1, Integer.parseInt(request.getParameter("IDKEY")));
                         int rowCount = pstmt.executeUpdate();
-                        conn.setAutoCommit(false);
+                        conn.commit();
                         conn.setAutoCommit(true);
                     }
                 %>
