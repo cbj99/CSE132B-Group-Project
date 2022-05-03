@@ -112,7 +112,7 @@
                             
 							<th><input value="" name="YEAR" size="20"></th>
 							<th><input value="" name="QUARTER" size="20"></th>
-							<th><input value="" name="SECTOIN" size="20"></th>
+							<th><input value="" name="SECTIONID" size="20"></th>
 							<th><input style="width:60px;" type="submit" value="Insert"></th>
 						</form>
 					</tr>
@@ -127,10 +127,10 @@
                             <input type="hidden" value="<%= classesRS.getString("quarter").trim() %>" name="QUARTERKEY" size="20">
                             <input type="hidden" value="<%= classesRS.getInt("section_id") %>" name="SECTIONIDKEY" size="20">
                             
-                            <td><input value="<%= classesRS.getString("course_number").trim() %>" name="COURSENUMBER" size="20"></td>
-                            <td><input value="<%= classesRS.getInt("year_") %>" name="YEAR" size="20"></td>
-                            <td><input value="<%= classesRS.getString("quarter").trim() %>" name="QUARTER" size="20"></td>
-                            <td><input value="<%= classesRS.getInt("section_id") %>" name="SECTIONID" size="20"></td>
+                            <td><input value="<%= classesRS.getString("course_number").trim() %>" name="COURSENUMBER" size="20" readonly></td>
+                            <td><input value="<%= classesRS.getInt("year_") %>" name="YEAR" size="20" readonly></td>
+                            <td><input value="<%= classesRS.getString("quarter").trim() %>" name="QUARTER" size="20" readonly></td>
+                            <td><input value="<%= classesRS.getInt("section_id") %>" name="SECTIONID" size="20" readonly></td>
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
 						<form action="classes.jsp" method="get">

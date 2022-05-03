@@ -144,10 +144,10 @@
 						<form action="probation.jsp" method="get">
                             <input type="hidden" value="update" name="action">
                             <input type="hidden" value="delete" name="action">
-                            <input type="hidden" value="<%= result.getInt("student_id") %>" name="IDKEY">
-                            <input type="hidden" value="<%= result.getInt("year") %>" name="YEARKEY">
-                            <input type="hidden" value="<%= result.getString("quarter") %>" name="QUARTERKEY">
-                            <input type="hidden" value="<%= result.getString("university") %>" name="UNIVERSITYKEY">
+                            <input type="hidden" value="<%= result.getInt("student_id") %>" name="IDKEY" readonly>
+                            <input type="hidden" value="<%= result.getInt("year") %>" name="YEARKEY" readonly>
+                            <input type="hidden" value="<%= result.getString("quarter") %>" name="QUARTERKEY" readonly>
+                            <input type="hidden" value="<%= result.getString("university") %>" name="UNIVERSITYKEY" readonly>
                             
                             <th>
                             	<select name="ID">

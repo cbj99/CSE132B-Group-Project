@@ -13,3 +13,5 @@
 9. class taken in the past.jsp(same as enrollment.jsp)
 10. replace inapproriate '<th>' with '<td>'
 11. interactive dropdown
+12. add order by for all jsp files
+13. use enum for defining custom types

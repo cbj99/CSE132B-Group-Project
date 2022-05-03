@@ -285,10 +285,12 @@ CREATE TABLE degreeRecord(
     PRIMARY KEY(student_id, degree_id, institution), 
     CONSTRAINT FK_degree
         FOREIGN KEY(degree_id, institution) REFERENCES degree_(degree_id, institution)
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
+        ON UPDATE CASCADE, 
     CONSTRAINT FK_student_id 
         FOREIGN KEY(student_id) REFERENCES student(student_id)
         ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE gradudateDegreeRequiarment(
@@ -376,8 +378,10 @@ CREATE TABLE thesisCommittee(
     PRIMARY KEY(student_id, faculty_name), 
     CONSTRAINT FK_student_id 
         FOREIGN KEY(student_id) REFERENCES graduateStudent(student_id)
-        ON DELETE CASCADE, 
+        ON DELETE CASCADE
+        ON UPDATE CASCADE, 
     CONSTRAINT FK_faculty_name
         FOREIGN KEY(faculty_name) REFERENCES faculty(faculty_name)
         ON DELETE CASCADE
+        ON UPDATE CASCADE
 ); 

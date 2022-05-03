@@ -108,8 +108,8 @@
 					<tr>
 						<form action="location.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= result.getString("room_number") %>" name="ROOM" size="10"></td>
-                            <td><input value="<%= result.getString("building_number") %>" name="BUILDING" size="10"></td>
+                            <td><input value="<%= result.getString("room_number") %>" name="ROOM" size="10" readonly></td>
+                            <td><input value="<%= result.getString("building_number") %>" name="BUILDING" size="10" readonly></td>
                             <td><input value="<%= result.getInt("capacity") %>" name="CAPACITY" size="10"></td>
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>

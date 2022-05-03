@@ -18,7 +18,7 @@
                 		DriverManager.registerDriver (new org.postgresql.Driver());
                 		String strCBJ = "jdbc:postgresql:milestone_2?user=postgres&password=cbj991112"; 
                     	String StrD = "jdbc:postgresql:Test?user=postgres&password=vhgjhbgibiyy1234"; 
-                        Connection conn=DriverManager.getConnection(strCBJ);
+                        Connection conn=DriverManager.getConnection(StrD);
                 %>
 
 
@@ -31,8 +31,8 @@
                         PreparedStatement graduatestudentState = conn.prepareStatement( ("INSERT INTO graduateStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                         PreparedStatement masterStudentState = conn.prepareStatement( ("INSERT INTO MSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                         PreparedStatement BSMSStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
-                        PreparedStatement PHDPreStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
-                        PreparedStatement PHDCandidateStudentState = conn.prepareStatement( ("INSERT INTO BSMSStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"));
+                        PreparedStatement PHDPreStudentState = conn.prepareStatement( ("INSERT INTO PHDPreCandidacyStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
+                        PreparedStatement PHDCandidateStudentState = conn.prepareStatement( ("INSERT INTO PHDCandidateStudent VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"));
                         
                         studentInsertState.setInt(1,Integer.parseInt(request.getParameter("ID")));
                         studentInsertState.setInt(2, Integer.parseInt(request.getParameter("SSN")));
@@ -407,7 +407,7 @@
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
                             <input type="hidden" value="<%= rsUnderGraduateStudent.getInt("student_id") %>" name="IDKEY" size="10">
-                            <td><input value="<%= rsUnderGraduateStudent.getInt("student_id") %>" name="ID" size="10"></td>
+                            <td><input value="<%= rsUnderGraduateStudent.getInt("student_id")%>" name="ID" size="10" readonly></td>
                             <td><input value="<%= rsUnderGraduateStudent.getInt("SSN") %>" name="SSN" size="10"></td>
                             <td><input value="<%= rsUnderGraduateStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>
                             <td><input value="<%= rsUnderGraduateStudent.getString("enrollment_status").trim() %>" name="ENROLLMENTSTATUS" size="15"></td>
@@ -444,7 +444,7 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <input type="hidden" value="<%= rsBSMSStudent.getInt("student_id") %>" name="IDKEY" size="10">
+                            <input type="hidden" value="<%= rsBSMSStudent.getInt("student_id") %>" name="IDKEY" size="10" readonly>
                             <td><input value="<%= rsBSMSStudent.getInt("student_id") %>" name="ID" size="10"></td>
                             <td><input value="<%= rsBSMSStudent.getInt("SSN") %>" name="SSN" size="10"></td>
                             <td><input value="<%= rsBSMSStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>
@@ -482,7 +482,7 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <input type="hidden" value="<%= rsMSStudent.getInt("student_id") %>" name="IDKEY" size="10">
+                            <input type="hidden" value="<%= rsMSStudent.getInt("student_id") %>" name="IDKEY" size="10" readonly>
                             <td><input value="<%= rsMSStudent.getInt("student_id") %>" name="ID" size="10"></td>
                             <td><input value="<%= rsMSStudent.getInt("SSN") %>" name="SSN" size="10"></td>
                             <td><input value="<%= rsMSStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>
@@ -520,7 +520,7 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <input type="hidden" value="<%= PHDPreStudent.getInt("student_id") %>" name="IDKEY" size="10">
+                            <input type="hidden" value="<%= PHDPreStudent.getInt("student_id") %>" name="IDKEY" size="10" readonly>
                             <td><input value="<%= PHDPreStudent.getInt("student_id") %>" name="ID" size="10"></td>
                             <td><input value="<%= PHDPreStudent.getInt("SSN") %>" name="SSN" size="10"></td>
                             <td><input value="<%= PHDPreStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>
@@ -558,7 +558,7 @@
                     <tr>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <input type="hidden" value="<%= PHDCandidateStudent.getInt("student_id") %>" name="IDKEY" size="10">
+                            <input type="hidden" value="<%= PHDCandidateStudent.getInt("student_id") %>" name="IDKEY" size="10" readonly>
                             <td><input value="<%= PHDCandidateStudent.getInt("student_id") %>" name="ID" size="10"></td>
                             <td><input value="<%= PHDCandidateStudent.getInt("SSN") %>" name="SSN" size="10"></td>
                             <td><input value="<%= PHDCandidateStudent.getString("identity_").trim() %>" name="IDENTITY" size="15"></td>

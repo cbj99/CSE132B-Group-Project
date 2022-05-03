@@ -46,10 +46,10 @@ INSERT INTO probation VALUES
     (1, 2021, 'spring', 'UCSD', 'nobody cares'); 
 
 INSERT INTO location_ VALUES
-    ('room_1', 'building_1'),
-    ('room_2', 'building_1'),
-    ('room_3', 'building_2'),
-    ('room_4', 'building_2');
+    ('room_1', 'building_1', 100),
+    ('room_2', 'building_1', 20),
+    ('room_3', 'building_2', 40),
+    ('room_4', 'building_2', 50);
 
 INSERT INTO degree_ VALUES
     ('CS26', 'UCSD', 'Computer Science', 'CSE'), 

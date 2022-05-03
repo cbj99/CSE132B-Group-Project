@@ -63,32 +63,28 @@
                 <%  if (action != null && action.equals("update")) {
                 		conn.setAutoCommit(false);
             			
-                        PreparedStatement UG_Update = conn.prepareStatement("UPDATE undergradudatedegreerequiarment SET institution=?, is_core=?, is_technical_elective=?, is_major_elective=?, is_college_required=?, minimum_grade=? where degree_id=? and course_number=?;");
-                        PreparedStatement G_Update = conn.prepareStatement("UPDATE gradudatedegreerequiarment SET institution=?, is_required=?, concentration=? where degree_id=? and course_number=?;");
-                            
+                        PreparedStatement UG_Update = conn.prepareStatement("UPDATE undergradudatedegreerequiarment SET is_core=?, is_technical_elective=?, is_major_elective=?, is_college_required=?, minimum_grade=? where degree_id=? and course_number=? and institution=?;");
+                        PreparedStatement G_Update = conn.prepareStatement("UPDATE gradudatedegreerequiarment SET is_required=?, concentration=? where degree_id=? and course_number=?, and institution=?;");
                             
                         if(request.getParameter("DEGREETYPE").equals("UNDERGRADUATE")){
-                        	
-                        	UG_Update.setString(1, request.getParameter("INSTITUTION"));
-                        	UG_Update.setString(2, request.getParameter("ISCORE"));
-                        	UG_Update.setString(3, request.getParameter("ISTECHELECTIVE"));
-                        	UG_Update.setString(4, request.getParameter("ISMAJORELECTIVE"));
-                        	UG_Update.setString(5, request.getParameter("ISCOLLEGEREQUIRED"));
-                        	UG_Update.setInt(6,Integer.parseInt(request.getParameter("MINIMUMGRADE")));
-                        	UG_Update.setString(7, request.getParameter("DEGREEID"));
-                        	UG_Update.setString(8, request.getParameter("COURSENUMBER"));
+                        	UG_Update.setString(1, request.getParameter("ISCORE"));
+                        	UG_Update.setString(2, request.getParameter("ISTECHELECTIVE"));
+                        	UG_Update.setString(3, request.getParameter("ISMAJORELECTIVE"));
+                        	UG_Update.setString(4, request.getParameter("ISCOLLEGEREQUIRED"));
+                        	UG_Update.setInt(5,Integer.parseInt(request.getParameter("MINIMUMGRADE")));
+                        	UG_Update.setString(6, request.getParameter("DEGREEID"));
+                        	UG_Update.setString(7, request.getParameter("COURSENUMBER"));
+                        	UG_Update.setString(8, request.getParameter("INSTITUTION"));
                         	UG_Update.executeUpdate(); 
                         }
                         if(request.getParameter("DEGREETYPE").equals("GRADUATE")){
-                        	
-                        	G_Update.setString(1, request.getParameter("INSTITUTION"));
-                        	G_Update.setString(2, request.getParameter("ISREQUIRED"));
-                        	G_Update.setString(3, request.getParameter("CONCENTRATION"));
-                        	G_Update.setString(4, request.getParameter("DEGREEID"));
-                        	G_Update.setString(5, request.getParameter("COURSENUMBER"));
+                        	G_Update.setString(1, request.getParameter("ISREQUIRED"));
+                        	G_Update.setString(2, request.getParameter("CONCENTRATION"));
+                        	G_Update.setString(3, request.getParameter("DEGREEID"));
+                        	G_Update.setString(4, request.getParameter("COURSENUMBER"));
+                        	G_Update.setString(5, request.getParameter("INSTITUTION"));
                         	G_Update.executeUpdate();  
                         }
-
                 		
                         conn.commit(); 
                         conn.setAutoCommit(true);
@@ -103,19 +99,14 @@
                         PreparedStatement UG_Delete = conn.prepareStatement("DELETE FROM undergradudatedegreerequiarment where degree_id=? and course_number=?;");
                         PreparedStatement G_Delete = conn.prepareStatement("DELETE FROM gradudatedegreerequiarment where degree_id=? and course_number=?;");
                             
-                            
                         if(request.getParameter("DEGREETYPE").equals("UNDERGRADUATE")){
-                        	
-                        	
-                        	UG_Delete.setString(7, request.getParameter("DEGREEID"));
-                        	UG_Delete.setString(8, request.getParameter("COURSENUMBER"));
+                        	UG_Delete.setString(1, request.getParameter("DEGREEID"));
+                        	UG_Delete.setString(2, request.getParameter("COURSENUMBER"));
                         	UG_Delete.executeUpdate(); 
                         }
                         if(request.getParameter("DEGREETYPE").equals("GRADUATE")){
-                        	
-                        	
-                        	G_Delete.setString(4, request.getParameter("DEGREEID"));
-                        	G_Delete.setString(5, request.getParameter("COURSENUMBER"));
+                        	G_Delete.setString(1, request.getParameter("DEGREEID"));
+                        	G_Delete.setString(2, request.getParameter("COURSENUMBER"));
                         	G_Delete.executeUpdate();  
                         }
                         
@@ -208,9 +199,9 @@
                     <tr>
                         <form action="degree_requirements.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= UG_rs.getString("degree_id").trim() %>" name="DEGREEID" size="10"></td>
-                            <td><input value="<%= UG_rs.getString("institution").trim() %>" name="INSTITUTION" size="10"></td>
-                            <td><input value="<%= UG_rs.getString("course_number").trim() %>" name="COURSENUMBER" size="15"></td>
+                            <td><input value="<%= UG_rs.getString("degree_id").trim() %>" name="DEGREEID" size="10" readonly></td>
+                            <td><input value="<%= UG_rs.getString("institution").trim() %>" name="INSTITUTION" size="10" readonly></td>
+                            <td><input value="<%= UG_rs.getString("course_number").trim() %>" name="COURSENUMBER" size="15" readonly></td>
                             <% if ((UG_rs.getString("is_core").trim()).equals("YES")){%>
                             <th>
                             	<select name="ISCORE" style="width:60px;">
@@ -278,10 +269,11 @@
                             <input type="hidden" value="UNDERGRADUATE" name="DEGREETYPE">
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
-                        <form action="students.jsp" method="get">
+                        <form action="degree_requirements.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
                             <input type="hidden" value="<%= UG_rs.getString("degree_id").trim() %>" name="DEGREEID">
                             <input type="hidden" value="<%= UG_rs.getString("course_number").trim() %>" name="COURSENUMBER">
+                            <input type="hidden" value="UNDERGRADUATE" name="DEGREETYPE">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
                     </tr>
@@ -292,9 +284,9 @@
                     <tr>
                         <form action="degree_requirements.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= G_rs.getString("degree_id").trim() %>" name="DEGREEID" size="10"></td>
-                            <td><input value="<%= G_rs.getString("institution").trim() %>" name="INSTITUTION" size="10"></td>
-                            <td><input value="<%= G_rs.getString("course_number").trim() %>" name="COURSENUMBER" size="15"></td>
+                            <td><input value="<%= G_rs.getString("degree_id").trim() %>" name="DEGREEID" size="10" readonly></td>
+                            <td><input value="<%= G_rs.getString("institution").trim() %>" name="INSTITUTION" size="10" readonly></td>
+                            <td><input value="<%= G_rs.getString("course_number").trim() %>" name="COURSENUMBER" size="15" readonly></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -320,10 +312,11 @@
                             <input type="hidden" value="GRADUATE" name="DEGREETYPE">
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
-                        <form action="students.jsp" method="get">
+                        <form action="degree_requirements.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
                             <input type="hidden" value="<%= G_rs.getString("degree_id").trim() %>" name="DEGREEID">
                             <input type="hidden" value="<%= G_rs.getString("course_number").trim() %>" name="COURSENUMBER">
+                            <input type="hidden" value="GRADUATE" name="DEGREETYPE">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
                     </tr>
