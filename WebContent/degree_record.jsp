@@ -70,9 +70,9 @@
 					conn.setAutoCommit(false); 
 					PreparedStatement deletestatement = conn.prepareStatement("DELETE FROM degreerecord where student_id=? and degree_id=? and institution=?;");
 					
-					deletestatement.setInt(2, Integer.parseInt(request.getParameter("STUDENTID")));
-					deletestatement.setString(3, request.getParameter("DEGREEID"));
-					deletestatement.setString(4, request.getParameter("INSTITUTION"));
+					deletestatement.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
+					deletestatement.setString(2, request.getParameter("DEGREEID"));
+					deletestatement.setString(3, request.getParameter("INSTITUTION"));
 					deletestatement.executeUpdate(); 
 					
 					conn.commit();
@@ -117,9 +117,9 @@
 					<tr>
 						<form action="degree_record.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <td><input value="<%= result.getInt("student_id") %>" name="STUDENTID" size="10"></td>
-                            <td><input value="<%= result.getString("degree_id") %>" name="DEGREEID" size="10"></td>
-                            <td><input value="<%= result.getString("institution") %>" name="INSTITUTION" size="10"></td>
+                            <td><input value="<%= result.getInt("student_id") %>" name="STUDENTID" size="10" readonly></td>
+                            <td><input value="<%= result.getString("degree_id") %>" name="DEGREEID" size="10" readonly></td>
+                            <td><input value="<%= result.getString("institution") %>" name="INSTITUTION" size="10" readonly></td>
                             <% if ((result.getString("status").trim()).equals("EARNED")){%>
                             <th>
                             	<select name="STATUS" style="width:100px;">

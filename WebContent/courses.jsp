@@ -43,11 +43,14 @@
 					
 					String courseNumber = request.getParameter("COURSENUMBER"); 
 					String preReqStr = request.getParameter("PREREQUISITE"); 
-					String[] preReqStrArr =  preReqStr.split(",");
-					for(int i = 0; i < preReqStrArr.length; i++){
-						preStatement.setString(1, courseNumber); 
-						preStatement.setString(2, preReqStrArr[i].replace(" ", "")); 
-						preStatement.executeUpdate(); 
+					preReqStr = preReqStr.replace(" ", ""); 
+					if(preReqStr.length()>0){
+						String[] preReqStrArr =  preReqStr.split(",");
+						for(int i = 0; i < preReqStrArr.length; i++){
+							preStatement.setString(1, courseNumber); 
+							preStatement.setString(2, preReqStrArr[i].replace(" ", "")); 
+							preStatement.executeUpdate(); 
+						}
 					}
 					
 					conn.commit();
@@ -127,7 +130,7 @@
 					<%-- Insert form Code--%>
 						<form action = "courses.jsp" method="get"> 
 							<input type="hidden" value="insert" name="action"> 
-							<th><input value="" name="COURSENUMBER" size="10"></th>
+							<th><input value="" name="COURSENUMBER" size="10" readonly></th>
 							<th><input value="" name="GRADINGOPTION" size="15"></th>
 							<th><input value="" name="UNITS" size="10"></th>
 							<th><input value="" name="DEPARTMENT" size="10"></th>
@@ -144,7 +147,7 @@
 					<tr>
 						<form action="courses.jsp" method="get">
                             <input type="hidden" value="update" name="action">
-                            <input type="hidden" value="<%= result.getString("course_number").trim()%>" name="COURSENUMBERKEY" size="10">
+                            <input type="hidden" value="<%= result.getString("course_number").trim()%>" name="COURSENUMBERKEY" size="10" readonly>
                             <td><input value="<%= result.getString("course_number").trim() %>" name="COURSENUMBER" size="10"></td>
                             <td><input value="<%= result.getString("grading_option").trim() %>" name="GRADINGOPTION" size="15"></td>
                             <td><input value="<%= result.getInt("unit") %>" name="UNITS" size="10"></td>

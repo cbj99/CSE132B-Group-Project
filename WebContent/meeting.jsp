@@ -162,12 +162,12 @@
 						<form action="meeting.jsp" method="get">
                             <input type="hidden" value="update" name="action">
                             
-                            <td><input value="<%= meetingRS.getString("course_number").trim()%>" name="COURSENUMBER" size="20"></td>
-                            <td><input value="<%= meetingRS.getInt("year_") %>" name="YEAR" size="20"></td>
-                            <td><input value="<%= meetingRS.getString("quarter").trim() %>" name="QUARTER" size="20"></td>
-                            <td><input value="<%= meetingRS.getInt("section_id") %>" name="SECTION" size="20"></td>
-                            <td><input value="<%= meetingRS.getString("type_").trim() %>" name="TYPE" size="20"></td>
-                            <td><input value="<%= meetingRS.getDate("date_") %>" name="DATE" size="20"></td>
+                            <td><input value="<%= meetingRS.getString("course_number").trim()%>" name="COURSENUMBER" size="20" readonly></td>
+                            <td><input value="<%= meetingRS.getInt("year_") %>" name="YEAR" size="20" readonly></td>
+                            <td><input value="<%= meetingRS.getString("quarter").trim() %>" name="QUARTER" size="20" readonly></td>
+                            <td><input value="<%= meetingRS.getInt("section_id") %>" name="SECTION" size="20" readonly></td>
+                            <td><input value="<%= meetingRS.getString("type_").trim() %>" name="TYPE" size="20" readonly></td>
+                            <td><input value="<%= meetingRS.getDate("date_") %>" name="DATE" size="20" readonly></td>
                             <td><input value="<%= meetingRS.getTime("begin_time") %>" name="BEGINTIME" size="20"></td>
                             <td><input value="<%= meetingRS.getTime("end_time") %>" name="ENDTIME" size="20"></td>
                             <% if(meetingRS.getString("mandatory").trim().equalsIgnoreCase("YES")){ %>

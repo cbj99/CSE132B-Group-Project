@@ -99,14 +99,14 @@
 					
 					<tr style="height:20px"></tr>
 					
-					<%-- Iteration code for Courses--%>
+					<%-- Iteration code for Faculty--%>
 					<% while(result.next()){ %> 
 					<tr>
 						<form action="faculty.jsp" method="get">
                             <input type="hidden" value="update" name="action">
                             <input type="hidden" value="<%= result.getString("faculty_name") %>" name="FACULTYNAMEKEY" size="20">
                             
-                            <td><input value="<%= result.getString("faculty_name").trim() %>" name="FACULTYNAME" size="20"></td>
+                            <td><input value="<%= result.getString("faculty_name").trim() %>" name="FACULTYNAME" size="20" readonly></td>
                             <td><input value="<%= result.getString("title").trim() %>" name="TITLE" size="20"></td>
                             <td><input value="<%= result.getString("department").trim() %>" name="DEPARTMENT" size="20"></td>
                             <td><input style="width:60px;" type="submit" value="Update"></td>

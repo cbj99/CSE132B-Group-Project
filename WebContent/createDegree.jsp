@@ -76,7 +76,7 @@
 					updateDegree.setString(2, request.getParameter("INSTITUTION")); 
 					updateDegree.setString(3, request.getParameter("DEGREENAME")); 
 					updateDegree.setString(4, request.getParameter("DEPARTMENT"));
-					updateDegree.setInt(5, Integer.parseInt(request.getParameter("DEGREEIDKEY")));
+					updateDegree.setString(5, request.getParameter("DEGREEIDKEY"));
 					updateDegree.setString(6, request.getParameter("INSTITUTIONKEY"));
 					updateDegree.executeUpdate(); 
 					
@@ -88,7 +88,7 @@
 						updateUnderDegree.setString(5, request.getParameter("UNDERDEGREETYPE"));
 						updateUnderDegree.setInt(6, Integer.parseInt(request.getParameter("UPPERUNITS")));
 						updateUnderDegree.setInt(7, Integer.parseInt(request.getParameter("LOWERUNITS")));
-						updateUnderDegree.setInt(8, Integer.parseInt(request.getParameter("DEGREEIDKEY"))); 
+						updateUnderDegree.setString(8, request.getParameter("DEGREEIDKEY")); 
 						updateUnderDegree.setString(9, request.getParameter("INSTITUTIONKEY")); 
 						updateUnderDegree.executeUpdate(); 
 					}
@@ -97,7 +97,7 @@
 						updateGraduate.setString(2, request.getParameter("INSTITUTION")); 
 						updateGraduate.setString(3, request.getParameter("DEGREENAME")); 
 						updateGraduate.setString(4, request.getParameter("DEPARTMENT"));
-						updateGraduate.setInt(5, Integer.parseInt(request.getParameter("DEGREEIDKEY")));
+						updateGraduate.setString(5, request.getParameter("DEGREEIDKEY"));
 						updateGraduate.setString(6, request.getParameter("INSTITUTIONKEY"));
 						updateGraduate.executeUpdate(); 
 					}
@@ -175,8 +175,8 @@
                             <input type="hidden" value="<%= UnderGraduateRS.getString("degree_id") %>" name="DEGREEIDKEY" size="20">
                             <input type="hidden" value="<%= UnderGraduateRS.getString("institution").trim() %>" name="INSTITUTIONKEY" size="20">
                             
-                            <td><input value="<%= UnderGraduateRS.getString("degree_id") %>" name="DEGREEID" size="20"></td>
-                            <td><input value="<%= UnderGraduateRS.getString("institution").trim() %>" name="INSTITUTION" size="20"></td>
+                            <td><input value="<%= UnderGraduateRS.getString("degree_id") %>" name="DEGREEID" size="20" readonly></td>
+                            <td><input value="<%= UnderGraduateRS.getString("institution").trim() %>" name="INSTITUTION" size="20" readonly></td>
                             <td><input value="<%= UnderGraduateRS.getString("degree_name").trim() %>" name="DEGREENAME" size="20"></td>
                             <td><input value="<%= UnderGraduateRS.getString("department").trim() %>" name="DEPARTMENT" size="20"></td>
                             <td><input value="<%= UnderGraduateRS.getString("type").trim() %>" name="UNDERDEGREETYPE" size="20"></td>
@@ -206,8 +206,8 @@
                             <input type="hidden" value="<%= GradRS.getString("degree_id") %>" name="DEGREEIDKEY" size="20">
                             <input type="hidden" value="<%= GradRS.getString("institution").trim() %>" name="INSTITUTIONKEY" size="20">
                             
-                            <td><input value="<%= GradRS.getString("degree_id") %>" name="DEGREEID" size="20"></td>
-                            <td><input value="<%= GradRS.getString("institution").trim() %>" name="INSTITUTION" size="20"></td>
+                            <td><input value="<%= GradRS.getString("degree_id") %>" name="DEGREEID" size="20" readonly></td>
+                            <td><input value="<%= GradRS.getString("institution").trim() %>" name="INSTITUTION" size="20" readonly></td>
                             <td><input value="<%= GradRS.getString("degree_name").trim() %>" name="DEGREENAME" size="20"></td>
                             <td><input value="<%= GradRS.getString("department").trim() %>" name="DEPARTMENT" size="20"></td>
                             <td></td>
