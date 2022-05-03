@@ -61,6 +61,7 @@
 					updatemeeting.setInt(9, Integer.parseInt(request.getParameter("SECTION"))); 
 					updatemeeting.setString(10, request.getParameter("TYPE")); 
 					updatemeeting.setString(11, request.getParameter("DATE"));
+					
 					updatemeeting.setString(1, request.getParameter("BEGINTIME"));
 					updatemeeting.setString(2, request.getParameter("ENDTIME"));
 					updatemeeting.setString(3, request.getParameter("MANDATORY"));
@@ -169,7 +170,7 @@
                             <td><input value="<%= meetingRS.getDate("date_") %>" name="DATE" size="20"></td>
                             <td><input value="<%= meetingRS.getTime("begin_time") %>" name="BEGINTIME" size="20"></td>
                             <td><input value="<%= meetingRS.getTime("end_time") %>" name="ENDTIME" size="20"></td>
-                            <% if(meetingRS.getString("mandatory").equals("Yes")){ %>
+                            <% if(meetingRS.getString("mandatory").trim().equalsIgnoreCase("YES")){ %>
                             <th>
                             	<select name="MANDATORY">                            	
                             	<option value="YES" selected>Yes</option>
@@ -185,8 +186,8 @@
                             </th>
                             <% } %>
                             
-                            <td><input value="<%= meetingRS.getString("room_number").trim() %>" name="ROOMNUMBER" size="20"></td>
-                            <td><input value="<%= meetingRS.getString("building_number").trim() %>" name="BUILDINGNUMBER" size="20"></td>
+                            <td><input value="<%= meetingRS.getString("room_number")%>" name="ROOMNUMBER" size="20"></td>
+                            <td><input value="<%= meetingRS.getString("building_number")%>" name="BUILDINGNUMBER" size="20"></td>
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
 						<form action="meeting.jsp" method="get">
