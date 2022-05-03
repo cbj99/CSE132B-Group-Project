@@ -330,8 +330,8 @@
                         conn.setAutoCommit(false);
                         PreparedStatement pstmt = conn.prepareStatement("DELETE FROM Student WHERE student_id = ?;");
                         pstmt.setInt(1, Integer.parseInt(request.getParameter("ID")));
-                        int rowCount = pstmt.executeUpdate();
-                        conn.commit();
+                        pstmt.executeUpdate();
+                        conn.commit(); 
                         conn.setAutoCommit(true);
                     }
                 %>
@@ -433,7 +433,7 @@
                         </form>
                         <form action="students.jsp" method="get">
                             <input type="hidden" value="delete" name="action">
-                            <input type="hidden" value="<%= rsUnderGraduateStudent.getInt("student_id") %>" name="ID">
+                            <input type="hidden" value="<%= rsUnderGraduateStudent.getInt("student_id")%>" name="ID">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
                     </tr>
