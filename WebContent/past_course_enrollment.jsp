@@ -113,7 +113,7 @@
                             		<option value="C-">C-</option>
                             		<option value="D">D</option>
                             		<option value="Pass">Pass</option>
-                            		<option value="NOTPass">Not Pass</option>
+                            		<option value="Not Pass">Not Pass</option>
                             		<option value="W">W</option>
                             		<option value="F">F</option>
                             	</select>
@@ -145,7 +145,7 @@
                             		<option value="C-">C-</option>
                             		<option value="D">D</option>
                             		<option value="Pass">Pass</option>
-                            		<option value="NOT Pass">Not Pass</option>
+                            		<option value="Not Pass">Not Pass</option>
                             		<option value="W">W</option>
                             		<option value="F">F</option>
                             	</select>

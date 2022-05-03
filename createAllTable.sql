@@ -143,7 +143,7 @@ create table graduateStudent(
         ON UPDATE CASCADE
 );
 
-CREATE TABLE location(
+CREATE TABLE location_(
     room_number char(20), 
     building_number char(20), 
     capacity int,
@@ -248,7 +248,7 @@ CREATE TABLE meetings(
         ON DELETE CASCADE
         ON UPDATE CASCADE, 
     CONSTRAINT FK_location
-        FOREIGN KEY(room_number, building_number) REFERENCES location(room_number, building_number)
+        FOREIGN KEY(room_number, building_number) REFERENCES location_(room_number, building_number)
         ON DELETE SET NULL
         ON UPDATE CASCADE
 ); 
