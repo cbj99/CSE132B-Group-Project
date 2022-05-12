@@ -67,7 +67,7 @@
 				<%
 				if(action != null && action.equals("delete")){
 					conn.setAutoCommit(false); 
-					PreparedStatement deletestatement = conn.prepareStatement("DELETE FROM thesiscommittee where room_number=? and building_number=?;");
+					PreparedStatement deletestatement = conn.prepareStatement("DELETE FROM thesiscommittee where student_id=? and faculty_name=?;");
 					
 					deletestatement.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
 					deletestatement.setString(2, request.getParameter("FACULTYNAME"));
