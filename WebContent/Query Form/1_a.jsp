@@ -24,39 +24,50 @@
                 	DriverManager.registerDriver (new org.postgresql.Driver());
                 	String strCBJ = "jdbc:postgresql:milestone_2?user=postgres&password=cbj991112"; 
                 	String StrD = "jdbc:postgresql:Test?user=postgres&password=vhgjhbgibiyy1234"; 
-                    Connection conn=DriverManager.getConnection(strCBJ);
+                    Connection conn=DriverManager.getConnection(StrD);
                 %>
 
 				<%-- Query Code --%>
 				<%
-				String query1 ="select * from student where student_id = ?";
-				String query2 ="select * from enrollment where student_id = ? and quarter = 'spring' and year_ = 2018";
-				PreparedStatement statement1 = conn.prepareStatement(query1);
-				PreparedStatement statement2 = conn.prepareStatement(query2);
-				ResultSet result1 = null;
-				ResultSet result2 = null;
-				
-				String action = request.getParameter("action"); 
-				
-				if(action != null && action.equals("input")){
-					conn.setAutoCommit(false); 
-					
-					statement1.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
-					result1 = statement1.executeQuery();
-					
-					statement2.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
-					result2 = statement2.executeQuery();
-					
-					conn.commit();
-                    conn.setAutoCommit(true); 
-				}
+						int year = 2018; 
+						String quarter = "spring"; 
+						
+						String student_id_query ="select * from student where student_id = ?";
+						String enrollment_query = "SELECT enrollment.student_id, enrollment.course_number, enrollment.year_, enrollment.quarter, enrollment.section_id, enrollment.faculty_name, enrollment.status, enrollment.grade, courses.unit, courses.department, courses.lab_required FROM enrollment, courses where enrollment.student_id = ? and enrollment.year_ = ? and enrollment.quarter = ? and courses.course_number =  enrollment.course_number";
+						
+						PreparedStatement student_id_state = conn.prepareStatement(student_id_query);
+						PreparedStatement enrollment_state = conn.prepareStatement(enrollment_query);
+						
+						ResultSet student_id_RS = null;
+						ResultSet enrollment_RS = null;
+
+						String action = request.getParameter("action");
+
+						if (action != null && action.equals("input")) {
+							conn.setAutoCommit(false);
+
+							student_id_state.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
+							student_id_RS = student_id_state.executeQuery();
+
+							enrollment_state.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
+							enrollment_state.setInt(2, year);
+							enrollment_state.setString(3, quarter);
+							enrollment_RS = enrollment_state.executeQuery();
+
+							conn.commit();
+							conn.setAutoCommit(true);
+						}
 				%>
 				 
 				<%-- Statement code --%>
 				<%
 				Statement studentState = conn.createStatement();
+				String student_query_by_year_quarter = "select student_id from enrollment where quarter = ? and year_ = ?;"; 
+				PreparedStatement student_query_by_year_quarter_state = conn.prepareStatement(student_query_by_year_quarter);
+				student_query_by_year_quarter_state.setString(1, quarter); 
+				student_query_by_year_quarter_state.setInt(2, year); 
 				
-				ResultSet studentRS = studentState.executeQuery("select student_id from enrollment where quarter = 'spring' and year_ = 2018;"); 
+				ResultSet studentRS = student_query_by_year_quarter_state.executeQuery(); 
 				%>
 				
 				<%-- query form code --%>
@@ -94,14 +105,14 @@
                         <th>Last Name</th>
 					</tr>
 					<%-- Iteration code for part 1 of this report--%>
-					<% while(result1 != null && result1.next()){ %> 
+					<% while(student_id_RS != null && student_id_RS.next()){ %> 
 						
 						<tr>
-							<td><%= result1.getInt("student_id")%></td>
-                        	<td><%= result1.getInt("SSN") %></td>
-                        	<td><%= result1.getString("first_name").trim() %></td>                        
-                        	<td><%= result1.getString("middle_name").trim() %></td>
-                        	<td><%= result1.getString("last_name").trim() %></td>
+							<td><%= student_id_RS.getInt("student_id")%></td>
+                        	<td><%= student_id_RS.getInt("SSN") %></td>
+                        	<td><%= student_id_RS.getString("first_name").trim() %></td>                        
+                        	<td><%= student_id_RS.getString("middle_name").trim() %></td>
+                        	<td><%= student_id_RS.getString("last_name").trim() %></td>
 						</tr>
 					<% } %>
 				</table>
@@ -110,6 +121,7 @@
 				<p>Classes taken in the current quarter:</p>
 				<table>
 					<tr>
+						<th>student id</th>
 						<th>course_number</th>
 						<th>year</th>
 						<th>quarter</th>
@@ -117,18 +129,25 @@
 						<th>faculty_name</th>
 						<th>status</th>
 						<th>grade</th>
+						<th>units</th>
+						<th>department</th>
+						<th>lab required</th>
 					</tr>
 					<%-- Iteration code for part 2 of this report--%>
-					<% while(result2 != null && result2.next()){ %> 
+					<% while(enrollment_RS != null && enrollment_RS.next()){ %> 
 						
 						<tr>
-							<td><%= result2.getString("course_number").trim()%></td>
-                            <td><%= result2.getInt("year_") %></td>
-                            <td><%= result2.getString("quarter").trim()%></td>
-                            <td><%= result2.getInt("section_id")%></td>
-                            <td><%= result2.getString("faculty_name").trim()%></td>
-                            <td><%= result2.getString("status").trim()%></td>
-                            <td><%= result2.getString("grade").trim()%></td>  
+							<td><%= enrollment_RS.getInt("student_id")%></td>
+							<td><%= enrollment_RS.getString("course_number").trim()%></td>
+                            <td><%= enrollment_RS.getInt("year_") %></td>
+                            <td><%= enrollment_RS.getString("quarter").trim()%></td>
+                            <td><%= enrollment_RS.getInt("section_id")%></td>
+                            <td><%= enrollment_RS.getString("faculty_name").trim()%></td>
+                            <td><%= enrollment_RS.getString("status").trim()%></td>
+                            <td><%= enrollment_RS.getString("grade").trim()%></td>  
+                            <td><%= enrollment_RS.getInt("unit")%></td>  
+                            <td><%= enrollment_RS.getString("department").trim()%></td>  
+                            <td><%= enrollment_RS.getInt("lab_required")%></td> 
 						</tr>
 					<% } %>
 				</table>
@@ -137,16 +156,18 @@
 				<%-- Close connection code --%>
 				<% 
 				// close Resultset 
-				if(result1 != null){
-					result1.close(); 
+				if(student_id_RS != null){
+					student_id_RS.close(); 
 					// close Statement 
 				}
-				statement1.close(); 
-				if(result2 != null){
-					result2.close(); 
+				student_id_state.close(); 
+				if(enrollment_RS != null){
+					enrollment_RS.close(); 
 					// close Statement 
 				}
-				statement2.close();
+				enrollment_state.close();
+				studentRS.close(); 
+				student_query_by_year_quarter_state.close(); 
 				// close Connection
 				conn.close(); 
 				} catch (SQLException sqle) {
