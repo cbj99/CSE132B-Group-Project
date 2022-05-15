@@ -70,7 +70,8 @@
 						<form action = "1_a.jsp" method="get"> 
 							<input type="hidden" value="input" name="action"> 
 							<td>
-                            	<select name="STUDENTID" style="width:60px;">                            	
+                            	<select name="STUDENTID" style="width:130px;">
+                            		<option value="" disabled selected hidden>Please Choose...</option>                            	
                             	<% while (studentRS.next()){ %>
                             		<option value=<%= studentRS.getInt("student_id")%>> <%= studentRS.getInt("student_id")%></option>
                             	<% } %>
