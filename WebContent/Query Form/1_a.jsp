@@ -70,7 +70,8 @@
 						<form action = "1_a.jsp" method="get"> 
 							<input type="hidden" value="input" name="action"> 
 							<td>
-                            	<select name="STUDENTID" style="width:60px;">                            	
+                            	<select name="STUDENTID" style="width:130px;">
+                            		<option value="" disabled selected hidden>Please Choose...</option>                            	
                             	<% while (studentRS.next()){ %>
                             		<option value=<%= studentRS.getInt("student_id")%>> <%= studentRS.getInt("student_id")%></option>
                             	<% } %>
@@ -85,15 +86,16 @@
 				<%-- report code --%>
 				<p>Personal Info:</p>
 				<table>
+					<tr>
+						<th>ID</th>
+                        <th>SSN</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+					</tr>
 					<%-- Iteration code for part 1 of this report--%>
 					<% while(result1 != null && result1.next()){ %> 
-						<tr>
-							<th>ID</th>
-                        	<th>SSN</th>
-                        	<th>First Name</th>
-                        	<th>Middle Name</th>
-                        	<th>Last Name</th>
-						</tr>
+						
 						<tr>
 							<td><%= result1.getInt("student_id")%></td>
                         	<td><%= result1.getInt("SSN") %></td>
@@ -107,17 +109,18 @@
 				<div style="height:20px"></div>
 				<p>Classes taken in the current quarter:</p>
 				<table>
+					<tr>
+						<th>course_number</th>
+						<th>year</th>
+						<th>quarter</th>
+						<th>section_id</th>
+						<th>faculty_name</th>
+						<th>status</th>
+						<th>grade</th>
+					</tr>
 					<%-- Iteration code for part 2 of this report--%>
 					<% while(result2 != null && result2.next()){ %> 
-						<tr>
-							<th>course_number</th>
-							<th>year</th>
-							<th>quarter</th>
-							<th>section_id</th>
-							<th>faculty_name</th>
-							<th>status</th>
-							<th>grade</th>
-						</tr>
+						
 						<tr>
 							<td><%= result2.getString("course_number").trim()%></td>
                             <td><%= result2.getInt("year_") %></td>

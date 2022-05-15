@@ -92,26 +92,32 @@ INSERT INTO classes VALUES
     ('CSE1', 2021, 'winter', 1),
     ('CSE1', 2021, 'spring', 2), 
     ('CSE1', 2021, 'fall', 3),
+    ('CSE1', 2018, 'spring', 2),
 
     ('CSE2', 2021, 'winter', 1),
     ('CSE2', 2021, 'spring', 2), 
     ('CSE2', 2021, 'fall', 3),
+    ('CSE2', 2018, 'spring', 2),
 
     ('CSE3', 2021, 'winter', 1),
     ('CSE3', 2021, 'spring', 2), 
     ('CSE3', 2021, 'fall', 3),
+    ('CSE3', 2018, 'spring', 2),
 
     ('CSE4', 2021, 'winter', 1),
     ('CSE4', 2021, 'spring', 2), 
     ('CSE4', 2021, 'fall', 3),
+    ('CSE4', 2018, 'spring', 2),
 
     ('CSE5', 2021, 'winter', 1),
     ('CSE5', 2021, 'spring', 2), 
     ('CSE5', 2021, 'fall', 3),
+    ('CSE5', 2018, 'spring', 2),
 
     ('CSE6', 2021, 'winter', 1),
     ('CSE6', 2021, 'spring', 2), 
-    ('CSE6', 2021, 'fall', 3);
+    ('CSE6', 2021, 'fall', 3),
+    ('CSE6', 2018, 'spring', 2);
 
 INSERT INTO meetings VALUES
     ('CSE1', 2021, 'winter', 1, 'Lecture', '2021-5-2', '12:00:00', '13:00:00', 'YES', 'room_1', 'building_1'),
@@ -181,12 +187,15 @@ INSERT INTO underGradudateDegreeRequiarment VALUES
     ('CS26', 'UCSD', 'CSE5', 'YES', 'NO', 'YES', 'NO', 4);
 
 INSERT INTO enrollment VALUES
-    (1, 'CSE1', 2021, 'winter', 1, 'faculty_1', 'INPROGRESS', 'INPROGRESS'),
-    (2, 'CSE2', 2021, 'spring', 2, 'faculty_2', 'INPROGRESS', 'INPROGRESS'),
+    (1, 'CSE1', 2021, 'winter', 1, 'faculty_1', 'COMPLETED', 'A+'),
+    (1, 'CSE1', 2018, 'spring', 2, 'faculty_1', 'INPROGRESS', 'INPROGRESS'),
+    (2, 'CSE2', 2018, 'spring', 2, 'faculty_2', 'COMPLETED', 'C-'),
     (3, 'CSE3', 2021, 'fall', 3, 'faculty_3', 'INPROGRESS', 'INPROGRESS'),
-    (4, 'CSE4', 2021, 'winter', 1, 'faculty_3', 'INPROGRESS', 'INPROGRESS'),
-    (5, 'CSE5', 2021, 'spring', 2, 'faculty_4', 'INPROGRESS', 'INPROGRESS'),
-    (6, 'CSE6', 2021, 'fall', 3, 'faculty_5', 'INPROGRESS', 'WITHDRAW');
+    (3, 'CSE3', 2018, 'spring', 2, 'faculty_3', 'INPROGRESS', 'INPROGRESS'),
+    (4, 'CSE4', 2021, 'winter', 1, 'faculty_3', 'COMPLETED', 'W'),
+    (4, 'CSE4', 2018, 'spring', 2, 'faculty_3', 'COMPLETED', 'W'),
+    (5, 'CSE5', 2018, 'spring', 2, 'faculty_4', 'COMPLETED', 'Pass'),
+    (6, 'CSE6', 2021, 'fall', 3, 'faculty_5', 'COMPLETED', 'F');
 
 INSERT INTO past_enrollment VALUES
     (3, 'CSE6', 2021, 'winter', 'A+'),
