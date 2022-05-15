@@ -181,12 +181,12 @@ INSERT INTO underGradudateDegreeRequiarment VALUES
     ('CS26', 'UCSD', 'CSE5', 'YES', 'NO', 'YES', 'NO', 4);
 
 INSERT INTO enrollment VALUES
-    (1, 'CSE1', 2021, 'winter', 1, 'faculty_1', 'COMPLETED', 'A+'),
-    (2, 'CSE2', 2021, 'spring', 2, 'faculty_2', 'COMPLETED', 'C-'),
+    (1, 'CSE1', 2021, 'winter', 1, 'faculty_1', 'INPROGRESS', 'INPROGRESS'),
+    (2, 'CSE2', 2021, 'spring', 2, 'faculty_2', 'INPROGRESS', 'INPROGRESS'),
     (3, 'CSE3', 2021, 'fall', 3, 'faculty_3', 'INPROGRESS', 'INPROGRESS'),
-    (4, 'CSE4', 2021, 'winter', 1, 'faculty_3', 'COMPLETED', 'W'),
-    (5, 'CSE5', 2021, 'spring', 2, 'faculty_4', 'COMPLETED', 'Pass'),
-    (6, 'CSE6', 2021, 'fall', 3, 'faculty_5', 'COMPLETED', 'F');
+    (4, 'CSE4', 2021, 'winter', 1, 'faculty_3', 'INPROGRESS', 'INPROGRESS'),
+    (5, 'CSE5', 2021, 'spring', 2, 'faculty_4', 'INPROGRESS', 'INPROGRESS'),
+    (6, 'CSE6', 2021, 'fall', 3, 'faculty_5', 'INPROGRESS', 'WITHDRAW');
 
 INSERT INTO past_enrollment VALUES
     (3, 'CSE6', 2021, 'winter', 'A+'),

@@ -1,0 +1,2 @@
+SELECT enrollment.student_id, enrollment.course_number, enrollment.year_, enrollment.quarter, enrollment.section_id, enrollment.faculty_name, enrollment.status, enrollment.grade, courses.unit, courses.department, courses.lab_required
+FROM enrollment, courses where enrollment.student_id = 3 and enrollment.year_ = 2021 and enrollment.quarter = spring and courses.course_number =  enrollment.course_number; 
