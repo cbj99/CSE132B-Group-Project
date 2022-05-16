@@ -31,7 +31,7 @@
 				String action = request.getParameter("action"); 
 				if(action != null && action.equals("insert")){
 					conn.setAutoCommit(false); 
-					PreparedStatement statement = conn.prepareStatement("INSERT INTO courses VALUES(?, ?, ?, ?, ?)"); 
+					PreparedStatement statement = conn.prepareStatement("INSERT INTO courses VALUES(?, ?, ?, ?, ?, ?)"); 
 					PreparedStatement preStatement = conn.prepareStatement("INSERT INTO coursePrequisite VALUES(?, ?)");
 					
 					statement.setString(1, request.getParameter("COURSENUMBER"));
@@ -39,6 +39,14 @@
 					statement.setInt(3, Integer.parseInt(request.getParameter("UNITS")));
 					statement.setString(4, request.getParameter("DEPARTMENT"));
 					statement.setInt(5, Integer.parseInt(request.getParameter("LABREQUIRED")));
+					String temp = request.getParameter("COURSENUMBER").replaceAll("[a-zA-Z]", ""); 
+					int checkUpper = Integer.parseInt(temp);
+					if(checkUpper >= 100){
+						statement.setInt(6, 1);
+					}else{
+						statement.setInt(6, 0);
+					}
+					
 					statement.executeUpdate(); 
 					
 					String courseNumber = request.getParameter("COURSENUMBER"); 
@@ -130,7 +138,7 @@
 					<%-- Insert form Code--%>
 						<form action = "courses.jsp" method="get"> 
 							<input type="hidden" value="insert" name="action"> 
-							<th><input value="" name="COURSENUMBER" size="10" readonly></th>
+							<th><input value="" name="COURSENUMBER" size="10"></th>
 							<th><input value="" name="GRADINGOPTION" size="15"></th>
 							<th><input value="" name="UNITS" size="10"></th>
 							<th><input value="" name="DEPARTMENT" size="10"></th>
@@ -148,7 +156,7 @@
 						<form action="courses.jsp" method="get">
                             <input type="hidden" value="update" name="action">
                             <input type="hidden" value="<%= result.getString("course_number").trim()%>" name="COURSENUMBERKEY" size="10" readonly>
-                            <td><input value="<%= result.getString("course_number").trim() %>" name="COURSENUMBER" size="10"></td>
+                            <td><input value="<%= result.getString("course_number").trim() %>" name="COURSENUMBER" size="10" readonly></td>
                             <td><input value="<%= result.getString("grading_option").trim() %>" name="GRADINGOPTION" size="15"></td>
                             <td><input value="<%= result.getInt("unit") %>" name="UNITS" size="10"></td>
                             <td><input value="<%= result.getString("department").trim() %>" name="DEPARTMENT" size="10"></td>

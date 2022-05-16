@@ -15,3 +15,4 @@
 11. interactive dropdown
 12. add order by for all jsp files
 13. use enum for defining custom types
+14. enrollment, past_enrollment, course_offering_ny realtionship, change enrollment's status into waitlist or enrolled. 

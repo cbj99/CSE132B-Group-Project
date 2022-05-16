@@ -32,7 +32,7 @@
 				if(action != null && action.equals("insert")){
 					conn.setAutoCommit(false); 
 					PreparedStatement insertDegree = conn.prepareStatement("INSERT INTO degree_ VALUES(?, ?, ?, ?)");
-					PreparedStatement insertUnderDegree = conn.prepareStatement("INSERT INTO undergraduateDegree VALUES(?, ?, ?, ?, ?, ?, ?)");
+					PreparedStatement insertUnderDegree = conn.prepareStatement("INSERT INTO undergraduateDegree VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					PreparedStatement insertGraduate = conn.prepareStatement("INSERT INTO graduateDegree VALUES(?, ?, ?, ?)");
 					
 					insertDegree.setString(1, request.getParameter("DEGREEID")); 
@@ -49,6 +49,10 @@
 						insertUnderDegree.setString(5, request.getParameter("UNDERDEGREETYPE"));
 						insertUnderDegree.setInt(6, Integer.parseInt(request.getParameter("UPPERUNITS")));
 						insertUnderDegree.setInt(7, Integer.parseInt(request.getParameter("LOWERUNITS")));
+						insertUnderDegree.setInt(8, Integer.parseInt(request.getParameter("COREUNITS")));
+						insertUnderDegree.setInt(9, Integer.parseInt(request.getParameter("TECHNICALUNITS")));
+						insertUnderDegree.setInt(10, Integer.parseInt(request.getParameter("MAJORELECTIVEUNITS")));
+						insertUnderDegree.setInt(11, Integer.parseInt(request.getParameter("COLLEGEUNITS")));
 						insertUnderDegree.executeUpdate(); 
 					}
 					if(request.getParameter("DEGREETYPE").equals("GRADUATE")){
@@ -69,7 +73,7 @@
 				if(action != null && action.equals("update")){
 					conn.setAutoCommit(false); 
 					PreparedStatement updateDegree = conn.prepareStatement("UPDATE degree_ SET degree_id=?, institution=?, degree_name=?, department=? where degree_id=? AND institution=?");
-					PreparedStatement updateUnderDegree = conn.prepareStatement("UPDATE undergraduateDegree SET degree_id=?, institution=?, degree_name=?, department=?, type=?, upper_division_units=?, lower_division_units=? where degree_id=? AND institution=?");
+					PreparedStatement updateUnderDegree = conn.prepareStatement("UPDATE undergraduateDegree SET degree_id=?, institution=?, degree_name=?, department=?, type=?, upper_division_units=?, lower_division_units=?, core_units=?, technical_units=?, major_elective_units=?, college_units=? where degree_id=? AND institution=?");
 					PreparedStatement updateGraduate = conn.prepareStatement("UPDATE graduateDegree SET degree_id=?, institution=?, degree_name=?, department=? where degree_id=? AND institution=?");
 					
 					updateDegree.setString(1, request.getParameter("DEGREEID")); 
@@ -88,8 +92,12 @@
 						updateUnderDegree.setString(5, request.getParameter("UNDERDEGREETYPE"));
 						updateUnderDegree.setInt(6, Integer.parseInt(request.getParameter("UPPERUNITS")));
 						updateUnderDegree.setInt(7, Integer.parseInt(request.getParameter("LOWERUNITS")));
-						updateUnderDegree.setString(8, request.getParameter("DEGREEIDKEY")); 
-						updateUnderDegree.setString(9, request.getParameter("INSTITUTIONKEY")); 
+						updateUnderDegree.setInt(8, Integer.parseInt(request.getParameter("COREUNITS")));
+						updateUnderDegree.setInt(9, Integer.parseInt(request.getParameter("TECHNICALUNITS")));
+						updateUnderDegree.setInt(10, Integer.parseInt(request.getParameter("MAJORELECTIVEUNITS")));
+						updateUnderDegree.setInt(11, Integer.parseInt(request.getParameter("COLLEGEUNITS")));
+						updateUnderDegree.setString(12, request.getParameter("DEGREEIDKEY")); 
+						updateUnderDegree.setString(13, request.getParameter("INSTITUTIONKEY")); 
 						updateUnderDegree.executeUpdate(); 
 					}
 					if(request.getParameter("DEGREETYPE").equals("GRADUATE")){
@@ -139,6 +147,10 @@
 						<th>Undergraduate Degree Type</th>
 						<th>Upper Division Units</th>
 						<th>Lower Division Units</th>
+						<th>Core Units</th>
+						<th>Technical Units</th>
+						<th>Major Elective Units</th>
+						<th>College Units</th>
 						<th>UnderGraduate/Graduate</th>
 						<th>Action</th>
 					</tr>
@@ -154,6 +166,10 @@
 							<th><input value="" name="UNDERDEGREETYPE" size="20"></th>
 							<th><input value="" name="UPPERUNITS" size="20"></th>
 							<th><input value="" name="LOWERUNITS" size="20"></th>
+							<th><input value="" name="COREUNITS" size="20"></th>
+							<th><input value="" name="TECHNICALUNITS" size="20"></th>
+							<th><input value="" name="MAJORELECTIVEUNITS" size="20"></th>
+							<th><input value="" name="COLLEGEUNITS" size="20"></th>
 							<th>
                             	<select name="DEGREETYPE">
                             		<option value="UNDERGRADUATE" selected>undergraduate</option>
@@ -180,8 +196,12 @@
                             <td><input value="<%= UnderGraduateRS.getString("degree_name").trim() %>" name="DEGREENAME" size="20"></td>
                             <td><input value="<%= UnderGraduateRS.getString("department").trim() %>" name="DEPARTMENT" size="20"></td>
                             <td><input value="<%= UnderGraduateRS.getString("type").trim() %>" name="UNDERDEGREETYPE" size="20"></td>
-                            <td><input value="<%= UnderGraduateRS.getString("upper_division_units").trim() %>" name="UPPERUNITS" size="20"></td>
-                            <td><input value="<%= UnderGraduateRS.getString("lower_division_units").trim() %>" name="LOWERUNITS" size="20"></td>
+                            <td><input value="<%= UnderGraduateRS.getInt("upper_division_units") %>" name="UPPERUNITS" size="20"></td>
+                            <td><input value="<%= UnderGraduateRS.getInt("lower_division_units") %>" name="LOWERUNITS" size="20"></td>
+                            <td><input value="<%= UnderGraduateRS.getInt("core_units") %>" name="COREUNITS" size="20"></td>
+                            <td><input value="<%= UnderGraduateRS.getInt("technical_units") %>" name="TECHNICALUNITS" size="20"></td>
+                            <td><input value="<%= UnderGraduateRS.getInt("major_elective_units") %>" name="MAJORELECTIVEUNITS" size="20"></td>
+                            <td><input value="<%= UnderGraduateRS.getInt("college_units") %>" name="COLLEGEUNITS" size="20"></td>
                             <th>
                             	<select name="DEGREETYPE">
                             		<option value="UNDERGRADUATE" selected>undergraduate</option>
@@ -210,6 +230,10 @@
                             <td><input value="<%= GradRS.getString("institution").trim() %>" name="INSTITUTION" size="20" readonly></td>
                             <td><input value="<%= GradRS.getString("degree_name").trim() %>" name="DEGREENAME" size="20"></td>
                             <td><input value="<%= GradRS.getString("department").trim() %>" name="DEPARTMENT" size="20"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
