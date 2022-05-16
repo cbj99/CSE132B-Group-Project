@@ -342,7 +342,42 @@
 	<%-- Close connection code --%>
 	<%
 	// close Resultset 
+	display_student_query_RS.close();
+	display_degree_query_RS.close();
+			
+	units_required_RS.close();
+	units_core_RS.close();
+	units_technical_elective_RS.close();
+	units_major_elective_RS.close();
+	units_college_required_RS.close();
+	
+	core_units_taken_RS.close();
+	technical_elective_RS.close();
+	major_elective_taken_RS.close();
+	college_taken_RS.close();
+	upperUnits_taken_RS.close();
+	lowerUnits_taken_RS.close();
+	student_RS.close(); 
+	degree_RS.close(); 
+	
 	// close Statement 
+	display_student_query_state.close(); 
+	display_degree_query_state.close(); 
+	units_required_state.close(); 
+	units_core_state.close(); 
+	units_technical_elective_state.close(); 
+	units_major_elective_state.close(); 
+	units_college_required_state.close(); 
+	core_units_taken_state.close(); 
+	technical_elective_taken_state.close(); 
+	major_elective_taken_state.close(); 
+	college_taken_state.close(); 
+	upperUnits_taken_state.close(); 
+	lowerUnits_taken_state.close(); 
+	
+	student_state.close(); 
+	degree_state.close(); 
+	
 	// close Connection
 	conn.close();
 	
