@@ -127,6 +127,7 @@
 			<th>Course Number</th>
 			<th>Year</th>
 			<th>Quarter</th>
+			<th>Section</th>
 			<th>Faculty</th>
 			<th>Units</th>
 			<th>Grading Option</th>
@@ -157,9 +158,9 @@
 	<%-- Close connection code --%>
 	<%
 	// close Resultset 
-	roster_RS.close(); 
-	class_RS.close(); 
-	classRS.close(); 
+	if(roster_RS!=null){roster_RS.close();}
+	if(roster_RS!=null){class_RS.close(); }
+	if(roster_RS!=null){classRS.close(); }
 	
 	// close Statement 
 	classState.close(); 

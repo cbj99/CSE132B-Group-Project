@@ -342,23 +342,23 @@
 	<%-- Close connection code --%>
 	<%
 	// close Resultset 
-	display_student_query_RS.close();
-	display_degree_query_RS.close();
+	if(display_student_query_RS != null){display_student_query_RS.close();}
+	if(display_degree_query_RS != null){display_degree_query_RS.close();}
 			
-	units_required_RS.close();
-	units_core_RS.close();
-	units_technical_elective_RS.close();
-	units_major_elective_RS.close();
-	units_college_required_RS.close();
+	if(units_required_RS != null){units_required_RS.close();}
+	if(units_core_RS != null){units_core_RS.close();}
+	if(units_technical_elective_RS != null){units_technical_elective_RS.close();}
+	if(units_major_elective_RS != null){units_major_elective_RS.close();}
+	if(units_college_required_RS != null){units_college_required_RS.close();}
 	
-	core_units_taken_RS.close();
-	technical_elective_RS.close();
-	major_elective_taken_RS.close();
-	college_taken_RS.close();
-	upperUnits_taken_RS.close();
-	lowerUnits_taken_RS.close();
-	student_RS.close(); 
-	degree_RS.close(); 
+	if(units_college_required_RS != null){core_units_taken_RS.close();}
+	if(units_college_required_RS != null){technical_elective_RS.close();}
+	if(units_college_required_RS != null){major_elective_taken_RS.close();}
+	if(units_college_required_RS != null){college_taken_RS.close();}
+	if(units_college_required_RS != null){upperUnits_taken_RS.close();}
+	if(units_college_required_RS != null){lowerUnits_taken_RS.close();}
+	if(units_college_required_RS != null){student_RS.close();}
+	if(units_college_required_RS != null){degree_RS.close();}
 	
 	// close Statement 
 	display_student_query_state.close(); 
