@@ -30,8 +30,6 @@
                         PreparedStatement UG_State = conn.prepareStatement( ("INSERT INTO undergradudatedegreerequiarment VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
                         PreparedStatement G_State = conn.prepareStatement( ("INSERT INTO gradudatedegreerequiarment VALUES(?, ?, ?, ?, ?)"));
                         
-                        
-                        
                         if(request.getParameter("DEGREETYPE").equals("UNDERGRADUATE")){
                         	UG_State.setString(1, request.getParameter("DEGREEID"));
                         	UG_State.setString(2, request.getParameter("INSTITUTION"));
@@ -202,7 +200,7 @@
                             <td><input value="<%= UG_rs.getString("degree_id").trim() %>" name="DEGREEID" size="10" readonly></td>
                             <td><input value="<%= UG_rs.getString("institution").trim() %>" name="INSTITUTION" size="10" readonly></td>
                             <td><input value="<%= UG_rs.getString("course_number").trim() %>" name="COURSENUMBER" size="15" readonly></td>
-                            <% if ((UG_rs.getString("is_core").trim()).equals("YES")){%>
+                            <% if (UG_rs.getString("is_core").trim().equalsIgnoreCase("YES")){%>
                             <th>
                             	<select name="ISCORE" style="width:60px;">
                             		<option value="YES" selected>YES</option>

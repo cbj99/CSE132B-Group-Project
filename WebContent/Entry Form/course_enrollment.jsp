@@ -86,7 +86,7 @@
 				<%
 				Statement enrollmentState = conn.createStatement(); 
 				
-				ResultSet enrollmentRS = enrollmentState.executeQuery("select * from enrollment;"); 
+				ResultSet enrollmentRS = enrollmentState.executeQuery("select * from enrollment order by student_id;"); 
 				%>
 				
 				<%-- Presentation code --%>

@@ -166,9 +166,15 @@ CREATE TABLE undergraduateDegree(
     institution char(50), 
     degree_name char(50),
     department char(20),
-    type char(20), 
+
+    type char(20), /* type is BA or BS*/ 
     upper_division_units int, 
     lower_division_units int, 
+
+    core_units int, 
+    technical_units int, 
+    major_elective_units int, 
+    college_units int,
 
     PRIMARY KEY(degree_id, institution),
     CONSTRAINT FK_degree_id 
@@ -196,6 +202,7 @@ CREATE TABLE courses(
     unit int, 
     department char(20), 
     lab_required int, 
+    is_upper int, /* 1-> upper classes, 0-> lower classes*/ 
 
     PRIMARY KEY(course_number) 
 ); 
