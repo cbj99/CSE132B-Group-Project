@@ -360,10 +360,11 @@ CREATE TABLE past_enrollment(
     course_number char(20), 
     year_ int, 
     quarter char(10), 
-    
+    section_id int,
+    faculty_name char(20),
     grade char(20), 
 
-    PRIMARY KEY(student_id, course_number, year_, quarter), 
+    PRIMARY KEY(student_id, course_number, year_, quarter, section_id, faculty_name), 
     CONSTRAINT FK_classes 
         FOREIGN KEY(course_number) REFERENCES courses(course_number)
         ON DELETE CASCADE,
@@ -385,3 +386,9 @@ CREATE TABLE thesisCommittee(
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ); 
+
+create table GRADE_CONVERSION(
+
+    GRADE CHAR(20) NOT NULL,
+    NUMBER_GRADE DECIMAL(2,1)
+);

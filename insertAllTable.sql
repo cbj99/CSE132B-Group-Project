@@ -198,12 +198,12 @@ INSERT INTO enrollment VALUES
     (6, 'CSE6', 2021, 'fall', 3, 'faculty_5', 'COMPLETED', 'F');
 
 INSERT INTO past_enrollment VALUES
-    (3, 'CSE6', 2021, 'winter', 'A+'),
-    (4, 'CSE5', 2021, 'spring', 'C-'),
-    (5, 'CSE4', 2021, 'fall', 'Not Pass'),
-    (6, 'CSE3', 2021, 'winter', 'W'),
-    (7, 'CSE2', 2021, 'spring', 'Pass'),
-    (8, 'CSE1', 2021, 'fall', 'F');
+    (3, 'CSE6', 2021, 'winter', 1, 'faculty_1',  'A+'),
+    (4, 'CSE5', 2021, 'spring', 2, 'faculty_1', 'C-'),
+    (5, 'CSE4', 2021, 'fall', 3, 'faculty_2',  'Not Pass'),
+    (6, 'CSE3', 2021, 'winter', 1, 'faculty_2',  'W'),
+    (7, 'CSE2', 2021, 'spring', 2, 'faculty_3',  'Pass'),
+    (8, 'CSE1', 2021, 'fall', 3, 'faculty_3',  'F');
 
 INSERT INTO thesisCommittee VALUES
     (2, 'faculty_1'),
@@ -212,3 +212,13 @@ INSERT INTO thesisCommittee VALUES
     (5, 'faculty_4'),
     (8, 'faculty_5');
 
+insert into grade_conversion values('A+', 4.3);
+insert into grade_conversion values('A', 4);
+insert into grade_conversion values('A-', 3.7);
+insert into grade_conversion values('B+', 3.4);
+insert into grade_conversion values('B', 3.1);
+insert into grade_conversion values('B-', 2.8);
+insert into grade_conversion values('C+', 2.5);
+insert into grade_conversion values('C', 2.2);
+insert into grade_conversion values('C-', 1.9);
+insert into grade_conversion values('D', 1.6);
