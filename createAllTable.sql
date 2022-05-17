@@ -188,6 +188,7 @@ CREATE TABLE graduateDegree(
     institution char(50), 
     degree_name char(50),
     department char(20), 
+    required_units int, 
 
     PRIMARY KEY(degree_id, institution), 
     CONSTRAINT FK_degree_id 
@@ -202,7 +203,7 @@ CREATE TABLE courses(
     unit int, 
     department char(20), 
     lab_required int, 
-    is_upper int, /* 1-> upper classes, 0-> lower classes*/ 
+    is_upper int, /* 1-> upper classes, 0-> lower classes 2-> graduate classes*/ 
 
     PRIMARY KEY(course_number) 
 ); 
@@ -305,7 +306,7 @@ CREATE TABLE gradudateDegreeRequiarment(
     institution char(50),
     course_number char(20), 
     is_required char(10), 
-    concentration char(20) NOT NULL, 
+    concentration char(20) NOT NULL, /*assumption: one course for one degree belongs in one concentration*/
 
     PRIMARY KEY(degree_id, institution, course_number), 
     CONSTRAINT FK_degree

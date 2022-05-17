@@ -70,10 +70,10 @@ INSERT INTO undergraduateDegree VALUES
     ON CONFLICT DO NOTHING; 
 
 INSERT INTO graduateDegree VALUES
-    ('CS266', 'UCSD', 'Computer Science', 'CSE'), 
-    ('EE277', 'UCSD', 'Electrical Engineering', 'ECE'),
-    ('BIO100', 'UCSD', 'Biology', 'Biology'), 
-    ('CS266', 'USD', 'Computer Science', 'CSE'); 
+    ('CS266', 'UCSD', 'Computer Science', 'CSE', 20), 
+    ('EE277', 'UCSD', 'Electrical Engineering', 'ECE', 30),
+    ('BIO100', 'UCSD', 'Biology', 'Biology', 20), 
+    ('CS266', 'USD', 'Computer Science', 'CSE', 20); 
 
 INSERT INTO courses VALUES
     ('CSE1', 'letter_grade_only', 4, 'CSE', 1, 0), 
@@ -84,8 +84,11 @@ INSERT INTO courses VALUES
     ('CSE6', 'letter_grade_only', 4, 'CSE', 1, 0),
     ('CSE100', 'letter_grade_only', 4, 'CSE', 1, 1), 
     ('CSE101', 'letter_grade_only', 4, 'CSE', 1, 1),
-    ('CSE102', 'letter_grade_only', 4, 'CSE', 1, 1)
-    ;
+    ('CSE102', 'letter_grade_only', 4, 'CSE', 1, 1),
+    ('CSE200', 'letter_grade_only', 4, 'CSE', 1, 2),
+    ('CSE201', 'letter_grade_only', 4, 'CSE', 1, 2),
+    ('CSE202', 'letter_grade_only', 4, 'CSE', 1, 2)
+    ON CONFLICT DO NOTHING;
 
 INSERT INTO coursePrequisite VALUES
     ('CSE6','CSE5'),
@@ -140,7 +143,22 @@ INSERT INTO classes VALUES
     ('CSE102', 2021, 'winter', 1),
     ('CSE102', 2021, 'spring', 2), 
     ('CSE102', 2021, 'fall', 3),
-    ('CSE102', 2018, 'spring', 2)
+    ('CSE102', 2018, 'spring', 2),
+
+    ('CSE200', 2021, 'winter', 1),
+    ('CSE200', 2021, 'spring', 2), 
+    ('CSE200', 2021, 'fall', 3),
+    ('CSE200', 2018, 'spring', 2),
+
+    ('CSE201', 2021, 'winter', 1),
+    ('CSE201', 2021, 'spring', 2), 
+    ('CSE201', 2021, 'fall', 3),
+    ('CSE201', 2018, 'spring', 2),
+
+    ('CSE202', 2021, 'winter', 1),
+    ('CSE202', 2021, 'spring', 2), 
+    ('CSE202', 2021, 'fall', 3),
+    ('CSE202', 2018, 'spring', 2)
     ;
 
 INSERT INTO meetings VALUES
@@ -175,17 +193,26 @@ INSERT INTO meetings VALUES
     ('CSE6', 2021, 'fall', 3, 'Review Session', '2021-5-2', '12:00:00', '13:00:00', 'NO', 'room_3', 'building_2'); 
 
 INSERT INTO course_offering_ny VALUES
+    ('faculty_1', 'CSE1', 2021, 'fall', 1), 
     ('faculty_1', 'CSE1', 2022, 'fall', 1), 
     ('faculty_1', 'CSE1', 2022, 'fall', 2),
     ('faculty_1', 'CSE1', 2022, 'fall', 3),
+    ('faculty_1', 'CSE1', 2022, 'winter', 3),
 
     ('faculty_2', 'CSE2', 2022, 'fall', 1), 
-    ('faculty_3', 'CSE3', 2022, 'fall', 1), 
+    ('faculty_3', 'CSE2', 2022, 'winter', 1), 
+
     ('faculty_4', 'CSE4', 2022, 'fall', 1),
+    ('faculty_4', 'CSE4', 2022, 'winter', 1),
+    ('faculty_4', 'CSE4', 2022, 'spring', 1),
+
+    ('faculty_5', 'CSE100', 2022, 'fall', 1),
 
     ('faculty_5', 'CSE5', 2022, 'fall', 1),
-    ('faculty_5', 'CSE5', 2022, 'fall', 2);
-
+    ('faculty_5', 'CSE5', 2022, 'winter', 2),
+    ('faculty_5', 'CSE5', 2022, 'fall', 2)
+    ON CONFLICT DO NOTHING;
+    
 INSERT INTO degreeRecord VALUES
     (1, 'CS26', 'UCSD', 'INPROGRESS'),
     (6, 'BIO10', 'UCSD', 'INPROGRESS'),
@@ -198,10 +225,14 @@ INSERT INTO degreeRecord VALUES
 
 INSERT INTO gradudateDegreeRequiarment VALUES
     ('CS266', 'UCSD', 'CSE1', 'YES', 'AL'),
+    ('CS266', 'UCSD', 'CSE100', 'YES', 'AL'),
     ('CS266', 'UCSD', 'CSE2', 'NO', 'OS'),
     ('CS266', 'UCSD', 'CSE3', 'YES', 'ML'),
     ('CS266', 'UCSD', 'CSE4', 'NO', 'DS'),
-    ('CS266', 'UCSD', 'CSE5', 'YES', 'DB');
+    ('CS266', 'UCSD', 'CSE5', 'YES', 'DB'),
+    ('CS266', 'UCSD', 'CSE200', 'YES', 'General CS'),
+    ('CS266', 'UCSD', 'CSE201', 'YES', 'General CS')
+    ON CONFLICT DO NOTHING;
 
 INSERT INTO underGradudateDegreeRequiarment VALUES
     ('CS26', 'UCSD', 'CSE1', 'YES', 'NO', 'YES', 'NO', 4),
@@ -228,6 +259,7 @@ INSERT INTO enrollment VALUES
     (1, 'CSE102', 2018, 'spring', 2, 'faculty_1', 'INPROGRESS', 'INPROGRESS'),
     (2, 'CSE2', 2018, 'spring', 2, 'faculty_2', 'WAITLIST', 'INPROGRESS'),
     (3, 'CSE3', 2021, 'fall', 3, 'faculty_3', 'INPROGRESS', 'INPROGRESS'),
+    (3, 'CSE4', 2021, 'fall', 3, 'faculty_3', 'INPROGRESS', 'INPROGRESS'),
     (3, 'CSE3', 2018, 'spring', 2, 'faculty_3', 'INPROGRESS', 'INPROGRESS'),
     (4, 'CSE4', 2021, 'winter', 1, 'faculty_3', 'INPROGRESS', 'W'),
     (4, 'CSE4', 2018, 'spring', 2, 'faculty_3', 'INPROGRESS', 'W'),
@@ -237,11 +269,16 @@ INSERT INTO enrollment VALUES
 
 INSERT INTO past_enrollment VALUES
     (3, 'CSE6', 2021, 'winter', 1, 'faculty_1',  'A+'),
+    (3, 'CSE3', 2021, 'winter', 1, 'faculty_1',  'A+'),
+    (3, 'CSE200', 2021, 'winter', 1, 'faculty_1',  'A+'),
+    (3, 'CSE201', 2021, 'winter', 1, 'faculty_1',  'A+'),
+    (3, 'CSE202', 2021, 'winter', 1, 'faculty_1',  'B'),
     (4, 'CSE5', 2021, 'spring', 2, 'faculty_1', 'C-'),
     (5, 'CSE4', 2021, 'fall', 3, 'faculty_2',  'Not Pass'),
     (6, 'CSE3', 2021, 'winter', 1, 'faculty_2',  'W'),
     (7, 'CSE2', 2021, 'spring', 2, 'faculty_3',  'Pass'),
-    (8, 'CSE1', 2021, 'fall', 3, 'faculty_3',  'F');
+    (8, 'CSE1', 2021, 'fall', 3, 'faculty_3',  'F')
+    ON CONFLICT DO NOTHING;
 
 INSERT INTO thesisCommittee VALUES
     (2, 'faculty_1'),
