@@ -273,11 +273,23 @@ INSERT INTO past_enrollment VALUES
     (3, 'CSE200', 2021, 'winter', 1, 'faculty_1',  'A+'),
     (3, 'CSE201', 2021, 'winter', 1, 'faculty_1',  'A+'),
     (3, 'CSE202', 2021, 'winter', 1, 'faculty_1',  'B'),
+    
+    (3, 'CSE5', 2018, 'spring', 2, 'faculty_1',  'A+'),
+    (3, 'CSE5', 2018, 'spring', 1, 'faculty_1',  'A+'),
+    (3, 'CSE5', 2018, 'spring', 3, 'faculty_1',  'A+'),
+    (5, 'CSE5', 2021, 'spring', 2, 'faculty_1',  'A+'),
+    (1, 'CSE5', 2021, 'spring', 2, 'faculty_1',  'A+'), 
+
     (4, 'CSE5', 2021, 'spring', 2, 'faculty_1', 'C-'),
+    (2, 'CSE5', 2021, 'winter', 1, 'faculty_1', 'C-'),
+    (2, 'CSE5', 2021, 'spring', 2, 'faculty_1', 'C-'),
+    (1, 'CSE5', 2021, 'winter', 1, 'faculty_2', 'C-'),
+
     (5, 'CSE4', 2021, 'fall', 3, 'faculty_2',  'Not Pass'),
     (6, 'CSE3', 2021, 'winter', 1, 'faculty_2',  'W'),
     (7, 'CSE2', 2021, 'spring', 2, 'faculty_3',  'Pass'),
-    (8, 'CSE1', 2021, 'fall', 3, 'faculty_3',  'F')
+    (8, 'CSE1', 2021, 'fall', 3, 'faculty_3',  'F'),
+    (7, 'CSE1', 2021, 'fall', 3, 'faculty_3',  'F')
     ON CONFLICT DO NOTHING;
 
 INSERT INTO thesisCommittee VALUES
