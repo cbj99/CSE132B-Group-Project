@@ -71,7 +71,7 @@ table {
 	<%-- Statement code --%>
 	<%
 	Statement studentState = conn.createStatement();
-	String student_query_by_year_quarter = "select student_id from enrollment where quarter = ? and year_ = ?;";
+	String student_query_by_year_quarter = "select distinct student_id from enrollment where quarter = ? and year_ = ?;";
 	PreparedStatement student_query_by_year_quarter_state = conn.prepareStatement(student_query_by_year_quarter);
 	student_query_by_year_quarter_state.setString(1, quarter);
 	student_query_by_year_quarter_state.setInt(2, year);
