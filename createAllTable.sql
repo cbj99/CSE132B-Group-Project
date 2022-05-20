@@ -203,7 +203,8 @@ CREATE TABLE courses(
     unit int, 
     department char(20), 
     lab_required int, 
-    is_upper int, /* 1-> upper classes, 0-> lower classes 2-> graduate classes*/ 
+    is_upper int, /* 1-> upper classes, 0-> lower classes*/
+    course_title char(100), 
 
     PRIMARY KEY(course_number) 
 ); 
@@ -249,6 +250,7 @@ CREATE TABLE meetings(
     mandatory char(10), 
     room_number char(20), 
     building_number char(20),
+    faculty_name char(20), 
 
     PRIMARY KEY(course_number, year_, quarter, section_id, type_, date_),
     CONSTRAINT FK_classes 
@@ -258,7 +260,10 @@ CREATE TABLE meetings(
     CONSTRAINT FK_location
         FOREIGN KEY(room_number, building_number) REFERENCES location_(room_number, building_number)
         ON DELETE SET NULL
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT FK_faculty 
+        FOREIGN KEY(faculty_name) REFERENCES faculty(faculty_name)
+        ON DELETE CASCADE
 ); 
 
 /**
@@ -270,6 +275,7 @@ CREATE TABLE course_offering_ny(
     year_ int, 
     quarter char(10), 
     section_id int,
+    course_title char(100),
 
     PRIMARY KEY(faculty_name, course_number, year_, quarter, section_id),
     

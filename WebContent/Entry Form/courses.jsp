@@ -31,7 +31,7 @@
 				String action = request.getParameter("action"); 
 				if(action != null && action.equals("insert")){
 					conn.setAutoCommit(false); 
-					PreparedStatement statement = conn.prepareStatement("INSERT INTO courses VALUES(?, ?, ?, ?, ?, ?)"); 
+					PreparedStatement statement = conn.prepareStatement("INSERT INTO courses VALUES(?, ?, ?, ?, ?, ?, ?)"); 
 					PreparedStatement preStatement = conn.prepareStatement("INSERT INTO coursePrequisite VALUES(?, ?)");
 					
 					statement.setString(1, request.getParameter("COURSENUMBER"));
@@ -46,6 +46,7 @@
 					}else{
 						statement.setInt(6, 0);
 					}
+					statement.setString(7, request.getParameter("TITLE"));
 					
 					statement.executeUpdate(); 
 					
@@ -70,7 +71,7 @@
 				<% 
 				if(action != null && action.equals("update")){
 					conn.setAutoCommit(false); 
-					PreparedStatement statement = conn.prepareStatement("UPDATE courses SET course_number=?, grading_option=?, unit=?, department=?, lab_required=? where course_number=?;");
+					PreparedStatement statement = conn.prepareStatement("UPDATE courses SET course_number=?, grading_option=?, unit=?, department=?, lab_required=?, course_title=? where course_number=?;");
 					PreparedStatement deleteStatement = conn.prepareStatement("DELETE FROM coursePrequisite where course_number=?;");
 					PreparedStatement preStatement = conn.prepareStatement("INSERT INTO coursePrequisite VALUES(?, ?)");
 					
@@ -79,7 +80,8 @@
 					statement.setInt(3, Integer.parseInt(request.getParameter("UNITS")));
 					statement.setString(4, request.getParameter("DEPARTMENT"));
 					statement.setInt(5, Integer.parseInt(request.getParameter("LABREQUIRED")));
-					statement.setString(6, request.getParameter("COURSENUMBERKEY"));
+					statement.setString(6, request.getParameter("TITLE"));
+					statement.setString(7, request.getParameter("COURSENUMBERKEY"));
 					statement.executeUpdate();
 					
 					String courseNumber = request.getParameter("COURSENUMBER"); 
@@ -130,6 +132,7 @@
 						<th>Unit </th>
 						<th>Department</th>
 						<th>Lab Required</th>
+						<th>Course Title</th>
 						<th>Pre Requisite Course Number</th>
 						<th>Action</th>
 					</tr>
@@ -143,6 +146,7 @@
 							<th><input value="" name="UNITS" size="10"></th>
 							<th><input value="" name="DEPARTMENT" size="10"></th>
 							<th><input value="" name="LABREQUIRED" size="10"></th>
+							<th><input value="" name="TITLE" size="45"></th>
 							<th><input value="" name="PREREQUISITE" size="25"></th>
 							<th><input style="width:60px;" type="submit" value="Insert"></th>
 						</form>
@@ -161,6 +165,7 @@
                             <td><input value="<%= result.getInt("unit") %>" name="UNITS" size="10"></td>
                             <td><input value="<%= result.getString("department").trim() %>" name="DEPARTMENT" size="10"></td>
                             <td><input value="<%= result.getInt("lab_required") %>" name="LABREQUIRED" size="10"></td>
+                            <td><input value="<%= result.getString("course_title").trim() %>" name="TITLE" size="45"></td>
 							<% 
 							preRequisiteState.setString(1, result.getString("course_number")); 
 							ResultSet preRequisite = preRequisiteState.executeQuery(); 

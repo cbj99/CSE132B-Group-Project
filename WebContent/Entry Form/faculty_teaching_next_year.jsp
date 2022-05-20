@@ -30,13 +30,14 @@
 				String action = request.getParameter("action"); 
 				if(action != null && action.equals("insert")){
 					conn.setAutoCommit(false); 
-					PreparedStatement insertStatement = conn.prepareStatement("INSERT INTO course_offering_ny VALUES(?, ?, ?, ?, ?)");
+					PreparedStatement insertStatement = conn.prepareStatement("INSERT INTO course_offering_ny VALUES(?, ?, ?, ?, ?, ?)");
 					
 					insertStatement.setString(1, request.getParameter("FACULTYNAME")); 
 					insertStatement.setString(2, request.getParameter("COURSENUMBER")); 
 					insertStatement.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
 					insertStatement.setString(4, request.getParameter("QUARTER")); 
 					insertStatement.setInt(5, Integer.parseInt(request.getParameter("SECTION")));
+					insertStatement.setString(6, request.getParameter("TITLE"));
 					
 					insertStatement.executeUpdate(); 
 					conn.commit();
@@ -48,19 +49,20 @@
 				<% 
 				if(action != null && action.equals("update")){
 					conn.setAutoCommit(false); 
-					PreparedStatement updateFacultyStatement = conn.prepareStatement("UPDATE course_offering_ny SET faculty_name = ?, course_number=?, year_=?, quarter=?, section_id=? where faculty_name = ? and course_number=? and year_=? and quarter=? and section_id=?;");
+					PreparedStatement updateFacultyStatement = conn.prepareStatement("UPDATE course_offering_ny SET faculty_name = ?, course_number=?, year_=?, quarter=?, section_id=?, course_title=? where faculty_name = ? and course_number=? and year_=? and quarter=? and section_id=?;");
 					
 					updateFacultyStatement.setString(1, request.getParameter("FACULTYNAME")); 
 					updateFacultyStatement.setString(2, request.getParameter("COURSENUMBER")); 
 					updateFacultyStatement.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
 					updateFacultyStatement.setString(4, request.getParameter("QUARTER")); 
 					updateFacultyStatement.setInt(5, Integer.parseInt(request.getParameter("SECTION")));
+					updateFacultyStatement.setString(6, request.getParameter("TITLE")); 
 					
-					updateFacultyStatement.setString(6, request.getParameter("FACULTYNAME")); 
-					updateFacultyStatement.setString(7, request.getParameter("COURSENUMBER")); 
-					updateFacultyStatement.setInt(8, Integer.parseInt(request.getParameter("YEAR")));
-					updateFacultyStatement.setString(9, request.getParameter("QUARTER")); 
-					updateFacultyStatement.setInt(10, Integer.parseInt(request.getParameter("SECTION")));
+					updateFacultyStatement.setString(7, request.getParameter("FACULTYNAME")); 
+					updateFacultyStatement.setString(8, request.getParameter("COURSENUMBER")); 
+					updateFacultyStatement.setInt(9, Integer.parseInt(request.getParameter("YEAR")));
+					updateFacultyStatement.setString(10, request.getParameter("QUARTER")); 
+					updateFacultyStatement.setInt(11, Integer.parseInt(request.getParameter("SECTION")));
 					
 					updateFacultyStatement.executeUpdate(); 
 					conn.commit();
@@ -72,13 +74,14 @@
 				<%
 				if(action != null && action.equals("delete")){
 					conn.setAutoCommit(false); 
-					PreparedStatement deleteFacultyStatement = conn.prepareStatement("DELETE FROM course_offering_ny where faculty_name = ? and course_number=? and year_=? and quarter=? and section_id=?;");
+					PreparedStatement deleteFacultyStatement = conn.prepareStatement("DELETE FROM course_offering_ny where faculty_name = ? and course_number=? and year_=? and quarter=? and section_id=? and course_title=?;");
 					
 					deleteFacultyStatement.setString(1, request.getParameter("FACULTYNAME")); 
 					deleteFacultyStatement.setString(2, request.getParameter("COURSENUMBER")); 
 					deleteFacultyStatement.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
 					deleteFacultyStatement.setString(4, request.getParameter("QUARTER")); 
 					deleteFacultyStatement.setInt(5, Integer.parseInt(request.getParameter("SECTION")));
+					deleteFacultyStatement.setString(6, request.getParameter("TITLE"));
 					
 					deleteFacultyStatement.executeUpdate(); 
 					
@@ -101,6 +104,7 @@
 						<th>Year</th>
 						<th>Quarter</th>
 						<th>Section ID</th>
+						<th>Course Title</th>
 						<th>Action</th>
 					</tr>
 					<tr>
@@ -112,6 +116,7 @@
 							<th><input value="" name="YEAR" size="20"></th>
 							<th><input value="" name="QUARTER" size="20"></th>
 							<th><input value="" name="SECTION" size="20"></th>
+							<th><input value="" name="TITLE" size="45"></th>
 							<th><input style="width:60px;" type="submit" value="Insert"></th>
 						</form>
 					</tr>
@@ -128,6 +133,7 @@
                             <td><input value="<%= result.getInt("year_") %>" name="YEAR" size="20"></td>
                             <td><input value="<%= result.getString("quarter").trim() %>" name="QUARTER" size="20"></td>
                             <td><input value="<%= result.getInt("section_id") %>" name="SECTION" size="20"></td>
+                            <td><input value="<%= result.getString("course_title").trim() %>" name="TITLE" size="45"></td>
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
 						<form action="faculty_teaching_next_year.jsp" method="get">
@@ -137,6 +143,7 @@
                             <input type="hidden" value="<%= result.getInt("year_") %>" name="YEAR">
                             <input type="hidden" value="<%= result.getString("quarter").trim() %>" name="QUARTER">
                             <input type="hidden" value="<%= result.getInt("section_id") %>" name="SECTION">
+                            <input type="hidden" value="<%= result.getString("course_title").trim() %>" name="TITLE">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
 					</tr>
