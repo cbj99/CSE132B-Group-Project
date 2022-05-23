@@ -35,7 +35,7 @@
 					insertMeeting.setString(1, request.getParameter("COURSENUMBER")); 
 					insertMeeting.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
 					insertMeeting.setString(3, request.getParameter("QUARTER")); 
-					insertMeeting.setInt(4, Integer.parseInt(request.getParameter("SECTION"))); 
+					insertMeeting.setString(4, request.getParameter("SECTION")); 
 					insertMeeting.setString(5, request.getParameter("TYPE")); 
 					insertMeeting.setString(6, request.getParameter("DATE"));
 					insertMeeting.setString(7, request.getParameter("BEGINTIME"));
@@ -58,7 +58,7 @@
 					updatemeeting.setString(6, request.getParameter("COURSENUMBER")); 
 					updatemeeting.setInt(7, Integer.parseInt(request.getParameter("YEAR"))); 
 					updatemeeting.setString(8, request.getParameter("QUARTER")); 
-					updatemeeting.setInt(9, Integer.parseInt(request.getParameter("SECTION"))); 
+					updatemeeting.setString(9, request.getParameter("SECTION")); 
 					updatemeeting.setString(10, request.getParameter("TYPE")); 
 					updatemeeting.setString(11, request.getParameter("DATE"));
 					
@@ -82,7 +82,7 @@
 					deleteMeeting.setString(1, request.getParameter("COURSENUMBER")); 
 					deleteMeeting.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
 					deleteMeeting.setString(3, request.getParameter("QUARTER")); 
-					deleteMeeting.setInt(4, Integer.parseInt(request.getParameter("SECTION"))); 
+					deleteMeeting.setString(4, request.getParameter("SECTION")); 
 					deleteMeeting.setString(5, request.getParameter("TYPE")); 
 					deleteMeeting.setString(6, request.getParameter("DATE"));
 					deleteMeeting.executeUpdate(); 
@@ -165,7 +165,7 @@
                             <td><input value="<%= meetingRS.getString("course_number").trim()%>" name="COURSENUMBER" size="20" readonly></td>
                             <td><input value="<%= meetingRS.getInt("year_") %>" name="YEAR" size="20" readonly></td>
                             <td><input value="<%= meetingRS.getString("quarter").trim() %>" name="QUARTER" size="20" readonly></td>
-                            <td><input value="<%= meetingRS.getInt("section_id") %>" name="SECTION" size="20" readonly></td>
+                            <td><input value="<%= meetingRS.getString("section_id").trim() %>" name="SECTION" size="20" readonly></td>
                             <td><input value="<%= meetingRS.getString("type_").trim() %>" name="TYPE" size="20" readonly></td>
                             <td><input value="<%= meetingRS.getDate("date_") %>" name="DATE" size="20" readonly></td>
                             <td><input value="<%= meetingRS.getTime("begin_time") %>" name="BEGINTIME" size="20"></td>
@@ -195,7 +195,7 @@
                             <input type="hidden" value="<%= meetingRS.getString("course_number") %>" name="COURSENUMBER">
                             <input type="hidden" value="<%= meetingRS.getInt("year_") %>" name="YEAR" size="20">
                             <input type="hidden" value="<%= meetingRS.getString("quarter").trim() %>" name="QUARTER" size="20">
-                            <input type="hidden" value="<%= meetingRS.getInt("section_id") %>" name="SECTION" size="20">
+                            <input type="hidden" value="<%= meetingRS.getString("section_id").trim() %>" name="SECTION" size="20">
                             <input type="hidden" value="<%= meetingRS.getString("type_").trim() %>" name="TYPE" size="20">
                             <input type="hidden" value="<%= meetingRS.getDate("date_") %>" name="DATE" size="20">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>

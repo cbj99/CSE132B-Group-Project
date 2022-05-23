@@ -34,7 +34,7 @@
 					insertEnrollment.setString(2, request.getParameter("COURSENUMBER"));
 					insertEnrollment.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
 					insertEnrollment.setString(4, request.getParameter("QUARTER"));
-					insertEnrollment.setInt(5, Integer.parseInt(request.getParameter("SECTION"))); 
+					insertEnrollment.setString(5, request.getParameter("SECTION")); 
 					insertEnrollment.setString(6, request.getParameter("FACULTY"));
 					insertEnrollment.setString(7, request.getParameter("STATUS"));
 					insertEnrollment.setString(8, request.getParameter("GRADE"));
@@ -54,7 +54,7 @@
 					updateEnrollment.setString(4, request.getParameter("COURSENUMBER"));
 					updateEnrollment.setInt(5, Integer.parseInt(request.getParameter("YEAR")));
 					updateEnrollment.setString(6, request.getParameter("QUARTER"));
-					updateEnrollment.setInt(7, Integer.parseInt(request.getParameter("SECTION"))); 
+					updateEnrollment.setString(7, request.getParameter("SECTION")); 
 					updateEnrollment.setString(8, request.getParameter("FACULTY"));
 					updateEnrollment.setString(1, request.getParameter("STATUS"));
 					updateEnrollment.setString(2, request.getParameter("GRADE"));
@@ -74,7 +74,7 @@
 					deldeteEnrollment.setString(2, request.getParameter("COURSENUMBER"));
 					deldeteEnrollment.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
 					deldeteEnrollment.setString(4, request.getParameter("QUARTER"));
-					deldeteEnrollment.setInt(5, Integer.parseInt(request.getParameter("SECTION"))); 
+					deldeteEnrollment.setString(5, request.getParameter("SECTION")); 
 					deldeteEnrollment.setString(6, request.getParameter("FACULTY"));
 					deldeteEnrollment.executeUpdate(); 
 					conn.commit();
@@ -151,7 +151,7 @@
                             <td><input value="<%= enrollmentRS.getString("course_number").trim()%>" name="COURSENUMBER" size="20" readonly></td>
                             <td><input value="<%= enrollmentRS.getInt("year_") %>" name="YEAR" size="20" readonly></td>
                             <td><input value="<%= enrollmentRS.getString("quarter").trim()%>" name="QUARTER" size="20" readonly></td>
-                            <td><input value="<%= enrollmentRS.getInt("section_id")%>" name="SECTION" size="20" readonly></td>
+                            <td><input value="<%= enrollmentRS.getString("section_id").trim()%>" name="SECTION" size="20" readonly></td>
                             <td><input value="<%= enrollmentRS.getString("faculty_name").trim()%>" name="FACULTY" size="20" readonly></td>
 <%--                             <td><input value="<%= enrollmentRS.getString("status").trim()%>" name="STATUS" size="20"></td> --%>
                             <td>
@@ -192,7 +192,7 @@
                             <input type="hidden" value="<%= enrollmentRS.getString("course_number").trim()%>" name="COURSENUMBER" size="20">
                             <input type="hidden" value="<%= enrollmentRS.getInt("year_") %>" name="YEAR" size="20">
                             <input type="hidden" value="<%= enrollmentRS.getString("quarter").trim()%>" name="QUARTER" size="20">
-                            <input type="hidden" value="<%= enrollmentRS.getInt("section_id")%>" name="SECTION" size="20">
+                            <input type="hidden" value="<%= enrollmentRS.getString("section_id").trim()%>" name="SECTION" size="20">
                             <input type="hidden" value="<%= enrollmentRS.getString("faculty_name").trim()%>" name="FACULTY" size="20">
                             
                             <td><input style="width:60px;" type="submit" value="Delete"></td>

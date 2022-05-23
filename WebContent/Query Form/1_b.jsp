@@ -110,7 +110,7 @@
 			<td><%=class_RS.getString("course_number").trim()%></td>
 			<td><%=class_RS.getInt("year_")%></td>
 			<td><%=class_RS.getString("quarter").trim()%></td>
-			<td><%=class_RS.getInt("section_id")%></td>
+			<td><%=class_RS.getString("section_id").trim()%></td>
 		</tr>
 		<%
 		}
@@ -145,7 +145,7 @@
 			<td><%=roster_RS.getString("course_number").trim()%></td>
 			<td><%=roster_RS.getInt("year_")%></td>
 			<td><%=roster_RS.getString("quarter").trim()%></td>
-			<td><%=roster_RS.getInt("section_id")%></td>
+			<td><%=roster_RS.getString("section_id").trim()%></td>
 			<td><%=roster_RS.getString("faculty_name").trim()%></td>
 			<td><%=roster_RS.getInt("unit")%></td>
 			<td><%=roster_RS.getString("grading_option").trim()%></td>
