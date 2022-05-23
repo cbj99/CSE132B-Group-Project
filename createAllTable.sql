@@ -314,7 +314,7 @@ CREATE TABLE gradudateDegreeRequiarment(
     is_required char(10), 
     concentration char(50) NOT NULL, /*assumption: one course for one degree belongs in one concentration*/
     concentration_units int, 
-    minimum gpa int, 
+    minimum_gpa int, 
 
     PRIMARY KEY(degree_id, institution, course_number), 
     CONSTRAINT FK_degree
