@@ -36,7 +36,7 @@
 					insertClass.setString(1, request.getParameter("COURSENUMBER")); 
 					insertClass.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
 					insertClass.setString(3, request.getParameter("QUARTER")); 
-					insertClass.setInt(4, Integer.parseInt(request.getParameter("SECTIONID"))); 
+					insertClass.setString(4, request.getParameter("SECTIONID")); 
 					insertClass.executeUpdate(); 
 					conn.commit();
                     conn.setAutoCommit(true); 
@@ -52,11 +52,11 @@
 					updateClass.setString(1, request.getParameter("COURSENUMBER")); 
 					updateClass.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
 					updateClass.setString(3, request.getParameter("QUARTER")); 
-					updateClass.setInt(4, Integer.parseInt(request.getParameter("SECTIONID"))); 
+					updateClass.setString(4, request.getParameter("SECTIONID")); 
 					updateClass.setString(5, request.getParameter("COURSENUMBERKEY")); 
 					updateClass.setInt(6, Integer.parseInt(request.getParameter("YEARKEY"))); 
 					updateClass.setString(7, request.getParameter("QUARTERKEY")); 
-					updateClass.setInt(8, Integer.parseInt(request.getParameter("SECTIONIDKEY"))); 
+					updateClass.setString(8, request.getParameter("SECTIONIDKEY")); 
 					
 					updateClass.executeUpdate(); 
 					conn.commit();
@@ -73,7 +73,7 @@
 					deleteClass.setString(1, request.getParameter("COURSENUMBER")); 
 					deleteClass.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
 					deleteClass.setString(3, request.getParameter("QUARTER")); 
-					deleteClass.setInt(4, Integer.parseInt(request.getParameter("SECTIONID"))); 
+					deleteClass.setString(4, request.getParameter("SECTIONID")); 
 					deleteClass.executeUpdate(); 
 					conn.commit();
                     conn.setAutoCommit(true); 
@@ -125,12 +125,12 @@
                             <input type="hidden" value="<%= classesRS.getString("course_number").trim() %>" name="COURSENUMBERKEY" size="20">
                             <input type="hidden" value="<%= classesRS.getInt("year_") %>" name="YEARKEY" size="20">
                             <input type="hidden" value="<%= classesRS.getString("quarter").trim() %>" name="QUARTERKEY" size="20">
-                            <input type="hidden" value="<%= classesRS.getInt("section_id") %>" name="SECTIONIDKEY" size="20">
+                            <input type="hidden" value="<%= classesRS.getString("section_id").trim() %>" name="SECTIONIDKEY" size="20">
                             
                             <td><input value="<%= classesRS.getString("course_number").trim() %>" name="COURSENUMBER" size="20" readonly></td>
                             <td><input value="<%= classesRS.getInt("year_") %>" name="YEAR" size="20" readonly></td>
                             <td><input value="<%= classesRS.getString("quarter").trim() %>" name="QUARTER" size="20" readonly></td>
-                            <td><input value="<%= classesRS.getInt("section_id") %>" name="SECTIONID" size="20" readonly></td>
+                            <td><input value="<%= classesRS.getString("section_id").trim() %>" name="SECTIONID" size="20" readonly></td>
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
 						<form action="classes.jsp" method="get">
@@ -138,7 +138,7 @@
                             <input type="hidden" value="<%= classesRS.getString("course_number").trim() %>" name="COURSENUMBER" size="20">
                             <input type="hidden" value="<%= classesRS.getInt("year_") %>" name="YEAR" size="20">
                             <input type="hidden" value="<%= classesRS.getString("quarter").trim() %>" name="QUARTER" size="20">
-                            <input type="hidden" value="<%= classesRS.getInt("section_id") %>" name="SECTIONID" size="20">
+                            <input type="hidden" value="<%= classesRS.getString("section_id").trim() %>" name="SECTIONID" size="20">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>
 					</tr>
