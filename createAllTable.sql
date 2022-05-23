@@ -353,7 +353,7 @@ CREATE TABLE enrollment(
     quarter char(10), 
     section_id char(20), 
     faculty_name char(20), 
-
+    unit_taken int,
     status char(20), 
     grade char(20), 
 
@@ -376,6 +376,7 @@ CREATE TABLE past_enrollment(
     quarter char(10), 
     section_id char(20),
     faculty_name char(20),
+    unit_taken int,
     grade char(20), 
 
     PRIMARY KEY(student_id, course_number, year_, quarter, section_id, faculty_name), 
