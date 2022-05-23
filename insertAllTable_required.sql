@@ -359,7 +359,7 @@ INSERT INTO meetings VALUES
     ('CSE124A', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-31', '20:00:00', '21:20:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty2'),
     ('CSE124A', 2018, 'SPRING', 'A00', 'Lecture', '2018-6-2', '20:00:00', '21:20:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty2'),
 
-    -- #18 TUTHU discussion on Friday
+    -- #18 CSE132C TUTHU discussion on Friday
     ('CSE132C', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-24', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
     ('CSE132C', 2018, 'SPRING', 'A00', 'Discussion', '2018-3-25', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
 
@@ -402,6 +402,50 @@ INSERT INTO meetings VALUES
     ('CSE132C', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-31', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
     ('CSE132C', 2018, 'SPRING', 'A00', 'Lecture', '2018-6-2',  '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
     ('CSE132C', 2018, 'SPRING', 'A00', 'Discussion', '2018-6-3', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    -- #18 CSE130 TUTHU discussion on Friday
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-24', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-3-25', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-29', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-31', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-1', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-5', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-7', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-8', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-12', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-14', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-15', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-19', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-21', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-22', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-26', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-28', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-29', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-3', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-5', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-5-6', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-10', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-12', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-5-13', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-17', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-19', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-5-20', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-24', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-26', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-5-27', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-31', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Lecture', '2018-6-2',  '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE130', 2018, 'SPRING', 'A00', 'Discussion', '2018-6-3', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
 
     -- #19
     ('CSE005', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-24', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty3'),
@@ -744,6 +788,50 @@ INSERT INTO meetings VALUES
     ('MATH132C', 2018, 'SPRING', 'A00', 'Lecture', '2018-6-2',  '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
     ('MATH132C', 2018, 'SPRING', 'A00', 'Discussion', '2018-6-3', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
 
+    -- MATH130
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-24', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-3-25', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-29', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-31', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-1', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-5', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-7', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-8', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-12', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-14', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-15', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-19', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-21', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-22', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-26', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-4-28', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-4-29', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-3', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-5', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-5-6', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-10', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-12', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-5-13', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-17', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-19', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-5-20', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-24', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-26', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-5-27', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-5-31', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Lecture', '2018-6-2',  '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('MATH130', 2018, 'SPRING', 'A00', 'Discussion', '2018-6-3', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+
     -- MATH 005
     ('MATH005', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-24', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty3'),
     ('MATH005', 2018, 'SPRING', 'A00', 'Discussion', '2018-3-25', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty3'),
@@ -974,3 +1062,14 @@ INSERT INTO past_enrollment VALUES
     (141414141, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'B'),
     (151515151, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'C')
     ON CONFLICT DO NOTHING;
+    
+insert into grade_conversion values('A+', 4.3);
+insert into grade_conversion values('A', 4);
+insert into grade_conversion values('A-', 3.7);
+insert into grade_conversion values('B+', 3.4);
+insert into grade_conversion values('B', 3.1);
+insert into grade_conversion values('B-', 2.8);
+insert into grade_conversion values('C+', 2.5);
+insert into grade_conversion values('C', 2.2);
+insert into grade_conversion values('C-', 1.9);
+insert into grade_conversion values('D', 1.6);

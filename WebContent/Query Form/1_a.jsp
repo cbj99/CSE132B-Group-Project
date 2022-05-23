@@ -39,10 +39,10 @@ table {
 	<%-- Query Code --%>
 	<%
 	int year = 2018;
-	String quarter = "spring";
+	String quarter = "SPRING";
 
 	String student_id_query = "select * from student where student_id = ?";
-	String enrollment_query = "SELECT enrollment.student_id, enrollment.course_number, enrollment.year_, enrollment.quarter, enrollment.section_id, enrollment.faculty_name, enrollment.status, enrollment.grade, courses.unit, courses.department, courses.lab_required FROM enrollment, courses where enrollment.student_id = ? and enrollment.year_ = ? and enrollment.quarter = ? and courses.course_number =  enrollment.course_number";
+	String enrollment_query = "SELECT enrollment.student_id, enrollment.course_number, enrollment.year_, enrollment.quarter, enrollment.section_id, enrollment.faculty_name, enrollment.status, enrollment.grade, enrollment.unit_taken, courses.department, courses.lab_required FROM enrollment, courses where enrollment.student_id = ? and enrollment.year_ = ? and enrollment.quarter = ? and courses.course_number =  enrollment.course_number";
 
 	PreparedStatement student_id_state = conn.prepareStatement(student_id_query);
 	PreparedStatement enrollment_state = conn.prepareStatement(enrollment_query);
@@ -166,7 +166,7 @@ table {
 			<td><%=enrollment_RS.getString("faculty_name").trim()%></td>
 			<td><%=enrollment_RS.getString("status").trim()%></td>
 			<td><%=enrollment_RS.getString("grade").trim()%></td>
-			<td><%=enrollment_RS.getInt("unit")%></td>
+			<td><%=enrollment_RS.getInt("unit_taken")%></td>
 			<td><%=enrollment_RS.getString("department").trim()%></td>
 			<td><%=enrollment_RS.getInt("lab_required")%></td>
 		</tr>

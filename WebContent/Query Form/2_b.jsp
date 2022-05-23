@@ -33,13 +33,13 @@ table {
 		DriverManager.registerDriver(new org.postgresql.Driver());
 		String strCBJ = "jdbc:postgresql:milestone_2?user=postgres&password=cbj991112";
 		String StrD = "jdbc:postgresql:Test?user=postgres&password=vhgjhbgibiyy1234";
-		Connection conn = DriverManager.getConnection(strCBJ);
+		Connection conn = DriverManager.getConnection(StrD);
 	%>
 
 	<%-- Query Code --%>
 	<%
 	int year = 2018;
-	String quarter = "spring";
+	String quarter = "SPRING";
 
 	String section_taught_by_faculty_query = "select distinct course_number, section_id from meetings where faculty_name = ? and quarter = ? and year_ = ? order by course_number;";
 	
