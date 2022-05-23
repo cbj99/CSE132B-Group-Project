@@ -2,7 +2,7 @@ create table student(
     student_id int, 
 	SSN int,  
     identity_ char(50), 
-    enrollment_status char(20), 
+    enrollment_status char(50), 
     first_name char(50), 
     last_name char(50), 
     middle_name char(50), 
@@ -13,7 +13,7 @@ create table undergraduateStudent(
     student_id int, 
 	SSN int,  
     identity_ char(50), 
-    enrollment_status char(20), 
+    enrollment_status char(50), 
     first_name char(50), 
     last_name char(50), 
     middle_name char(50),  
@@ -33,7 +33,7 @@ create table BSMSStudent(
     student_id int, 
 	SSN int,  
     identity_ char(50), 
-    enrollment_status char(20),
+    enrollment_status char(50),
     first_name char(50), 
     last_name char(50), 
     middle_name char(50), 
@@ -50,7 +50,7 @@ create table MSStudent(
     student_id int, 
 	SSN int,  
     identity_ char(50), 
-    enrollment_status char(20),
+    enrollment_status char(50),
     first_name char(50), 
     last_name char(50), 
     middle_name char(50), 
@@ -68,7 +68,7 @@ create table PHDPreCandidacyStudent(
     student_id int, 
 	SSN int,  
     identity_ char(50), 
-    enrollment_status char(20),
+    enrollment_status char(50),
     first_name char(50), 
     last_name char(50), 
     middle_name char(50), 
@@ -85,7 +85,7 @@ CREATE TABLE probation(
     student_id int, 
     year int, 
     quarter char(10), 
-    university char(20), 
+    university char(50), 
     reason char(255) not null , 
 
     PRIMARY KEY(student_id, year, quarter, university),
@@ -108,7 +108,7 @@ create table PHDCandidateStudent(
     student_id int, 
 	SSN int,  
     identity_ char(50), 
-    enrollment_status char(20),
+    enrollment_status char(50),
     first_name char(50), 
     last_name char(50), 
     middle_name char(50), 
@@ -131,7 +131,7 @@ create table graduateStudent(
     student_id int,
 	SSN int,  
     identity_ char(50), 
-    enrollment_status char(20),
+    enrollment_status char(50),
     first_name char(50), 
     last_name char(50), 
     middle_name char(50), 
@@ -144,8 +144,8 @@ create table graduateStudent(
 );
 
 CREATE TABLE location_(
-    room_number char(20), 
-    building_number char(20), 
+    room_number char(50), 
+    building_number char(50), 
     capacity int,
 
     PRIMARY KEY(room_number, building_number)
@@ -155,7 +155,7 @@ CREATE TABLE degree_(
     degree_id char(50), 
     institution char(50), 
     degree_name char(50), 
-    department char(20), 
+    department char(50), 
 
     PRIMARY KEY(degree_id, institution)
 ); 
@@ -165,9 +165,9 @@ CREATE TABLE undergraduateDegree(
     degree_id char(50), 
     institution char(50), 
     degree_name char(50),
-    department char(20),
+    department char(50),
 
-    type char(20), /* type is BA or BS*/ 
+    type char(50), /* type is BA or BS*/ 
     upper_division_units int, 
     lower_division_units int, 
 
@@ -187,7 +187,7 @@ CREATE TABLE graduateDegree(
     degree_id char(50), 
     institution char(50), 
     degree_name char(50),
-    department char(20), 
+    department char(50), 
     required_units int, 
 
     PRIMARY KEY(degree_id, institution), 
@@ -198,10 +198,10 @@ CREATE TABLE graduateDegree(
 );
 
 CREATE TABLE courses(
-    course_number char(20), 
-    grading_option char(20), 
+    course_number char(50), 
+    grading_option char(50), 
     unit int, 
-    department char(20), 
+    department char(50), 
     lab_required int, 
     is_upper int, /* 1-> upper classes, 0-> lower classes 2->graduate*/
     course_title char(100), 
@@ -210,8 +210,8 @@ CREATE TABLE courses(
 ); 
 
 CREATE TABLE coursePrequisite(
-    course_number char(20), 
-    prerequisite char(20), 
+    course_number char(50), 
+    prerequisite char(50), 
 
     PRIMARY KEY(course_number, prerequisite),
     CONSTRAINT FK_course 
@@ -225,10 +225,10 @@ CREATE TABLE coursePrequisite(
 );
 
 CREATE TABLE classes(
-    course_number char(20), 
+    course_number char(50), 
     year_ int, 
     quarter char(10), 
-    section_id char(20), 
+    section_id char(50), 
 
     PRIMARY KEY(course_number, year_, quarter, section_id), 
     CONSTRAINT FK_course_number 
@@ -238,19 +238,19 @@ CREATE TABLE classes(
 ); 
 
 CREATE TABLE meetings(
-    course_number char(20), 
+    course_number char(50), 
     year_ int, 
     quarter char(10), 
-    section_id char(20), 
-    type_ char(20), 
+    section_id char(50), 
+    type_ char(50), 
     date_ date NOT NULL DEFAULT CURRENT_DATE, 
 
     begin_time time NOT NULL DEFAULT CURRENT_TIME,
     end_time time NOT NULL DEFAULT CURRENT_TIME, 
     mandatory char(10), 
-    room_number char(20), 
-    building_number char(20),
-    faculty_name char(20), 
+    room_number char(50), 
+    building_number char(50),
+    faculty_name char(50), 
 
     PRIMARY KEY(course_number, year_, quarter, section_id, type_, date_),
     CONSTRAINT FK_classes 
@@ -271,10 +271,10 @@ CREATE TABLE meetings(
 */
 CREATE TABLE course_offering_ny(
     faculty_name char(50), 
-    course_number char(20), 
+    course_number char(50), 
     year_ int, 
     quarter char(10), 
-    section_id char(20),
+    section_id char(50),
     course_title char(100),
 
     PRIMARY KEY(faculty_name, course_number, year_, quarter, section_id),
@@ -294,7 +294,7 @@ CREATE TABLE degreeRecord(
     student_id int,
     degree_id char(50), 
     institution char(50),
-    status char(20), 
+    status char(50), 
 
     PRIMARY KEY(student_id, degree_id, institution), 
     CONSTRAINT FK_degree
@@ -310,9 +310,11 @@ CREATE TABLE degreeRecord(
 CREATE TABLE gradudateDegreeRequiarment(
     degree_id char(50), 
     institution char(50),
-    course_number char(20), 
+    course_number char(50), 
     is_required char(10), 
-    concentration char(20) NOT NULL, /*assumption: one course for one degree belongs in one concentration*/
+    concentration char(50) NOT NULL, /*assumption: one course for one degree belongs in one concentration*/
+    concentration_units int, 
+    minimum gpa int, 
 
     PRIMARY KEY(degree_id, institution, course_number), 
     CONSTRAINT FK_degree
@@ -328,7 +330,7 @@ CREATE TABLE gradudateDegreeRequiarment(
 CREATE TABLE underGradudateDegreeRequiarment(
     degree_id char(50), 
     institution char(50),
-    course_number char(20), 
+    course_number char(50), 
     is_core char(10), 
     is_technical_elective char(10), 
     is_major_elective char(10), 
@@ -348,14 +350,14 @@ CREATE TABLE underGradudateDegreeRequiarment(
 
 CREATE TABLE enrollment(
     student_id int, 
-    course_number char(20), 
+    course_number char(50), 
     year_ int, 
     quarter char(10), 
-    section_id char(20), 
-    faculty_name char(20), 
+    section_id char(50), 
+    faculty_name char(50), 
     unit_taken int,
-    status char(20), 
-    grade char(20), 
+    status char(50), 
+    grade char(50), 
 
     PRIMARY KEY(student_id, course_number, year_, quarter, section_id, faculty_name), 
     CONSTRAINT FK_classes 
@@ -371,13 +373,13 @@ CREATE TABLE enrollment(
 
 CREATE TABLE past_enrollment(
     student_id int, 
-    course_number char(20), 
+    course_number char(50), 
     year_ int, 
     quarter char(10), 
-    section_id char(20),
-    faculty_name char(20),
+    section_id char(50),
+    faculty_name char(50),
     unit_taken int,
-    grade char(20), 
+    grade char(50), 
 
     PRIMARY KEY(student_id, course_number, year_, quarter, section_id, faculty_name), 
     CONSTRAINT FK_classes 
@@ -390,7 +392,7 @@ CREATE TABLE past_enrollment(
 
 CREATE TABLE thesisCommittee(
     student_id int, 
-    faculty_name char(20), 
+    faculty_name char(50), 
     PRIMARY KEY(student_id, faculty_name), 
     CONSTRAINT FK_student_id 
         FOREIGN KEY(student_id) REFERENCES graduateStudent(student_id)
