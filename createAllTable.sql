@@ -203,7 +203,7 @@ CREATE TABLE courses(
     unit int, 
     department char(20), 
     lab_required int, 
-    is_upper int, /* 1-> upper classes, 0-> lower classes*/
+    is_upper int, /* 1-> upper classes, 0-> lower classes 2->graduate*/
     course_title char(100), 
 
     PRIMARY KEY(course_number) 
@@ -228,7 +228,7 @@ CREATE TABLE classes(
     course_number char(20), 
     year_ int, 
     quarter char(10), 
-    section_id int, 
+    section_id char(20), 
 
     PRIMARY KEY(course_number, year_, quarter, section_id), 
     CONSTRAINT FK_course_number 
@@ -241,7 +241,7 @@ CREATE TABLE meetings(
     course_number char(20), 
     year_ int, 
     quarter char(10), 
-    section_id int, 
+    section_id char(20), 
     type_ char(20), 
     date_ date NOT NULL DEFAULT CURRENT_DATE, 
 
@@ -274,7 +274,7 @@ CREATE TABLE course_offering_ny(
     course_number char(20), 
     year_ int, 
     quarter char(10), 
-    section_id int,
+    section_id char(20),
     course_title char(100),
 
     PRIMARY KEY(faculty_name, course_number, year_, quarter, section_id),
@@ -351,7 +351,7 @@ CREATE TABLE enrollment(
     course_number char(20), 
     year_ int, 
     quarter char(10), 
-    section_id int, 
+    section_id char(20), 
     faculty_name char(20), 
 
     status char(20), 
@@ -374,7 +374,7 @@ CREATE TABLE past_enrollment(
     course_number char(20), 
     year_ int, 
     quarter char(10), 
-    section_id int,
+    section_id char(20),
     faculty_name char(20),
     grade char(20), 
 
