@@ -36,7 +36,7 @@
 					insertStatement.setString(2, request.getParameter("COURSENUMBER")); 
 					insertStatement.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
 					insertStatement.setString(4, request.getParameter("QUARTER")); 
-					insertStatement.setInt(5, Integer.parseInt(request.getParameter("SECTION")));
+					insertStatement.setString(5, request.getParameter("SECTION"));
 					insertStatement.setString(6, request.getParameter("TITLE"));
 					
 					insertStatement.executeUpdate(); 
@@ -55,14 +55,14 @@
 					updateFacultyStatement.setString(2, request.getParameter("COURSENUMBER")); 
 					updateFacultyStatement.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
 					updateFacultyStatement.setString(4, request.getParameter("QUARTER")); 
-					updateFacultyStatement.setInt(5, Integer.parseInt(request.getParameter("SECTION")));
+					updateFacultyStatement.setString(5, request.getParameter("SECTION"));
 					updateFacultyStatement.setString(6, request.getParameter("TITLE")); 
 					
 					updateFacultyStatement.setString(7, request.getParameter("FACULTYNAME")); 
 					updateFacultyStatement.setString(8, request.getParameter("COURSENUMBER")); 
 					updateFacultyStatement.setInt(9, Integer.parseInt(request.getParameter("YEAR")));
 					updateFacultyStatement.setString(10, request.getParameter("QUARTER")); 
-					updateFacultyStatement.setInt(11, Integer.parseInt(request.getParameter("SECTION")));
+					updateFacultyStatement.setString(11, request.getParameter("SECTION"));
 					
 					updateFacultyStatement.executeUpdate(); 
 					conn.commit();
@@ -80,7 +80,7 @@
 					deleteFacultyStatement.setString(2, request.getParameter("COURSENUMBER")); 
 					deleteFacultyStatement.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
 					deleteFacultyStatement.setString(4, request.getParameter("QUARTER")); 
-					deleteFacultyStatement.setInt(5, Integer.parseInt(request.getParameter("SECTION")));
+					deleteFacultyStatement.setString(5, request.getParameter("SECTION"));
 					deleteFacultyStatement.setString(6, request.getParameter("TITLE"));
 					
 					deleteFacultyStatement.executeUpdate(); 
@@ -132,7 +132,7 @@
                             <td><input value="<%= result.getString("course_number").trim() %>" name="COURSENUMBER" size="20"></td>
                             <td><input value="<%= result.getInt("year_") %>" name="YEAR" size="20"></td>
                             <td><input value="<%= result.getString("quarter").trim() %>" name="QUARTER" size="20"></td>
-                            <td><input value="<%= result.getInt("section_id") %>" name="SECTION" size="20"></td>
+                            <td><input value="<%= result.getString("section_id").trim() %>" name="SECTION" size="20"></td>
                             <td><input value="<%= result.getString("course_title").trim() %>" name="TITLE" size="45"></td>
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
@@ -142,7 +142,7 @@
                             <input type="hidden" value="<%= result.getString("course_number").trim() %>" name="COURSENUMBER">
                             <input type="hidden" value="<%= result.getInt("year_") %>" name="YEAR">
                             <input type="hidden" value="<%= result.getString("quarter").trim() %>" name="QUARTER">
-                            <input type="hidden" value="<%= result.getInt("section_id") %>" name="SECTION">
+                            <input type="hidden" value="<%= result.getString("section_id").trim() %>" name="SECTION">
                             <input type="hidden" value="<%= result.getString("course_title").trim() %>" name="TITLE">
                             <td><input style="width:60px;" type="submit" value="Delete"></td>
                         </form>

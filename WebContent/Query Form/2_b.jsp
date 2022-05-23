@@ -106,7 +106,7 @@ table {
 	String begin_date = "";
 	String end_date = "";
 	String course_number = "";
-	int section_id = 0;
+	String section_id = "";
 	String text;
 	String[] result;
 	
@@ -121,12 +121,12 @@ table {
 		text = request.getParameter("SECTIONINFO");
 		result = text.split(",");
 		course_number = result[0];
-		section_id = Integer.parseInt(result[1]);
+		section_id = result[1];
 
 		schedule_state.setInt(1, year);
 		schedule_state.setString(2, quarter);
 		schedule_state.setString(3, course_number);
-		schedule_state.setInt(4, section_id);
+		schedule_state.setString(4, section_id);
 		schedule_state.setInt(5, year);
 		schedule_state.setString(6, quarter);
 		schedule_state.setString(7, begin_date);
@@ -208,7 +208,7 @@ table {
 						<%
 						while (section_RS != null && section_RS.next()) {
 						%>
-						<% section_info = section_RS.getString("course_number").trim()+","+section_RS.getInt("section_id");%>
+						<% section_info = section_RS.getString("course_number").trim()+","+section_RS.getString("section_id").trim();%>
 						<option value=<%=section_info%>><%=section_info%></option>
 						<%
 						}
@@ -225,7 +225,7 @@ table {
 
 	<b>Report: </b>
 	<%-- report code --%>
-	<%if (section_id!=0){ %>
+	<%if (section_id!=""){ %>
 	<p>Available times for a review session of <%=course_number%>, <%=section_id%>, between <%=begin_date%> and <%=end_date%></p>
 	<%} %>
 	<table>
