@@ -8,7 +8,6 @@ INSERT INTO degree_ VALUES
     -- #3
     ('CS266', 'UCSD', 'Computer Science', 'CSE'), 
     ('MA111', 'UCSD', 'Mathematics', 'MATH')
-
     ON CONFLICT DO NOTHING;
 
 
@@ -56,18 +55,92 @@ INSERT INTO student VALUES
     -- #6
     (222222222, 222222222, 'CA_resident', 'enrolled', 'student2', 'student2', 'student2'),
     -- #7
-    (333333333, 333333333, 'CA_resident', 'enrolled', 'student3', 'student3', 'student3')
+    (333333333, 333333333, 'CA_resident', 'enrolled', 'student3', 'student3', 'student3'),
+    -- #29
+    (444444444, 444444444, 'CA_resident', 'enrolled', 'student4', 'student4', 'student4'),
+    -- #30
+    (555555555, 555555555, 'CA_resident', 'enrolled', 'student5', 'student5', 'student5')
+    -- #41
+    (666666666, 666666666, 'CA_resident', 'enrolled', 'student6', 'student6', 'student6'),
+    (777777777, 777777777, 'CA_resident', 'enrolled', 'student7', 'student7', 'student7'),
+    (888888888, 888888888, 'CA_resident', 'enrolled', 'student8', 'student8', 'student8'),
+    (999999999, 999999999, 'CA_resident', 'enrolled', 'student9', 'student9', 'student9'),
+    (101010101, 101010101, 'CA_resident', 'enrolled', 'student10', 'student10', 'student10'),
+    (111111111, 111111111, 'CA_resident', 'enrolled', 'student11', 'student11', 'student11'),
+    (121212121, 121212121, 'CA_resident', 'enrolled', 'student12', 'student12', 'student12'),
+    (131313131, 131313131, 'CA_resident', 'enrolled', 'student13', 'student13', 'student13'),
+    (141414141, 141414141, 'CA_resident', 'enrolled', 'student14', 'student14', 'student14'),
+    (151515151, 151515151, 'CA_resident', 'enrolled', 'student15', 'student15', 'student15')
     ON CONFLICT DO NOTHING;
 
 INSERT INTO undergraduateStudent VALUES     
     -- #5
-    (111111111, 111111111, 'CA_resident', 'enrolled', 'student1', 'student1', 'student1','Computer Science', 'Economics', 'college1'), 
+    (111111111, 111111111, 'CA_resident', 'enrolled', 'student1', 'student1', 'student1', 'Computer Science', 'Economics', 'college1'), 
     -- #6
-    (222222222, 222222222, 'CA_resident', 'enrolled', 'student2', 'student2', 'student2','Computer Science', 'Math', 'college2'), 
+    (222222222, 222222222, 'CA_resident', 'enrolled', 'student2', 'student2', 'student2', 'Computer Science', 'Math', 'college2'), 
     -- #7
-    (333333333, 333333333, 'CA_resident', 'enrolled', 'student3', 'student3', 'student3','Math', 'Aquatics', 'college3')
+    (333333333, 333333333, 'CA_resident', 'enrolled', 'student3', 'student3', 'student3', 'Math', 'Aquatics', 'college3'),
+    -- #41
+    (666666666, 666666666, 'CA_resident', 'enrolled', 'student6', 'student6', 'student6', 'Computer Science', 'Economics', 'college1'),
+    (777777777, 777777777, 'CA_resident', 'enrolled', 'student7', 'student7', 'student7', 'Computer Science', 'Math', 'college2'),
+    (888888888, 888888888, 'CA_resident', 'enrolled', 'student8', 'student8', 'student8', 'Computer Science', 'Economics', 'college1'),
+    (999999999, 999999999, 'CA_resident', 'enrolled', 'student9', 'student9', 'student9', 'Math', 'Aquatics', 'college3'),
+    (101010101, 101010101, 'CA_resident', 'enrolled', 'student10', 'student10', 'student10', 'Computer Science', 'Economics', 'college1') 
     ON CONFLICT DO NOTHING;
 
+INSERT INTO graduateStudent VALUES 
+    -- #29
+    (444444444, 444444444, 'CA_resident', 'enrolled', 'student4', 'student4', 'student4', 'computer science department'),
+    -- #30
+    (555555555, 555555555, 'CA_resident', 'enrolled', 'student5', 'student5', 'student5', 'math department'),
+    -- #41
+    (111111111, 111111111, 'CA_resident', 'enrolled', 'student11', 'student11', 'student11', 'computer science department'),
+    (121212121, 121212121, 'CA_resident', 'enrolled', 'student12', 'student12', 'student12', 'math department'),
+    (131313131, 131313131, 'CA_resident', 'enrolled', 'student13', 'student13', 'student13', 'computer science department'),
+    (141414141, 141414141, 'CA_resident', 'enrolled', 'student14', 'student14', 'student14', 'math department'),
+    (151515151, 151515151, 'CA_resident', 'enrolled', 'student15', 'student15', 'student15', 'computer science department')
+    ON CONFLICT DO NOTHING;
+
+INSERT INTO MSStudent VALUES 
+    -- #29
+    (444444444, 444444444, 'CA_resident', 'enrolled', 'student4', 'student4', 'student4', 'computer science department'),
+    -- #30
+    (555555555, 555555555, 'CA_resident', 'enrolled', 'student5', 'student5', 'student5', 'math department'),
+    -- #41
+    (111111111, 111111111, 'CA_resident', 'enrolled', 'student11', 'student11', 'student11', 'computer science department'),
+    (121212121, 121212121, 'CA_resident', 'enrolled', 'student12', 'student12', 'student12', 'math department'),
+    ON CONFLICT DO NOTHING;
+
+INSERT INTO BSMSStudent VALUES 
+    -- #41
+    (131313131, 131313131, 'CA_resident', 'enrolled', 'student13', 'student13', 'student13', 'computer science department')
+    ON CONFLICT DO NOTHING;  
+
+INSERT INTO PHDPreCandidacyStudent VALUES 
+    -- #41
+    (141414141, 141414141, 'CA_resident', 'enrolled', 'student14', 'student14', 'student14', 'math department')
+    ON CONFLICT DO NOTHING; 
+
+INSERT INTO faculty VALUES
+    -- #35
+    ('Faculty1', 'Distinguished Professor', 'computer science department'),
+    -- #36
+    ('Faculty2', 'Assistant Professor', 'computer science department'),
+    -- #37
+    ('Faculty3', 'Lecturer', 'computer science department')
+    ON CONFLICT DO NOTHING;
+
+INSERT INTO PHDCandidateStudent VALUES 
+    -- #41
+    (151515151, 151515151, 'CA_resident', 'enrolled', 'student15', 'student15', 'student15', 'computer science department')
+    ON CONFLICT DO NOTHING; 
+
+INSERT INTO degreeRecord VALUES
+    -- #29
+    (444444444, 'CS266', 'UCSD', 'INPROGRESS'),
+    -- #30
+    (555555555, 'MA111', 'UCSD', 'INPROGRESS')
+    ON CONFLICT DO NOTHING;
 
 -- currenet quarter means 2018 Spring
 INSERT INTO courses VALUES
@@ -162,14 +235,6 @@ INSERT INTO location_ VALUES
     -- #8, 9, 10, 11, 12, 13
     ('RCLAS', 'RCLAS', 100)
     ON CONFLICT DO NOTHING;
-
-INSERT INTO faculty VALUES
-    -- #10
-    ('Staff', 'Title', 'Department'),
-    ('Faculty1', 'Title', 'Department'),
-    ('Faculty2', 'Title', 'Department'),
-    ('Faculty3', 'Title', 'Department')
-     ON CONFLICT DO NOTHING;
 
 INSERT INTO meetings VALUES
     -- #8, 9
@@ -852,5 +917,58 @@ INSERT INTO meetings VALUES
     ('MATH008', 2018, 'Spring', 'A00', 'Lecture', '2018-5-31', '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty3'),
     ('MATH008', 2018, 'Spring', 'A00', 'Lecture', '2018-6-2',  '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty3'),
     ('MATH008', 2018, 'Spring', 'A00', 'Discussion', '2018-6-3', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty3')
+    ON CONFLICT DO NOTHING;
 
+
+INSERT INTO enrollment VALUES
+    --#25
+    (111111111, 'CSE132A', 2018, 'spring', 'A00', 'Faculty1', 4, 'INPROGRESS', 'INPROGRESS'),
+    (222222222, 'CSE132A', 2018, 'spring', 'A00', 'Faculty1', 2, 'INPROGRESS', 'INPROGRESS'),
+    (333333333, 'CSE132A', 2018, 'spring', 'A00', 'Faculty1', 2, 'INPROGRESS', 'INPROGRESS'),
+    --#26
+    (111111111, 'CSE130', 2018, 'spring', 'A00', 'Faculty1', 4, 'INPROGRESS', 'INPROGRESS'),
+    ON CONFLICT DO NOTHING;
+
+INSERT INTO past_enrollment VALUES
+    --#27
+    (111111111, 'CSE132B', 2015, 'fall', 'A00', 'Faculty1', 4, 'A'),
+    (222222222, 'CSE132B', 2015, 'fall', 'A00', 'Faculty1', 2, 'B'),
+    (333333333, 'CSE132B', 2015, 'fall', 'A00', 'Faculty1', 2, 'C'),
+    --#28
+    (111111111, 'CSE132C', 2015, 'fall', 'A00', 'Faculty1', 3, 'B'),
+    (222222222, 'CSE132C', 2015, 'fall', 'A00', 'Faculty1', 4, 'C'),
+    (333333333, 'CSE132C', 2015, 'fall', 'A00', 'Faculty1', 4, 'A'),
+    --#42
+    (666666666, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'A'),
+    (777777777, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'A'),
+    (888888888, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'B'),
+    (999999999, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'B'),
+    (101010101, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'C'),
+    (111111111, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'C'),
+    (121212121, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'C'),
+    (131313131, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'D'),
+    (141414141, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'D'),
+    (151515151, 'CSE008', 2017, 'fall', 'A00', 'Faculty3', 4, 'D'),
+    --#43
+    (666666666, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'A'),
+    (777777777, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'A'),
+    (888888888, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'A'),
+    (999999999, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'A'),
+    (101010101, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'A'),
+    (111111111, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'B'),
+    (121212121, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'B'),
+    (131313131, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'B'),
+    (141414141, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'B'),
+    (151515151, 'CSE005', 2017, 'fall', 'A00', 'Faculty3', 4, 'C'),
+    --#44
+    (666666666, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'A'),
+    (777777777, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'A'),
+    (888888888, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'A'),
+    (999999999, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'A'),
+    (101010101, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'A'),
+    (111111111, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'B'),
+    (121212121, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'B'),
+    (131313131, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'B'),
+    (141414141, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'B'),
+    (151515151, 'CSE150A', 2017, 'fall', 'A00', 'Faculty2', 4, 'C')
     ON CONFLICT DO NOTHING;
