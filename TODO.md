@@ -14,4 +14,6 @@
 13. enrollment, past_enrollment, course_offering_ny realtionship, change enrollment's status into waitlist or enrolled. 
 
 
-# change section id from int to string modify jsp
+# change section id from int to string modify jsp: done 
+
+# enrollment.jsp, past_enrollment.jsp, graduate_degree_requirement.jsp change along with modifications. 

@@ -137,7 +137,7 @@
 							<td><%= enrollment_RS.getString("course_number").trim()%></td>
                             <td><%= enrollment_RS.getInt("year_") %></td>
                             <td><%= enrollment_RS.getString("quarter").trim()%></td>
-                            <td><%= enrollment_RS.getString("section_id").trim()%></td>
+                            <td><%= enrollment_RS.getInt("section_id")%></td>
                             <td><%= enrollment_RS.getString("faculty_name").trim()%></td>
                             <td><%= enrollment_RS.getString("grade").trim()%></td>  
                             <td><%= enrollment_RS.getInt("unit_taken")%></td>  

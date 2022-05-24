@@ -19,8 +19,10 @@ with info as
     
 )
 SELECT * FROM info
--- where course_number='CSE008' and faculty_name='Faculty3' and quarter='FALL' and year_ = 2017
+where course_number=? and faculty_name=? and quarter=? and year_ = ?
 order by info.course_number;
+
+-- where course_number='CSE008' and faculty_name='Faculty3' and quarter='FALL' and year_ = 2017
 
 /* 
     3. Given a course id X and a professor Y produce the count of "A", "B", "C", "D", and "other" grades professor Y has given over the years
