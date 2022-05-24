@@ -5,21 +5,22 @@
 */ 
 with info as 
 (
-    (SELECT past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade, count(*)
+    (SELECT past_enrollment.course_number, past_enrollment.year_, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade, count(*)
     FROM past_enrollment, GRADE_CONVERSION
     WHERE past_enrollment.grade = GRADE_CONVERSION.grade 
-    GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade
+    GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade, past_enrollment.year_
     order by past_enrollment.course_number)
-    union
-    (SELECT past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, 'other' as grade, count(*)
+	union
+    (SELECT past_enrollment.course_number, past_enrollment.year_, past_enrollment.quarter, past_enrollment.faculty_name, 'other' as grade, count(*)
     FROM past_enrollment
     WHERE past_enrollment.grade not in (select grade from GRADE_CONVERSION)
-    GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name
+    GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.year_
     order by past_enrollment.course_number)
+    
 )
 SELECT * FROM info
--- where course_number=? and faculty_name=? and quarter=?
-order by info.course_number
+-- where course_number='CSE008' and faculty_name='Faculty3' and quarter='FALL' and year_ = 2017
+order by info.course_number;
 
 /* 
     3. Given a course id X and a professor Y produce the count of "A", "B", "C", "D", and "other" grades professor Y has given over the years
