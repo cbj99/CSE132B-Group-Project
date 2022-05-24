@@ -247,16 +247,17 @@ INSERT INTO meetings VALUES
     ('CSE102', 2018, 'spring', 2, 'Review Session', '2018-5-2', '12:00:00', '13:00:00', 'NO', 'room_3', 'building_2', 'faculty_1');
 
 INSERT INTO course_offering_ny VALUES
-    ('faculty_1', 'CSE1', 2022, 'fall', 1, 'Fluency in Information Technology'), 
-    ('faculty_1', 'CSE1', 2022, 'fall', 2, 'Fluency in Information Technology'),
-    ('faculty_1', 'CSE1', 2022, 'fall', 3, 'Fluency in Information Technology'),
+    ('faculty1', 'CSE000', 2022, 'fall', 1, 'Fluency in Information Technology')
+    -- ('faculty_1', 'CSE1', 2022, 'fall', 1, 'Fluency in Information Technology'), 
+    -- ('faculty_1', 'CSE1', 2022, 'fall', 2, 'Fluency in Information Technology'),
+    -- ('faculty_1', 'CSE1', 2022, 'fall', 3, 'Fluency in Information Technology'),
     
-    ('faculty_2', 'CSE2', 2022, 'fall', 1, 'Basic Data Structures and Object-Oriented Design'), 
-    ('faculty_3', 'CSE3', 2022, 'fall', 1, 'Discrete Mathematics'), 
-    ('faculty_4', 'CSE4', 2022, 'fall', 1, 'Mathematics for Algorithms and Systems'),
+    -- ('faculty_2', 'CSE2', 2022, 'fall', 1, 'Basic Data Structures and Object-Oriented Design'), 
+    -- ('faculty_3', 'CSE3', 2022, 'fall', 1, 'Discrete Mathematics'), 
+    -- ('faculty_4', 'CSE4', 2022, 'fall', 1, 'Mathematics for Algorithms and Systems'),
 
-    ('faculty_5', 'CSE5', 2022, 'fall', 1, 'Computer Organization and Systems Programming'),
-    ('faculty_5', 'CSE5', 2022, 'fall', 2, 'Computer Organization and Systems Programming'),
+    -- ('faculty_5', 'CSE5', 2022, 'fall', 1, 'Computer Organization and Systems Programming'),
+    -- ('faculty_5', 'CSE5', 2022, 'fall', 2, 'Computer Organization and Systems Programming'),
     -- ('faculty_1', 'CSE1', 2021, 'fall', 1), 
     -- ('faculty_1', 'CSE1', 2022, 'fall', 1), 
     -- ('faculty_1', 'CSE1', 2022, 'fall', 2),
