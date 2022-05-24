@@ -29,9 +29,9 @@
 	<%-- Query Code --%>
 	<%
 	int year = 2018;
-	String quarter = "spring";
+	String quarter = "SPRING";
 	String class_query = "SELECT * FROM classes where classes.course_number = ?;";
-	String roster_query = "SELECT enrollment.student_id, student.first_name, student.last_name, enrollment.course_number, enrollment.year_, enrollment.quarter, enrollment.section_id, enrollment.faculty_name, courses.unit, courses.grading_option FROM enrollment, courses, student WHERE enrollment.course_number = ? and enrollment.year_ = ? and enrollment.quarter=? and courses.course_number = enrollment.course_number and student.student_id = enrollment.student_id;";
+	String roster_query = "SELECT enrollment.student_id, student.first_name, student.last_name, student.identity_, student.enrollment_status, enrollment.course_number, enrollment.year_, enrollment.quarter, enrollment.section_id, enrollment.faculty_name, courses.unit, courses.grading_option FROM enrollment, courses, student WHERE enrollment.course_number = ? and enrollment.year_ = ? and enrollment.quarter=? and courses.course_number = enrollment.course_number and student.student_id = enrollment.student_id;";
 
 	PreparedStatement class_state = conn.prepareStatement(class_query);
 	PreparedStatement roster_state = conn.prepareStatement(roster_query);
@@ -110,7 +110,7 @@
 			<td><%=class_RS.getString("course_number").trim()%></td>
 			<td><%=class_RS.getInt("year_")%></td>
 			<td><%=class_RS.getString("quarter").trim()%></td>
-			<td><%=class_RS.getString("section_id").trim()%></td>
+			<td><%=class_RS.getString("section_id")%></td>
 		</tr>
 		<%
 		}
@@ -124,6 +124,8 @@
 			<th>Student ID</th>
 			<th>First Name</th>
 			<th>Last Name</th>
+			<th>Identity</th>
+			<th>Enrollment Status</th>
 			<th>Course Number</th>
 			<th>Year</th>
 			<th>Quarter</th>
@@ -142,10 +144,12 @@
 			<td><%=roster_RS.getInt("student_id")%></td>
 			<td><%=roster_RS.getString("first_name").trim()%></td>
 			<td><%=roster_RS.getString("last_name").trim()%></td>
+			<td><%=roster_RS.getString("identity_").trim()%></td>
+			<td><%=roster_RS.getString("enrollment_status").trim()%></td>
 			<td><%=roster_RS.getString("course_number").trim()%></td>
 			<td><%=roster_RS.getInt("year_")%></td>
 			<td><%=roster_RS.getString("quarter").trim()%></td>
-			<td><%=roster_RS.getString("section_id").trim()%></td>
+			<td><%=roster_RS.getString("section_id")%></td>
 			<td><%=roster_RS.getString("faculty_name").trim()%></td>
 			<td><%=roster_RS.getInt("unit")%></td>
 			<td><%=roster_RS.getString("grading_option").trim()%></td>

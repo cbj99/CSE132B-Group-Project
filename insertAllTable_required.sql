@@ -233,6 +233,17 @@ INSERT INTO gradudateDegreeRequiarment VALUES
     ('MA111', 'UCSD', 'MATH132B', 'YES', 'Calculus Concentration', 12, 3)
     ON CONFLICT DO NOTHING;
 
+-- added database information for undergraduate students
+INSERT INTO underGradudateDegreeRequiarment VALUES
+    ('CS26', 'UCSD', 'CSE132A', 'YES', 'NO', 'YES', 'NO', 4),
+    ('CS26', 'UCSD', 'CSE130', 'YES', 'NO', 'YES', 'NO', 4),
+    ('CS26', 'UCSD', 'CSE132B', 'YES', 'NO', 'YES', 'NO', 4),
+    ('CS26', 'UCSD', 'CSE132C', 'YES', 'YES', 'NO', 'YES', 4),
+    ('CS26', 'UCSD', 'CSE008', 'YES', 'NO', 'YES', 'NO', 4),
+    ('CS26', 'UCSD', 'CSE005', 'YES', 'YES', 'NO', 'YES', 4),
+    ('CS26', 'UCSD', 'CSE150A', 'YES', 'NO', 'YES', 'NO', 4)
+    ON CONFLICT DO NOTHING; 
+
 INSERT INTO location_ VALUES
     -- #8, 9, 10, 11, 12, 13
     ('RCLAS', 'RCLAS', 100)

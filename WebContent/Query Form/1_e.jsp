@@ -39,26 +39,25 @@
 	ResultSet display_concentration_RS = null;
 
 	// Display completed concentration 
-	int mininum_grade = 3;
 	String concentration_str = 
-	"with completed_courses AS(SELECT past_enrollment.course_number, GRADE_CONVERSION.NUMBER_GRADE FROM past_enrollment, GRADE_CONVERSION WHERE past_enrollment.student_id = ? and (SELECT GRADE_CONVERSION.NUMBER_GRADE WHERE GRADE_CONVERSION.GRADE = past_enrollment.grade) > ?), degree_sepcific_concentration AS(SELECT distinct(gradudateDegreeRequiarment.concentration) AS concentration from gradudateDegreeRequiarment WHERE degree_id = ?), completed_concentration AS(SELECT gradudateDegreeRequiarment.course_number, gradudateDegreeRequiarment.concentration FROM gradudateDegreeRequiarment, completed_courses, degree_sepcific_concentration WHERE gradudateDegreeRequiarment.concentration = degree_sepcific_concentration.concentration and gradudateDegreeRequiarment.course_number = completed_courses.course_number) SELECT distinct(GDR.concentration) FROM gradudateDegreeRequiarment as GDR WHERE GDR.degree_id = ? and not exists (SELECT * FROM gradudateDegreeRequiarment as GDR2 WHERE GDR2.concentration = GDR.concentration and not exists (SELECT * FROM completed_concentration WHERE completed_concentration.concentration = GDR2.concentration and completed_concentration.course_number = GDR2.course_number))"; 
+	"with completed_courses AS( SELECT past_enrollment.course_number, past_enrollment.unit_taken, GRADE_CONVERSION.NUMBER_GRADE FROM past_enrollment, GRADE_CONVERSION WHERE past_enrollment.student_id = ? and GRADE_CONVERSION.GRADE = past_enrollment.grade ), degree_sepcific_concentration AS( SELECT distinct(gradudateDegreeRequiarment.concentration) AS concentration from gradudateDegreeRequiarment WHERE degree_id = ? ), concentration_course_completed AS( SELECT completed_courses.course_number, completed_courses.number_grade, completed_courses.unit_taken, degree_sepcific_concentration.concentration FROM completed_courses, degree_sepcific_concentration, gradudateDegreeRequiarment WHERE completed_courses.course_number = gradudateDegreeRequiarment.course_number and gradudateDegreeRequiarment.concentration = degree_sepcific_concentration.concentration ), concentration_check AS( select concentration_course_completed.concentration, sum(concentration_course_completed.unit_taken) as total_units, sum(number_grade * unit_taken) / sum(unit_taken) as gpa from concentration_course_completed group by concentration_course_completed.concentration ), concentration_satisfied AS( select distinct(concentration_check.concentration) from concentration_check, gradudateDegreeRequiarment where gradudateDegreeRequiarment.concentration = concentration_check.concentration and concentration_check.total_units > gradudateDegreeRequiarment.concentration_units and concentration_check.gpa > gradudateDegreeRequiarment.minimum_gpa ) select * from concentration_satisfied;"; 
 	PreparedStatement concentration_state = conn.prepareStatement(concentration_str);
 	ResultSet concentration_RS = null;
 
 	// Display Concentration along with course offering closest time 
 	String concentration_earliest_str = 
-	"with all_classes_taken AS ((SELECT student_id, course_number, year_, quarter, section_id, faculty_name, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)), un_completed_course AS( SELECT GDB2.course_number, GDB2.concentration FROM gradudateDegreeRequiarment as GDB2 where (GDB2.course_number, GDB2.concentration) not in ( SELECT GDB.course_number, GDB.concentration FROM all_classes_taken, gradudateDegreeRequiarment AS GDB WHERE GDB.course_number = all_classes_taken.course_number and all_classes_taken.student_id = ? and GDB.degree_id = ?) ), earliest_classes AS( SELECT ny.course_number, ny.year_, ny.quarter FROM course_offering_ny as ny, un_completed_course as un WHERE ny.course_number = un.course_number and not exists( SELECT * FROM course_offering_ny as ny2 WHERE ny.course_number = ny2.course_number and ( (ny2.year_ < ny.year_) or ( ny.year_ = ny2.year_ and ( (ny.quarter='spring' and ny2.quarter='winter') or ( ny.quarter='fall' and ( ny2.quarter='winter' or ny2.quarter='spring' ) ) ) ) ) ) ) select earliest_classes.course_number, earliest_classes.year_, earliest_classes.quarter, gradudateDegreeRequiarment.concentration from earliest_classes, gradudateDegreeRequiarment WHERE gradudateDegreeRequiarment.degree_id = ? and gradudateDegreeRequiarment.course_number = earliest_classes.course_number;"; 
+	"WITH total_enrollment as ( (SELECT student_id, course_number, year_, quarter, section_id, faculty_name, unit_taken FROM enrollment) UNION (SELECT student_id, course_number, year_, quarter, section_id, faculty_name, unit_taken FROM past_enrollment) ), completed_courses AS( SELECT total_enrollment.course_number FROM total_enrollment WHERE total_enrollment.student_id = ? ), degree_sepcific_concentration AS( SELECT distinct(gradudateDegreeRequiarment.concentration) AS concentration from gradudateDegreeRequiarment WHERE degree_id = ? ), degree_sepcific_concentration_course AS( SELECT course_number, concentration from gradudateDegreeRequiarment WHERE degree_id = ? ), concentration_course_completed AS( SELECT completed_courses.course_number, degree_sepcific_concentration.concentration FROM completed_courses, degree_sepcific_concentration, gradudateDegreeRequiarment WHERE completed_courses.course_number = gradudateDegreeRequiarment.course_number and gradudateDegreeRequiarment.concentration = degree_sepcific_concentration.concentration ), un_completed_course AS( SELECT degree_sepcific_concentration_course.course_number, degree_sepcific_concentration_course.concentration FROM concentration_course_completed, degree_sepcific_concentration_course where (degree_sepcific_concentration_course.course_number, degree_sepcific_concentration_course.concentration) not in (select * from concentration_course_completed) group by degree_sepcific_concentration_course.course_number, degree_sepcific_concentration_course.concentration ), earliest_classes AS( SELECT ny.course_number, ny.year_, ny.quarter FROM course_offering_ny as ny, un_completed_course as un WHERE ny.course_number = un.course_number and not exists( SELECT * FROM course_offering_ny as ny2 WHERE ny.course_number = ny2.course_number and ( (ny2.year_ < ny.year_) or ( ny.year_ = ny2.year_ and ( (ny.quarter='spring' and ny2.quarter='winter') or ( ny.quarter='fall' and ( ny2.quarter='winter' or ny2.quarter='spring' ) ) ) ) ) ) ) select earliest_classes.course_number, earliest_classes.year_, earliest_classes.quarter, gradudateDegreeRequiarment.concentration from earliest_classes, gradudateDegreeRequiarment WHERE gradudateDegreeRequiarment.degree_id = ? and gradudateDegreeRequiarment.course_number = earliest_classes.course_number;"; 
 	PreparedStatement concentration_earliest_state = conn.prepareStatement(concentration_earliest_str);
 	ResultSet concentration_earliest_RS = null;
 
-	String GPA_str = "WITH total_enrollment as ((SELECT student_id, course_number, year_, quarter, section_id, faculty_name, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)), qtrgpa as (SELECT year_, quarter, avg(number_grade) as gpa FROM (total_enrollment JOIN grade_conversion ON total_enrollment.grade = grade_conversion.grade) where student_id = ? GROUP BY year_, quarter) SELECT * FROM qtrgpa;"; 
+	/* String GPA_str = "WITH total_enrollment as ((SELECT student_id, course_number, year_, quarter, section_id, faculty_name, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)), qtrgpa as (SELECT year_, quarter, avg(number_grade) as gpa FROM (total_enrollment JOIN grade_conversion ON total_enrollment.grade = grade_conversion.grade) where student_id = ? GROUP BY year_, quarter) SELECT * FROM qtrgpa;"; 
 	PreparedStatement GPA_state = conn.prepareStatement(GPA_str);
 	ResultSet GPA_RS = null;
 
 	int Units = -1; 
 	String Units_str = "WITH total_enrollment AS( (SELECT student_id, course_number, year_, quarter, section_id, faculty_name, grade FROM enrollment) UNION (SELECT * FROM past_enrollment) ), all_courses AS( select distinct(course_number) FROM total_enrollment WHERE total_enrollment.student_id = ? ) select sum(courses.unit) from all_courses, courses where all_courses.course_number = courses.course_number and courses.is_upper = 2"; 
 	PreparedStatement Units_state = conn.prepareStatement(Units_str);
-	ResultSet Units_RS = null;
+	ResultSet Units_RS = null; */
 
 	String action = request.getParameter("action");
 	if (action != null && action.equals("query")) {
@@ -73,28 +72,30 @@
 
 		// Display completed concentration 
 		concentration_state.setInt(1, Integer.parseInt(request.getParameter("STUDENTID"))); 
-		concentration_state.setInt(2, mininum_grade);
-		concentration_state.setString(3, request.getParameter("DEGREEID")); 
-		concentration_state.setString(4, request.getParameter("DEGREEID")); 
+		concentration_state.setString(2, request.getParameter("DEGREEID"));
 		concentration_RS = concentration_state.executeQuery(); 
 
 		// Display earliest concentraion
 		concentration_earliest_state.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
 		concentration_earliest_state.setString(2, request.getParameter("DEGREEID"));
 		concentration_earliest_state.setString(3, request.getParameter("DEGREEID"));
+		concentration_earliest_state.setString(4, request.getParameter("DEGREEID"));
 		concentration_earliest_RS = concentration_earliest_state.executeQuery(); 
 
+		/*
 		GPA_state.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
 		GPA_RS = GPA_state.executeQuery(); 
 
 		Units_state.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
 		Units_RS = Units_state.executeQuery(); 
-		
+		*/
 		conn.commit();
 		conn.setAutoCommit(true);
 
+		/*
 		Units_RS.next();
 		Units =  Units_RS.getInt("sum"); 
+		*/
 	}
 
 	%>
@@ -104,7 +105,7 @@
 	Statement student_state = conn.createStatement();
 	Statement degree_state = conn.createStatement();
 	
-	String student_query = "SELECT distinct(MSStudent.student_id) from enrollment, MSStudent where MSStudent.student_id = enrollment.student_id order by student_id; ";
+	String student_query = "SELECT MSStudent.student_id from MSStudent order by student_id; ";
 	String degree_query = "SELECT graduateDegree.degree_id from graduateDegree where institution ='UCSD' order by degree_id;"; 
 	
 	ResultSet student_RS = student_state.executeQuery(student_query);
@@ -195,28 +196,6 @@
 		}
 		%>
 	</table>
-
-	<p>GPA</p>
-	<table>
-		<tr>
-			<th>Year</th>
-			<th>Quarter</th>
-			<th>GPA</th>
-		</tr>
-		<%
-		while (GPA_RS != null && GPA_RS.next()) {
-		%>
-		<tr>
-			<td><%=GPA_RS.getInt("year_")%></td>
-			<td><%=GPA_RS.getString("quarter")%></td>
-			<td><%=GPA_RS.getInt("gpa")%></td>
-		</tr>
-		<%
-		}
-		%>
-	</table>
-	
-	<p>Completed Units = <%= Units %></p>
 	
 
 	<p>All Possible Concentrations with Your Degree</p>
