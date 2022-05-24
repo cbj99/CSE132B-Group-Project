@@ -30,11 +30,11 @@
 				<%-- Query Code --%>
 				<%
 						int year = 2018; 
-						String quarter = "spring"; 
+						String quarter = "SPRING"; 
 						
 						String student_id_query ="select * from student where student_id = ? ORDER BY student_id;";
-						String enrollment_query ="WITH total_enrollment as ((SELECT student_id, course_number, year_, quarter, section_id, faculty_name, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)) SELECT classes.course_number, classes.year_, classes.quarter, classes.section_id, total_enrollment.faculty_name, total_enrollment.grade, courses.unit FROM classes, courses, total_enrollment WHERE classes.course_number = courses.course_number and (total_enrollment.student_id = ? and classes.course_number = total_enrollment.course_number and classes.year_ = total_enrollment.year_ and classes.quarter = total_enrollment.quarter and classes.section_id = total_enrollment.section_id) ORDER BY classes.year_, classes.quarter ASC;";
-						String qtr_gpa_query = "WITH total_enrollment as ((SELECT student_id, course_number, year_, quarter, section_id, faculty_name, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)), qtrgpa as (SELECT year_, quarter, avg(number_grade) as gpa FROM (total_enrollment JOIN grade_conversion ON total_enrollment.grade = grade_conversion.grade) where student_id = ? GROUP BY year_, quarter) SELECT * FROM qtrgpa;";
+						String enrollment_query ="WITH total_enrollment as ((SELECT student_id, course_number, year_, quarter, section_id, faculty_name, unit_taken, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)) SELECT classes.course_number, classes.year_, classes.quarter, classes.section_id, total_enrollment.faculty_name, total_enrollment.grade, total_enrollment.unit_taken FROM classes, total_enrollment WHERE (total_enrollment.student_id = ? and classes.course_number = total_enrollment.course_number and classes.year_ = total_enrollment.year_ and classes.quarter = total_enrollment.quarter and classes.section_id = total_enrollment.section_id) ORDER BY classes.year_, classes.quarter ASC;";
+						String qtr_gpa_query = "WITH total_enrollment as ((SELECT student_id, course_number, year_, quarter, section_id, faculty_name, unit_taken, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)), qtrgpa as (SELECT year_, quarter, sum(unit_taken) as total_units, sum(number_grade * unit_taken)/sum(unit_taken) as gpa FROM (total_enrollment JOIN grade_conversion ON total_enrollment.grade = grade_conversion.grade) where student_id = ? GROUP BY year_, quarter) SELECT * FROM qtrgpa;";
 						
 						PreparedStatement student_id_state = conn.prepareStatement(student_id_query);
 						PreparedStatement enrollment_state = conn.prepareStatement(enrollment_query);
@@ -140,7 +140,7 @@
                             <td><%= enrollment_RS.getInt("section_id")%></td>
                             <td><%= enrollment_RS.getString("faculty_name").trim()%></td>
                             <td><%= enrollment_RS.getString("grade").trim()%></td>  
-                            <td><%= enrollment_RS.getInt("unit")%></td>  
+                            <td><%= enrollment_RS.getInt("unit_taken")%></td>  
 						</tr>
 					<% } %>
 				</table>
@@ -151,17 +151,19 @@
 					<tr>
 						<th>year</th>
 						<th>quarter</th>
+						<th>total units</th>
 						<th>quarter GPA</th>
 					</tr>
 					<%-- Iteration code for part 2 of this report--%>
 					<% double sum = 0;%>
 					<% double i=0;%>
 					<% while(qtr_gpa_RS != null && qtr_gpa_RS.next()){ %> 
-						<%  sum += qtr_gpa_RS.getDouble("gpa"); %>
-						<%  i += 1; %>
+						<%  sum += qtr_gpa_RS.getDouble("gpa") * qtr_gpa_RS.getInt("total_units"); %>
+						<%  i += qtr_gpa_RS.getInt("total_units"); %>
 						<tr>
                             <td><%= qtr_gpa_RS.getInt("year_") %></td>
-                            <td><%= qtr_gpa_RS.getString("quarter").trim()%></td> 
+                            <td><%= qtr_gpa_RS.getString("quarter").trim()%></td>
+                            <td><%= qtr_gpa_RS.getInt("total_units")%></td>  
                             <td><%= qtr_gpa_RS.getDouble("gpa") %></td>
 						</tr>
 					<% } %>
