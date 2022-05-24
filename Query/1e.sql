@@ -384,36 +384,36 @@ WHERE gradudateDegreeRequiarment.degree_id = ? and gradudateDegreeRequiarment.co
     showing GPA
     showing units 
 */ 
-WITH total_enrollment as 
-(
-    (SELECT student_id, course_number, year_, quarter, section_id, faculty_name, unit_taken, grade FROM enrollment) 
-    UNION 
-    (SELECT student_id, course_number, year_, quarter, section_id, faculty_name, unit_taken, grade FROM past_enrollment)
-),
-completed_courses AS(
-    SELECT 
-        total_enrollment.course_number, 
-        total_enrollment.unit_taken,
-        total_enrollment.NUMBER_GRADE
-    FROM 
-        total_enrollment, 
-        GRADE_CONVERSION
-    WHERE 
-        total_enrollment.student_id = 111111111 and
-        GRADE_CONVERSION.GRADE = total_enrollment.grade
-), 
-gpa AS(
-	select 
-    	sum(number_grade * unit_taken) / sum(unit_taken) as gpa
-	from 
-    	completed_courses
-), 
+-- WITH total_enrollment as 
+-- (
+--     (SELECT student_id, course_number, year_, quarter, section_id, faculty_name, unit_taken, grade FROM enrollment) 
+--     UNION 
+--     (SELECT student_id, course_number, year_, quarter, section_id, faculty_name, unit_taken, grade FROM past_enrollment)
+-- ),
+-- completed_courses AS(
+--     SELECT 
+--         total_enrollment.course_number, 
+--         total_enrollment.unit_taken,
+--         total_enrollment.NUMBER_GRADE
+--     FROM 
+--         total_enrollment, 
+--         GRADE_CONVERSION
+--     WHERE 
+--         total_enrollment.student_id = 111111111 and
+--         GRADE_CONVERSION.GRADE = total_enrollment.grade
+-- ), 
+-- gpa AS(
+-- 	select 
+--     	sum(number_grade * unit_taken) / sum(unit_taken) as gpa
+-- 	from 
+--     	completed_courses
+-- ), 
 
 
 
--- WITH total_enrollment as ((SELECT student_id, course_number, year_, quarter, section_id, faculty_name, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)), 
--- qtrgpa as (SELECT year_, quarter, avg(number_grade) as gpa FROM (total_enrollment JOIN grade_conversion ON total_enrollment.grade = grade_conversion.grade) where student_id = 3 GROUP BY year_, quarter) 
--- SELECT * FROM qtrgpa;
+-- -- WITH total_enrollment as ((SELECT student_id, course_number, year_, quarter, section_id, faculty_name, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)), 
+-- -- qtrgpa as (SELECT year_, quarter, avg(number_grade) as gpa FROM (total_enrollment JOIN grade_conversion ON total_enrollment.grade = grade_conversion.grade) where student_id = 3 GROUP BY year_, quarter) 
+-- -- SELECT * FROM qtrgpa;
 
 -- WITH total_enrollment AS(
 --     (SELECT student_id, course_number, year_, quarter, section_id, faculty_name, grade FROM enrollment) UNION (SELECT * FROM past_enrollment)

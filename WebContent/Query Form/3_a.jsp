@@ -28,7 +28,7 @@
 	<%-- Query Code --%>
 	<%
     // first display
-    String course_faculty_quarter_str = "with info as ( (SELECT past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade, count(*) FROM past_enrollment, GRADE_CONVERSION WHERE past_enrollment.grade = GRADE_CONVERSION.grade GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade order by past_enrollment.course_number) union (SELECT past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, 'other' as grade, count(*) FROM past_enrollment WHERE past_enrollment.grade not in (select grade from GRADE_CONVERSION) GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name order by past_enrollment.course_number) ) SELECT * FROM info where course_number=? and faculty_name=? and quarter=? order by info.course_number"; 
+    String course_faculty_quarter_str = "with info as ( (SELECT past_enrollment.course_number, past_enrollment.year_, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade, count(*) FROM past_enrollment, GRADE_CONVERSION WHERE past_enrollment.grade = GRADE_CONVERSION.grade GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade, past_enrollment.year_ order by past_enrollment.course_number) union (SELECT past_enrollment.course_number, past_enrollment.year_, past_enrollment.quarter, past_enrollment.faculty_name, 'other' as grade, count(*) FROM past_enrollment WHERE past_enrollment.grade not in (select grade from GRADE_CONVERSION) GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.year_ order by past_enrollment.course_number) ) SELECT * FROM info where course_number=? and faculty_name=? and quarter=? and year_ = ? order by info.course_number;"; 
     PreparedStatement course_faculty_quarter_state = conn.prepareStatement(course_faculty_quarter_str);
     ResultSet course_faculty_quarter_RS = null;
 
@@ -53,6 +53,7 @@
         course_faculty_quarter_state.setString(1, request.getParameter("COURSENUMBER")); 
         course_faculty_quarter_state.setString(2, request.getParameter("FACULTY")); 
         course_faculty_quarter_state.setString(3, request.getParameter("QUARTER"));
+		course_faculty_quarter_state.setInt(4, Integer.parseInt(request.getParameter("YEAR")));
         course_faculty_quarter_RS = course_faculty_quarter_state.executeQuery(); 
 
         course_faculty_state.setString(1, request.getParameter("COURSENUMBER")); 
@@ -77,14 +78,17 @@
 	Statement course_number = conn.createStatement();
 	Statement faculty_state = conn.createStatement();
 	Statement quarter_state = conn.createStatement();
+	Statement year_state = conn.createStatement();
 
 	String course_number_str = "select distinct(course_number) from past_enrollment order by course_number;";
 	String faculty_str = "select distinct(faculty_name) from past_enrollment"; 
     String quarter_str = "select distinct(quarter) from past_enrollment;"; 
+	String year_str = "select distinct(year_) from past_enrollment;"; 
 	
 	ResultSet course_number_RS = course_number.executeQuery(course_number_str);
 	ResultSet faculty_RS = faculty_state.executeQuery(faculty_str);
     ResultSet quarter_RS = quarter_state.executeQuery(quarter_str);
+	ResultSet year_RS = year_state.executeQuery(year_str);
 	%>
 
 	<%-- query form code --%>
@@ -93,6 +97,7 @@
 			<th>Course Number</th>
 			<th>Faculty</th>
             <th>Quarter</th>
+			<th>Year</th>
 		</tr>
 
 		<tr>
@@ -130,6 +135,18 @@
 						%>
 						<option value=<%=quarter_RS.getString("quarter")%>>
 							<%=quarter_RS.getString("quarter")%>
+						</option>
+						<%
+						}
+						%>
+				</select></td>
+				<td><select name="YEAR" style="width: 130px;">
+						<option value="" disabled selected>Please Choose...</option>
+						<%
+						while (year_RS.next()) {
+						%>
+						<option value=<%=year_RS.getInt("year_")%>>
+							<%=year_RS.getInt("year_")%>
 						</option>
 						<%
 						}
