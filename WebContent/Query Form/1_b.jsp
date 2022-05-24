@@ -59,7 +59,7 @@
 	<%-- Statement code --%>
 	<%
 	Statement classState = conn.createStatement();
-	String classQuery = "select distinct(course_number) from classes order by course_number";
+	String classQuery = "select distinct(course_number) from enrollment order by course_number";
 	ResultSet classRS = classState.executeQuery(classQuery);
 	%>
 
