@@ -9,7 +9,6 @@
 table, table tr th, table tr td {
 	border: 1px solid rgb(92 112 128/ 60%);
 }
-
 table {
 	min-height: 25px;
 	line-height: 25px;
@@ -40,29 +39,21 @@ table {
 	<%
 	int year = 2018;
 	String quarter = "SPRING";
-
 	String student_id_query = "select * from student where student_id = ?";
 	String enrollment_query = "SELECT enrollment.student_id, enrollment.course_number, enrollment.year_, enrollment.quarter, enrollment.section_id, enrollment.faculty_name, enrollment.status, enrollment.grade, enrollment.unit_taken, courses.department, courses.lab_required FROM enrollment, courses where enrollment.student_id = ? and enrollment.year_ = ? and enrollment.quarter = ? and courses.course_number =  enrollment.course_number";
-
 	PreparedStatement student_id_state = conn.prepareStatement(student_id_query);
 	PreparedStatement enrollment_state = conn.prepareStatement(enrollment_query);
-
 	ResultSet student_id_RS = null;
 	ResultSet enrollment_RS = null;
-
 	String action = request.getParameter("action");
-
 	if (action != null && action.equals("input")) {
 		conn.setAutoCommit(false);
-
 		student_id_state.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
 		student_id_RS = student_id_state.executeQuery();
-
 		enrollment_state.setInt(1, Integer.parseInt(request.getParameter("STUDENTID")));
 		enrollment_state.setInt(2, year);
 		enrollment_state.setString(3, quarter);
 		enrollment_RS = enrollment_state.executeQuery();
-
 		conn.commit();
 		conn.setAutoCommit(true);
 	}
@@ -71,11 +62,10 @@ table {
 	<%-- Statement code --%>
 	<%
 	Statement studentState = conn.createStatement();
-	String student_query_by_year_quarter = "select student_id from enrollment where quarter = ? and year_ = ?;";
+	String student_query_by_year_quarter = "select distinct student_id from enrollment where quarter = ? and year_ = ?;";
 	PreparedStatement student_query_by_year_quarter_state = conn.prepareStatement(student_query_by_year_quarter);
 	student_query_by_year_quarter_state.setString(1, quarter);
 	student_query_by_year_quarter_state.setInt(2, year);
-
 	ResultSet studentRS = student_query_by_year_quarter_state.executeQuery();
 	%>
 
@@ -162,7 +152,7 @@ table {
 			<td><%=enrollment_RS.getString("course_number").trim()%></td>
 			<td><%=enrollment_RS.getInt("year_")%></td>
 			<td><%=enrollment_RS.getString("quarter").trim()%></td>
-			<td><%=enrollment_RS.getInt("section_id")%></td>
+			<td><%=enrollment_RS.getString("section_id").trim()%></td>
 			<td><%=enrollment_RS.getString("faculty_name").trim()%></td>
 			<td><%=enrollment_RS.getString("status").trim()%></td>
 			<td><%=enrollment_RS.getString("grade").trim()%></td>
