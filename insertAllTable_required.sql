@@ -250,7 +250,8 @@ INSERT INTO underGradudateDegreeRequiarment VALUES
 
 INSERT INTO location_ VALUES
     -- #8, 9, 10, 11, 12, 13
-    ('RCLAS', 'RCLAS', 100)
+    ('RCLAS', 'RCLAS', 100), 
+    ('two_max', 'two_max', 2), 
     ON CONFLICT DO NOTHING;
 
 INSERT INTO meetings VALUES
