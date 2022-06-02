@@ -143,6 +143,8 @@ INSERT INTO courses VALUES
      -- #22
     ('CSE008', 'Letter Grade', 4, 'CSE', 1, 0, 'CSE008 Course Title'),
 
+    ('CSE105', 'Letter Grade Only', 4, 'CSE', 1, 1, 'CSE105 Title'),
+
     -- #23
     ('MATH132A', 'Letter Grade Only', 4, 'CSE', 1, 1, 'MATH132A Course Title'), 
     ('MATH150A', 'Letter Grade Only', 4, 'CSE', 1, 1, 'MATH150A Course Title'), 
@@ -206,7 +208,9 @@ INSERT INTO classes VALUES
     ('MATH007', 2017, 'FALL', 'A00'),
     ('MATH007', 2015, 'FALL', 'A00'),
     ('MATH008', 2017, 'FALL', 'A00'),
-    ('MATH008', 2015, 'FALL', 'A00')
+    ('MATH008', 2015, 'FALL', 'A00'), 
+
+     ('CSE105', 2018, 'SPRING', 'A00')
     ON CONFLICT DO NOTHING;
 
 INSERT INTO gradudateDegreeRequiarment VALUES
@@ -634,6 +638,9 @@ INSERT INTO meetings VALUES
     ('CSE008', 2018, 'SPRING', 'A00', 'Lecture', '2018-6-2',  '10:00:00', '13:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty3'),
     ('CSE008', 2018, 'SPRING', 'A00', 'Discussion', '2018-6-3', '9:00:00', '10:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty3'),
 
+    -- CSE105
+    ('CSE105', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-24', '11:00:00', '12:20:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty3'),
+
 --------------------------------------------------------------------------------------------------------------------------------------
     -- #23
     ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:00:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
@@ -1026,6 +1033,7 @@ INSERT INTO enrollment VALUES
     (111111111, 'CSE132A', 2018, 'SPRING', 'A00', 'Faculty1', 4, 'INPROGRESS', 'INPROGRESS'),
     (222222222, 'CSE132A', 2018, 'SPRING', 'A00', 'Faculty1', 2, 'INPROGRESS', 'INPROGRESS'),
     (333333333, 'CSE132A', 2018, 'SPRING', 'A00', 'Faculty1', 2, 'INPROGRESS', 'INPROGRESS'),
+    
     --#26
     (111111111, 'CSE130', 2018, 'SPRING', 'A00', 'Faculty1', 4, 'INPROGRESS', 'INPROGRESS')
     ON CONFLICT DO NOTHING;
@@ -1071,7 +1079,9 @@ INSERT INTO past_enrollment VALUES
     (121212121, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'B'),
     (131313131, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'B'),
     (141414141, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'B'),
-    (151515151, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'C')
+    (151515151, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'C'), 
+
+    (333333333, 'CSE000', 2017, 'FALL', 'A00', 'Faculty1', 4, 'B'),
     ON CONFLICT DO NOTHING;
     
 insert into grade_conversion values('A+', 4.3);

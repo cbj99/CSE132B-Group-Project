@@ -247,7 +247,7 @@ INSERT INTO meetings VALUES
     ('CSE102', 2018, 'spring', 2, 'Review Session', '2018-5-2', '12:00:00', '13:00:00', 'NO', 'room_3', 'building_2', 'faculty_1');
 
 INSERT INTO course_offering_ny VALUES
-    ('faculty1', 'CSE000', 2022, 'fall', 1, 'Fluency in Information Technology')
+    ('Faculty1', 'CSE000', 2022, 'fall', 1, 'Fluency in Information Technology')
     -- ('faculty_1', 'CSE1', 2022, 'fall', 1, 'Fluency in Information Technology'), 
     -- ('faculty_1', 'CSE1', 2022, 'fall', 2, 'Fluency in Information Technology'),
     -- ('faculty_1', 'CSE1', 2022, 'fall', 3, 'Fluency in Information Technology'),
