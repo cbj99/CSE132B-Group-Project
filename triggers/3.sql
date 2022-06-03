@@ -271,3 +271,16 @@ INSERT INTO meetings VALUES
 
 INSERT INTO meetings VALUES
     ('MATH132A', 2018, 'SPRING', 'A01', 'Discussion', '2018-3-25', '13:00:00', '13:50:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+
+-- correct insertion
+INSERT INTO meetings VALUES
+    ('CSE132A', 2018, 'SPRING', 'A00', 'Lab', '2018-3-23', '18:00:00', '19:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'), 
+    ('CSE132A', 2018, 'SPRING', 'A00', 'Lab', '2018-3-23', '19:00:00', '20:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'), 
+    on conflict do nothing
+
+-- should be colluding
+INSERT INTO meetings VALUES
+    ('CSE132A', 2018, 'SPRING', 'A01', 'Lab', '2018-3-23', '18:00:00', '19:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+
+INSERT INTO meetings VALUES
+    ('CSE132A', 2018, 'SPRING', 'A01', 'Lab', '2018-3-23', '19:00:00', '20:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1') 
