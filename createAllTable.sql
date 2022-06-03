@@ -405,7 +405,6 @@ CREATE TABLE thesisCommittee(
 ); 
 
 create table GRADE_CONVERSION(
-
     GRADE CHAR(50) NOT NULL,
     NUMBER_GRADE DECIMAL(2,1)
 );

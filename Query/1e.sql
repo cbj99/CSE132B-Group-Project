@@ -187,7 +187,7 @@ completed_courses AS(
     FROM 
         total_enrollment
     WHERE 
-        total_enrollment.student_id = 111111111
+        total_enrollment.student_id = 444444444
 ), 
 degree_sepcific_concentration AS(
     SELECT distinct(gradudateDegreeRequiarment.concentration) AS concentration
@@ -217,7 +217,6 @@ un_completed_course AS(
 		degree_sepcific_concentration_course.course_number, 
 		degree_sepcific_concentration_course.concentration
     FROM 
-		concentration_course_completed,
 		degree_sepcific_concentration_course
     where 
 		(degree_sepcific_concentration_course.course_number, degree_sepcific_concentration_course.concentration) not in (select * from concentration_course_completed)
@@ -297,7 +296,6 @@ un_completed_course AS(
 		degree_sepcific_concentration_course.course_number, 
 		degree_sepcific_concentration_course.concentration
     FROM 
-		concentration_course_completed,
 		degree_sepcific_concentration_course
     where 
 		(degree_sepcific_concentration_course.course_number, degree_sepcific_concentration_course.concentration) not in (select * from concentration_course_completed)
