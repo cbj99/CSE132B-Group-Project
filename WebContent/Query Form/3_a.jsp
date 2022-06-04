@@ -28,12 +28,12 @@
 	<%-- Query Code --%>
 	<%
     // first display
-    String course_faculty_quarter_str = "with info as ( (SELECT past_enrollment.course_number, past_enrollment.year_, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade, count(*) FROM past_enrollment, GRADE_CONVERSION WHERE past_enrollment.grade = GRADE_CONVERSION.grade GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.grade, past_enrollment.year_ order by past_enrollment.course_number) union (SELECT past_enrollment.course_number, past_enrollment.year_, past_enrollment.quarter, past_enrollment.faculty_name, 'other' as grade, count(*) FROM past_enrollment WHERE past_enrollment.grade not in (select grade from GRADE_CONVERSION) GROUP BY past_enrollment.course_number, past_enrollment.quarter, past_enrollment.faculty_name, past_enrollment.year_ order by past_enrollment.course_number) ) SELECT * FROM info where course_number=? and faculty_name=? and quarter=? and year_ = ? order by info.course_number;"; 
+    String course_faculty_quarter_str = "SELECT * FROM CPQG where course_number=? and faculty_name=? and quarter=? and year_ = ? order by CPQG.course_number;"; 
     PreparedStatement course_faculty_quarter_state = conn.prepareStatement(course_faculty_quarter_str);
     ResultSet course_faculty_quarter_RS = null;
 
     // second display 
-    String course_faculty_str = "with info2 as ( (SELECT past_enrollment.course_number, past_enrollment.year_, past_enrollment.faculty_name, past_enrollment.grade, count(*) FROM past_enrollment, GRADE_CONVERSION WHERE past_enrollment.grade = GRADE_CONVERSION.grade GROUP BY past_enrollment.course_number, past_enrollment.year_, past_enrollment.faculty_name, past_enrollment.grade) union (SELECT past_enrollment.course_number, past_enrollment.year_, past_enrollment.faculty_name, 'other' as grade, count(*) FROM past_enrollment WHERE past_enrollment.grade not in (select grade from GRADE_CONVERSION) GROUP BY past_enrollment.course_number, past_enrollment.year_, past_enrollment.faculty_name) ) SELECT * FROM info2 where course_number=? and faculty_name=? order by info2.course_number "; 
+    String course_faculty_str = "SELECT * FROM CPG where course_number=? and faculty_name=? order by CPG.course_number "; 
     PreparedStatement course_faculty_state = conn.prepareStatement(course_faculty_str);
     ResultSet course_faculty_RS = null;
 
@@ -165,7 +165,8 @@
 		<tr>
 			<th>Course Number</th>
             <th>Faculty</th>
-            <th>Qaurter</th>
+            <th>Year</th>
+            <th>Quarter</th>
 			<th>Grade</th>
 			<th>Count</th>
 		</tr>
@@ -175,6 +176,7 @@
 		<tr>
 			<td><%=course_faculty_quarter_RS.getString("course_number")%></td>
 			<td><%=course_faculty_quarter_RS.getString("faculty_name")%></td>
+			<td><%=course_faculty_quarter_RS.getInt("year_")%></td>
             <td><%=course_faculty_quarter_RS.getString("quarter")%></td>
             <td><%=course_faculty_quarter_RS.getString("grade")%></td>
             <td><%=course_faculty_quarter_RS.getInt("count")%></td>
@@ -189,7 +191,6 @@
 		<tr>
 			<th>Course Number</th>
             <th>Faculty</th>
-            <th>Year</th>
 			<th>Grade</th>
 			<th>Count</th>
 		</tr>
@@ -199,7 +200,6 @@
 		<tr>
 			<td><%=course_faculty_RS.getString("course_number")%></td>
 			<td><%=course_faculty_RS.getString("faculty_name")%></td>
-            <td><%=course_faculty_RS.getInt("year_")%></td>
             <td><%=course_faculty_RS.getString("grade")%></td>
             <td><%=course_faculty_RS.getInt("count")%></td>
 		</tr>
