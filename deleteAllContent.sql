@@ -11,4 +11,6 @@ TRUNCATE
     gradudateDegreeRequiarment,
     underGradudateDegreeRequiarment,
     enrollment, past_enrollment,
-    thesisCommittee;
+    thesisCommittee,
+	cpqg,
+	cpg;
