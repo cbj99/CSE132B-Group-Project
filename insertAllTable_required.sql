@@ -1082,7 +1082,7 @@ INSERT INTO past_enrollment VALUES
     (141414141, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'B'),
     (151515151, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'C'), 
 
-    (333333333, 'CSE000', 2017, 'FALL', 'A00', 'Faculty1', 4, 'B'),
+    (333333333, 'CSE000', 2017, 'FALL', 'A00', 'Faculty1', 4, 'B')
     ON CONFLICT DO NOTHING;
     
 insert into grade_conversion values('A+', 4.3);

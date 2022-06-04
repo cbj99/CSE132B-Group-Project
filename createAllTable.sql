@@ -414,6 +414,7 @@ create table CPQG(
     faculty_name char(50),
     year_ int,
     quarter char(10),
+    grade char(10), 
     count_ int,
     CONSTRAINT FK_course 
         FOREIGN KEY(course_number) REFERENCES courses(course_number)
@@ -428,6 +429,7 @@ create table CPQG(
 create table CPG(
     course_number char(50),
     faculty_name char(50),
+    grade char(10), 
     count_ int,
     CONSTRAINT FK_course 
         FOREIGN KEY(course_number) REFERENCES courses(course_number)
