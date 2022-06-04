@@ -251,7 +251,7 @@ INSERT INTO underGradudateDegreeRequiarment VALUES
 INSERT INTO location_ VALUES
     -- #8, 9, 10, 11, 12, 13
     ('RCLAS', 'RCLAS', 100), 
-    ('two_max', 'two_max', 2), 
+    ('two_max', 'two_max', 2)
     ON CONFLICT DO NOTHING;
 
 INSERT INTO meetings VALUES
@@ -1082,7 +1082,7 @@ INSERT INTO past_enrollment VALUES
     (141414141, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'B'),
     (151515151, 'CSE150A', 2017, 'FALL', 'A00', 'Faculty2', 4, 'C'), 
 
-    (333333333, 'CSE000', 2017, 'FALL', 'A00', 'Faculty1', 4, 'B'),
+    (333333333, 'CSE000', 2017, 'FALL', 'A00', 'Faculty1', 4, 'B')
     ON CONFLICT DO NOTHING;
     
 insert into grade_conversion values('A+', 4.3);
