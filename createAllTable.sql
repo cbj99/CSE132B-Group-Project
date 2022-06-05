@@ -408,3 +408,35 @@ create table GRADE_CONVERSION(
     GRADE CHAR(50) NOT NULL,
     NUMBER_GRADE DECIMAL(2,1)
 );
+
+create table CPQG(
+    course_number char(50),
+    faculty_name char(50),
+    year_ int,
+    quarter char(10),
+    grade char(50), 
+    count_ int,
+    CONSTRAINT FK_course 
+        FOREIGN KEY(course_number) REFERENCES courses(course_number)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT FK_faculty_name
+        FOREIGN KEY(faculty_name) REFERENCES faculty(faculty_name)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+create table CPG(
+    course_number char(50),
+    faculty_name char(50),
+    grade char(50), 
+    count_ int,
+    CONSTRAINT FK_course 
+        FOREIGN KEY(course_number) REFERENCES courses(course_number)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT FK_faculty_name
+        FOREIGN KEY(faculty_name) REFERENCES faculty(faculty_name)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

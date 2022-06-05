@@ -29,14 +29,15 @@
 	            String action = request.getParameter("action"); 
 				if(action != null && action.equals("insert")){
 					conn.setAutoCommit(false); 
-					PreparedStatement insertEnrollment = conn.prepareStatement("INSERT INTO past_enrollment VALUES(?, ?, ?, ?, ?, ?, ?);");
+					PreparedStatement insertEnrollment = conn.prepareStatement("INSERT INTO past_enrollment VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
 					insertEnrollment.setInt(1, Integer.parseInt(request.getParameter("STUDENTID"))); 
 					insertEnrollment.setString(2, request.getParameter("COURSENUMBER"));
 					insertEnrollment.setInt(3, Integer.parseInt(request.getParameter("YEAR")));
 					insertEnrollment.setString(4, request.getParameter("QUARTER"));
 					insertEnrollment.setString(5, request.getParameter("SECTION")); 
 					insertEnrollment.setString(6, request.getParameter("FACULTY"));
-					insertEnrollment.setString(7, request.getParameter("GRADE"));
+					insertEnrollment.setInt(7, Integer.parseInt(request.getParameter("UNIT")));
+					insertEnrollment.setString(8, request.getParameter("GRADE"));
 					insertEnrollment.executeUpdate();
 					
 					conn.commit();
@@ -48,14 +49,15 @@
 				<% 
 				if(action != null && action.equals("update")){
 					conn.setAutoCommit(false); 
-					PreparedStatement updateEnrollment = conn.prepareStatement("UPDATE past_enrollment SET grade=? WHERE student_id=? and course_number=? and year_=? and quarter=? and section_id=? and faculty_name=?;"); 
-					updateEnrollment.setInt(2, Integer.parseInt(request.getParameter("STUDENTID"))); 
-					updateEnrollment.setString(3, request.getParameter("COURSENUMBER"));
-					updateEnrollment.setInt(4, Integer.parseInt(request.getParameter("YEAR")));
-					updateEnrollment.setString(5, request.getParameter("QUARTER"));
-					updateEnrollment.setString(6, request.getParameter("SECTION")); 
-					updateEnrollment.setString(7, request.getParameter("FACULTY"));
+					PreparedStatement updateEnrollment = conn.prepareStatement("UPDATE past_enrollment SET grade=?, unit_taken=? WHERE student_id=? and course_number=? and year_=? and quarter=? and section_id=? and faculty_name=?;"); 
+					updateEnrollment.setInt(3, Integer.parseInt(request.getParameter("STUDENTID"))); 
+					updateEnrollment.setString(4, request.getParameter("COURSENUMBER"));
+					updateEnrollment.setInt(5, Integer.parseInt(request.getParameter("YEAR")));
+					updateEnrollment.setString(6, request.getParameter("QUARTER"));
+					updateEnrollment.setString(7, request.getParameter("SECTION")); 
+					updateEnrollment.setString(8, request.getParameter("FACULTY"));
 					updateEnrollment.setString(1, request.getParameter("GRADE"));
+					updateEnrollment.setInt(2, Integer.parseInt(request.getParameter("UNIT")));
 					updateEnrollment.executeUpdate();
 					
 					conn.commit();
@@ -96,6 +98,7 @@
 						<th>quarter</th>
 						<th>section_id</th>
 						<th>faculty_name</th>
+						<th>unit_taken</th>
 						<th>grade</th>
 					</tr>
 					
@@ -109,6 +112,7 @@
 							<td><input value="" name="QUARTER" size="20"></td>
 							<td><input value="" name="SECTION" size="20"></td>
 							<td><input value="" name="FACULTY" size="20"></td>
+							<td><input value="" name="UNIT" size="20"></td>
 							<td>
 								<select name="GRADE">   
 									<option value="NULL" selected>Please Select a grade</option>                         	
@@ -142,6 +146,7 @@
                             <td><input value="<%= enrollmentRS.getString("quarter").trim()%>" name="QUARTER" size="20" readonly></td>
 							<td><input value="<%= enrollmentRS.getString("section_id").trim()%>" name="SECTION" size="20" readonly></td>
                             <td><input value="<%= enrollmentRS.getString("faculty_name").trim()%>" name="FACULTY" size="20" readonly></td>
+                            <td><input value="<%= enrollmentRS.getInt("unit_taken") %>" name="UNIT" size="20"></td>
                             <td>
 								<select name="GRADE">   
 									<option value="<%= enrollmentRS.getString("grade").trim()%>" selected><%= enrollmentRS.getString("grade").trim()%></option>  
