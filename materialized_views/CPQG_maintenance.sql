@@ -1,9 +1,17 @@
-CREATE or REPLACE FUNCTION trigger_function_update_CPG() 
+CREATE or REPLACE FUNCTION update_cpqg() 
    RETURNS TRIGGER 
    LANGUAGE PLPGSQL
 AS $$
 BEGIN
-
+   IF EXISTS (SELECT FROM CPQG c WHERE c.course_number = NEW.course_number 
+    AND c.year_ = NEW.year_ AND c.quarter = NEW.quarter AND c.faculty_name = NEW.faculty_name AND c.grade = NEW.grade) THEN
+        UPDATE CPQG SET count_ = count_ + 1 WHERE course_number = NEW.course_number 
+        AND year_ = NEW.year_ AND quarter = NEW.quarter AND faculty_name = NEW.faculty_name AND grade = NEW.grade;
+        RETURN NEW;
+    ELSE        
+        INSERT INTO CPQG VALUES(NEW.course_number, NEW.faculty_name, NEW.year_, NEW.quarter, NEW.grade, 1 );
+        RETURN NEW;
+    END IF;
 end; 
 
 
