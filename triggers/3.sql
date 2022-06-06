@@ -4,70 +4,70 @@
 -- checking conflicts on the irregular meetings too.
 
 -- check insertion of the same time sane type just return new  
-select 
-    count(*)
-FROM meetings 
-where 
-    meetings.course_number = 'CSE132A' and 
-    meetings.year_ = 2018 and 
-    meetings.quarter = 'SPRING' and 
-    meetings.section_id = 'A00' and 
-    meetings.faculty_name = 'Faculty1' and 
-    meetings.type_ = 'Lecture' and 
-    meetings.begin_time = '13:00:00'::time and 
-    meetings.end_time = '15:00:00'::time
+-- select 
+--     count(*)
+-- FROM meetings 
+-- where 
+--     meetings.course_number = 'CSE132A' and 
+--     meetings.year_ = 2018 and 
+--     meetings.quarter = 'SPRING' and 
+--     meetings.section_id = 'A00' and 
+--     meetings.faculty_name = 'Faculty1' and 
+--     meetings.type_ = 'Lecture' and 
+--     meetings.begin_time = '13:00:00'::time and 
+--     meetings.end_time = '15:00:00'::time
 
--- check overlap of lecture of all courses faculty is teaching
-with faculty_lecture_time as 
-(
-    select 
-        meetings.course_number,
-        meetings.section_id,
-        meetings.begin_time, 
-        meetings.end_time
-    FROM meetings 
-    where 
-        meetings.year_ = 2018 and 
-        meetings.quarter = 'SPRING' and 
-        meetings.faculty_name = 'Faculty1' and 
-        meetings.type_ = 'Lecture' 
-    group by 
-        meetings.course_number,
-        meetings.section_id,
-        meetings.begin_time, 
-        meetings.end_time
+-- -- check overlap of lecture of all courses faculty is teaching
+-- with faculty_lecture_time as 
+-- (
+--     select 
+--         meetings.course_number,
+--         meetings.section_id,
+--         meetings.begin_time, 
+--         meetings.end_time
+--     FROM meetings 
+--     where 
+--         meetings.year_ = 2018 and 
+--         meetings.quarter = 'SPRING' and 
+--         meetings.faculty_name = 'Faculty1' and 
+--         meetings.type_ = 'Lecture' 
+--     group by 
+--         meetings.course_number,
+--         meetings.section_id,
+--         meetings.begin_time, 
+--         meetings.end_time
         
-)
-select count(*)
-from 
-    faculty_lecture_time
-where ('14:00:00'::time, '15:00:00'::time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
+-- )
+-- select count(*)
+-- from 
+--     faculty_lecture_time
+-- where ('14:00:00'::time, '15:00:00'::time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
 
--- function query
-with faculty_lecture_time as 
-(
-    select 
-        meetings.course_number,
-        meetings.section_id,
-        meetings.begin_time, 
-        meetings.end_time
-    FROM meetings 
-    where 
-        meetings.year_ = new.year_ and 
-        meetings.quarter = new.quarter and 
-        meetings.faculty_name = new.faculty_name and 
-        meetings.type_ = 'Lecture' 
-    group by 
-        meetings.course_number,
-        meetings.section_id,
-        meetings.begin_time, 
-        meetings.end_time
+-- -- function query
+-- with faculty_lecture_time as 
+-- (
+--     select 
+--         meetings.course_number,
+--         meetings.section_id,
+--         meetings.begin_time, 
+--         meetings.end_time
+--     FROM meetings 
+--     where 
+--         meetings.year_ = new.year_ and 
+--         meetings.quarter = new.quarter and 
+--         meetings.faculty_name = new.faculty_name and 
+--         meetings.type_ = 'Lecture' 
+--     group by 
+--         meetings.course_number,
+--         meetings.section_id,
+--         meetings.begin_time, 
+--         meetings.end_time
         
-)
-select count(*)
-from 
-    faculty_lecture_time
-where ('14:00:00'::time, '15:00:00'::time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
+-- )
+-- select count(*)
+-- from 
+--     faculty_lecture_time
+-- where ('14:00:00'::time, '15:00:00'::time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
 
 
 
@@ -233,28 +233,28 @@ CREATE or replace TRIGGER check_metting_overlapping
 
 
 
-INSERT INTO meetings VALUES
-    ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:00:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+-- INSERT INTO meetings VALUES
+--     ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:00:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
 
-INSERT INTO meetings VALUES
-    ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:20:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+-- INSERT INTO meetings VALUES
+--     ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:20:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
 
-INSERT INTO meetings VALUES
-    ('MATH132A', 2018, 'SPRING', 'A01', 'Discussion', '2018-3-25', '13:20:00', '13:50:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+-- INSERT INTO meetings VALUES
+--     ('MATH132A', 2018, 'SPRING', 'A01', 'Discussion', '2018-3-25', '13:20:00', '13:50:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
 
--- correct insertion
-INSERT INTO meetings VALUES
-    ('CSE132A', 2018, 'SPRING', 'A00', 'Lab', '2018-3-23', '18:00:00', '19:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
-    ('CSE132A', 2018, 'SPRING', 'A00', 'Special', '2018-3-23', '19:00:00', '20:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1') 
-    on conflict do nothing
+-- -- correct insertion
+-- INSERT INTO meetings VALUES
+--     ('CSE132A', 2018, 'SPRING', 'A00', 'Lab', '2018-3-23', '18:00:00', '19:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+--     ('CSE132A', 2018, 'SPRING', 'A00', 'Special', '2018-3-23', '19:00:00', '20:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1') 
+--     on conflict do nothing
 
--- should be colluding
-INSERT INTO meetings VALUES
-    ('CSE132A', 2018, 'SPRING', 'A01', 'Lab', '2018-3-23', '18:00:00', '19:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+-- -- should be colluding
+-- INSERT INTO meetings VALUES
+--     ('CSE132A', 2018, 'SPRING', 'A01', 'Lab', '2018-3-23', '18:00:00', '19:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
 
-INSERT INTO meetings VALUES
-    ('CSE132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '19:20:00', '20:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+-- INSERT INTO meetings VALUES
+--     ('CSE132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '19:20:00', '20:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
 
 
-INSERT INTO meetings VALUES
-     ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:20:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+-- INSERT INTO meetings VALUES
+--      ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:20:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')

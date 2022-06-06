@@ -2,17 +2,17 @@
 
 -- query for checking collusion time
 -- (same class, same data, differnet type, same time) -> error
-SELECT count(*)
-FROM meetings
-WHERE
-    meeting.course_number = NEW.course_number and 
-    meeting.year_ = NEW.year_ and 
-    meeting.qaurter = NEW.quarter and 
-    meeting.section_id = NEW.section_id and 
-    meeting.type_ != NEW.type_ and 
-    meeting.date_ = NEW.date_ and 
-    meeting.begin_time == NEW.begin_time and 
-    meeting.end_time = NEW.end_time
+-- SELECT count(*)
+-- FROM meetings
+-- WHERE
+--     meeting.course_number = NEW.course_number and 
+--     meeting.year_ = NEW.year_ and 
+--     meeting.qaurter = NEW.quarter and 
+--     meeting.section_id = NEW.section_id and 
+--     meeting.type_ != NEW.type_ and 
+--     meeting.date_ = NEW.date_ and 
+--     meeting.begin_time == NEW.begin_time and 
+--     meeting.end_time = NEW.end_time
 
 -- trigger function
 CREATE or REPLACE FUNCTION trigger_function_colluding_time() 
@@ -46,5 +46,5 @@ CREATE or replace TRIGGER check_meeting_time
 
 
 -- testing insertions, should raise an error
-INSERT INTO meetings VALUES
-    ('MATH132A', 2018, 'SPRING', 'A00', 'Discussion', '2018-3-23', '13:00:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+-- INSERT INTO meetings VALUES
+--     ('MATH132A', 2018, 'SPRING', 'A00', 'Discussion', '2018-3-23', '13:00:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
