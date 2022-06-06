@@ -1,2 +1,0 @@
-Design choices: 
-    >some filds are allowed to update whereas other fileds are not designed to be modified. Generally, when a entry field is a primary key, we do not allow it to be modified, this is defined as input filed being readonly. In additoin, we also allow some primary key to be updated for some tables. These are disign choices that we may want to modify based on how we are using the database to model the real world. 
