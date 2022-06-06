@@ -28,7 +28,7 @@
                         conn.setAutoCommit(false); 
                         
                         PreparedStatement UG_State = conn.prepareStatement( ("INSERT INTO undergradudatedegreerequiarment VALUES(?, ?, ?, ?, ?, ?, ?, ?)"));
-                        PreparedStatement G_State = conn.prepareStatement( ("INSERT INTO gradudatedegreerequiarment VALUES(?, ?, ?, ?, ?)"));
+                        PreparedStatement G_State = conn.prepareStatement( ("INSERT INTO gradudatedegreerequiarment VALUES(?, ?, ?, ?, ?, ?, ?)"));
                         
                         if(request.getParameter("DEGREETYPE").equals("UNDERGRADUATE")){
                         	UG_State.setString(1, request.getParameter("DEGREEID"));
@@ -47,6 +47,8 @@
                         	G_State.setString(3, request.getParameter("COURSENUMBER"));
                         	G_State.setString(4, request.getParameter("ISREQUIRED"));
                         	G_State.setString(5, request.getParameter("CONCENTRATION"));
+                            G_State.setInt(6, Integer.parseInt(request.getParameter("CONCENTRATIONUNITS")));
+                            G_State.setInt(7, Integer.parseInt(request.getParameter("MINIMUMGPA")));
                         	G_State.executeUpdate(); 
                         }
                         
@@ -62,7 +64,7 @@
                 		conn.setAutoCommit(false);
             			
                         PreparedStatement UG_Update = conn.prepareStatement("UPDATE undergradudatedegreerequiarment SET is_core=?, is_technical_elective=?, is_major_elective=?, is_college_required=?, minimum_grade=? where degree_id=? and course_number=? and institution=?;");
-                        PreparedStatement G_Update = conn.prepareStatement("UPDATE gradudatedegreerequiarment SET is_required=?, concentration=? where degree_id=? and course_number=?, and institution=?;");
+                        PreparedStatement G_Update = conn.prepareStatement("UPDATE gradudatedegreerequiarment SET is_required=?, concentration=?, concentration_units=?, minimum_gpa=? where degree_id=? and course_number=? and institution=?;");
                             
                         if(request.getParameter("DEGREETYPE").equals("UNDERGRADUATE")){
                         	UG_Update.setString(1, request.getParameter("ISCORE"));
@@ -78,9 +80,11 @@
                         if(request.getParameter("DEGREETYPE").equals("GRADUATE")){
                         	G_Update.setString(1, request.getParameter("ISREQUIRED"));
                         	G_Update.setString(2, request.getParameter("CONCENTRATION"));
-                        	G_Update.setString(3, request.getParameter("DEGREEID"));
-                        	G_Update.setString(4, request.getParameter("COURSENUMBER"));
-                        	G_Update.setString(5, request.getParameter("INSTITUTION"));
+                            G_Update.setInt(3, Integer.parseInt(request.getParameter("CONCENTRATIONUNITS")));
+                            G_Update.setInt(4, Integer.parseInt(request.getParameter("MINIMUMGPA")));
+                        	G_Update.setString(5, request.getParameter("DEGREEID"));
+                        	G_Update.setString(6, request.getParameter("COURSENUMBER"));
+                        	G_Update.setString(7, request.getParameter("INSTITUTION"));
                         	G_Update.executeUpdate();  
                         }
                 		
@@ -128,16 +132,24 @@
                 <%-- Presentation code --%>
                 <table>
                     <tr>
+                        <%-- overall attributes for both tables --%>
                         <th>Degree ID</th>
                         <th>Institution</th>
                         <th>Course Number</th>
+
+                        <%-- attributes for under-graduate degree requirement --%>
                         <th>Core?</th>
                         <th>Technical Elective?</th>
                         <th>Major Elective?</th>
                         <th>College Required?</th>
+                        <th>Minimun Grade</th>
+
+                        <%-- attributes for graduate degree requirement table --%>
                         <th>Graduate School Required?</th>
-                        <th>Minimum Grade</th>
                         <th>Concentration</th>
+                        <th>Concentration Units</th>
+                        <th>Minimun GPA</th>
+
                         <th>Degree Type</th>
                         <th>Action</th>
                     </tr>
@@ -173,14 +185,18 @@
                             		<option value="NO">NO</option>
                             	</select>
                             </th>
+                            <th><input value="" name="MINIMUMGRADE" size="15"></th>
+                            
                             <th>
                             	<select name="ISREQUIRED" style="width:200px;">
                             		<option value="YES">YES</option>
                             		<option value="NO">NO</option>
                             	</select>
                             </th>
-                            <th><input value="" name="MINIMUMGRADE" size="15"></th>
-                            <th><input value="" name="CONCENTRATION" size="10"></th>
+                            
+                            <th><input value="" name="CONCENTRATION" size="30"></th>
+                            <th><input value="" name="CONCENTRATIONUNITS" size="20"></th>
+                            <th><input value="" name="MINIMUMGPA" size="10"></th>
                             <th>
                             	<select name="DEGREETYPE">
                             		<option value="UNDERGRADUATE">Undergraduate Degree</option>
@@ -260,8 +276,10 @@
                             	</select>
                             </th>
                             <% } %>
-                            <td></td>
                             <td><input value="<%= UG_rs.getInt("minimum_grade")%>" name="MINIMUMGRADE" size="15"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td>Undergraduate Degree</td>
                             <input type="hidden" value="UNDERGRADUATE" name="DEGREETYPE">
@@ -289,6 +307,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                             <% if ((G_rs.getString("is_required").trim()).equals("YES")){%>
                             <th>
                             	<select name="ISREQUIRED" style="width:200px;">
@@ -304,8 +323,10 @@
                             	</select>
                             </th>
                             <% } %>
-                            <td></td>
-                            <td><input value="<%= G_rs.getString("concentration").trim() %>" name="CONCENTRATION" size="10"></td>
+
+                            <td><input value="<%= G_rs.getString("concentration")%>" name="CONCENTRATION" size="30"></td>
+                            <td><input value="<%= G_rs.getInt("concentration_units") %>" name="CONCENTRATIONUNITS" size="20"></td>
+                            <td><input value="<%= G_rs.getInt("minimum_gpa") %>" name="MINIMUMGPA" size="10"></td>
                             <td>Graduate Degree</td>
                             <input type="hidden" value="GRADUATE" name="DEGREETYPE">
                             <td><input style="width:60px;" type="submit" value="Update"></td>

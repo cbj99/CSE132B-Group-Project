@@ -43,7 +43,11 @@
 					int checkUpper = Integer.parseInt(temp);
 					if(checkUpper >= 100){
 						statement.setInt(6, 1);
-					}else{
+					}
+					else if (checkUpper >= 200){
+						statement.setInt(6, 2);
+					}
+					else{
 						statement.setInt(6, 0);
 					}
 					statement.setString(7, request.getParameter("TITLE"));
