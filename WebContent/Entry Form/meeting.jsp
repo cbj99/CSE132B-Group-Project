@@ -31,7 +31,7 @@
 				String action = request.getParameter("action"); 
 				if(action != null && action.equals("insert")){
 					conn.setAutoCommit(false); 
-					PreparedStatement insertMeeting = conn.prepareStatement("INSERT INTO meetings VALUES(?, ?, ?, ?, ?, ?::date, ?::time, ?::time, ?, ?, ?);");
+					PreparedStatement insertMeeting = conn.prepareStatement("INSERT INTO meetings VALUES(?, ?, ?, ?, ?, ?::date, ?::time, ?::time, ?, ?, ?,?);");
 					insertMeeting.setString(1, request.getParameter("COURSENUMBER")); 
 					insertMeeting.setInt(2, Integer.parseInt(request.getParameter("YEAR"))); 
 					insertMeeting.setString(3, request.getParameter("QUARTER")); 
@@ -43,6 +43,7 @@
 					insertMeeting.setString(9, request.getParameter("MANDATORY"));
 					insertMeeting.setString(10, request.getParameter("ROOMNUMBER"));
 					insertMeeting.setString(11, request.getParameter("BUILDINGNUMBER"));
+					insertMeeting.setString(12, request.getParameter("FACULTY"));
 					insertMeeting.executeUpdate();
 					
 					conn.commit();
@@ -114,6 +115,7 @@
 						<th>mandatory</th>
 						<th>room_number</th>
 						<th>building_number</th>
+						<th>faculty</th>
 					</tr>
 					
 					
@@ -133,10 +135,10 @@
 							<th><input value="" name="SECTION" size="20"></th>
 							<th>
                             	<select name="TYPE">                            	
-                            	<option value="LE">Lecture</option>
-                            	<option value="DI">Discussion</option>
-                            	<option value="LAB">Lab</option>
-                            	<option value="SPECIAL">Review Session</option>
+                            	<option value="Lecture">Lecture</option>
+                            	<option value="Discussion">Discussion</option>
+                            	<option value="Lab">Lab</option>
+                            	<option value="Special">Review Session</option>
                             	</select>
                             </th>
                             
@@ -151,6 +153,7 @@
                             </th>
 							<th><input value="" name="ROOMNUMBER" size="20"></th>
 							<th><input value="" name="BUILDINGNUMBER" size="20"></th>
+							<th><input value="" name="FACULTY" size="20"></th>
 							
 							<th><input style="width:60px;" type="submit" value="Insert"></th>
 						</form>
@@ -188,6 +191,7 @@
                             
                             <td><input value="<%= meetingRS.getString("room_number")%>" name="ROOMNUMBER" size="20"></td>
                             <td><input value="<%= meetingRS.getString("building_number")%>" name="BUILDINGNUMBER" size="20"></td>
+							<td><input value="<%= meetingRS.getString("faculty_name")%>" name="FACULTY" size="20"></td>
                             <td><input style="width:60px;" type="submit" value="Update"></td>
                         </form>
 						<form action="meeting.jsp" method="get">

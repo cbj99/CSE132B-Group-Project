@@ -1,8 +1,4 @@
 -- The lectures ('LE'), discussions('DI') and lab('LAB') meetings of a section should not happen at the same time.
-CREATE or replace TRIGGER check_meeting_time 
-    BEFORE INSERT on meetings
-    FOR EACH ROW
-    EXECUTE PROCEDURE trigger_function_colluding_time(); 
 
 -- query for checking collusion time
 -- (same class, same data, differnet type, same time) -> error
@@ -34,16 +30,21 @@ BEGIN
         meetings.section_id = NEW.section_id and 
         meetings.type_ != NEW.type_ and 
         meetings.date_ = NEW.date_ and 
-        meetings.begin_time = NEW.begin_time and 
-        meetings.end_time = NEW.end_time
+        (new.begin_time, new.end_time) overlaps (meetings.begin_time, meetings.end_time)
     ) > 0)
     THEN 
-        raise exception 'colluding time with another meeting';
+        raise exception 'Error 1: The lectures, discussions and lab meetings of a section should not happen at the same time';
     END IF; 
     return new; 
 END;
-$$
+-- connecting trigger
+$$;
+CREATE or replace TRIGGER check_meeting_time 
+    BEFORE INSERT on meetings
+    FOR EACH ROW
+    EXECUTE PROCEDURE trigger_function_colluding_time(); 
+
 
 -- testing insertions, should raise an error
 INSERT INTO meetings VALUES
-    ('CSE132A', 2018, 'SPRING', 'A00', 'Discussion', '2018-3-23', '13:00:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+    ('MATH132A', 2018, 'SPRING', 'A00', 'Discussion', '2018-3-23', '13:00:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')

@@ -1,3 +1,8 @@
+-- 3. A professor should not have multiple sections at the same time. For example, a professor that
+-- is scheduled to teach classes X and Y should not have conflicting sections, mainly overlapping
+-- meetings. It is enough to check for the regular meetings (e.g., "LE"). Extra credit is given for
+-- checking conflicts on the irregular meetings too.
+
 -- check insertion of the same time sane type just return new  
 select 
     count(*)
@@ -65,10 +70,7 @@ from
 where ('14:00:00'::time, '15:00:00'::time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
 
 
-CREATE or replace TRIGGER check_metting_overlapping 
-    BEFORE INSERT on meetings
-    FOR EACH ROW
-    EXECUTE PROCEDURE trigger_function_overlapping_time(); 
+
 
 -- trigger function CREATE or REPLACE FUNCTION trigger_function_enrollment_limit() 
 CREATE or REPLACE FUNCTION trigger_function_overlapping_time() 
@@ -123,7 +125,7 @@ BEGIN
         where (new.begin_time, new.end_time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
     ) > 0
     THEN 
-        raise exception 'collution with lecture time';
+        raise exception 'Error 3: Colluding or overlapping time with lecture, A professor should not have multiple sections at the same time';
 
     ELSIF
     (
@@ -154,7 +156,7 @@ BEGIN
         where (new.begin_time, new.end_time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
     ) > 0
     THEN 
-        raise exception 'collution with Discussion time';
+        raise exception 'Error 3: Colluding or overlapping time with Discussion, A professor should not have multiple sections at the same time';
 
     ELSIF
     (
@@ -185,7 +187,7 @@ BEGIN
         where (new.begin_time, new.end_time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
     ) > 0
     THEN 
-        raise exception 'collution with Lab time';
+        raise exception 'Error 3: Colluding or overlapping time with Lab, A professor should not have multiple sections at the same time';
 
     ELSIF
     (
@@ -202,7 +204,7 @@ BEGIN
                 meetings.quarter = new.quarter and 
                 meetings.date_ = new.date_ and 
                 meetings.faculty_name = new.faculty_name and 
-                meetings.type_ != new.type_ 
+                meetings.type_ = 'Special'
             group by 
                 meetings.course_number,
                 meetings.section_id,
@@ -216,53 +218,18 @@ BEGIN
         where (new.begin_time, new.end_time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
     ) > 0
     THEN 
-        raise exception 'collution with special meeting time';
+        raise exception 'Error 3: Colluding or overlapping time with Special Meeting, A professor should not have multiple sections at the same time';
     END IF;
 
     return new; 
 END;
-$$
+$$;
 
--- test 
-CREATE or REPLACE FUNCTION trigger_function_overlapping_time() 
-   RETURNS TRIGGER 
-   LANGUAGE PLPGSQL
-AS $$
-BEGIN
-    IF
-    (
-        with faculty_lecture_time as 
-        (
-            select 
-                meetings.course_number,
-                meetings.section_id,
-                meetings.begin_time, 
-                meetings.end_time
-            FROM meetings 
-            where 
-                meetings.year_ = new.year_ and 
-                meetings.quarter = new.quarter and 
-                meetings.faculty_name = new.faculty_name and 
-                meetings.type_ = 'Lecture' 
-            group by 
-                meetings.course_number,
-                meetings.section_id,
-                meetings.begin_time, 
-                meetings.end_time
-                
-        )
-        select count(*)
-        from 
-            faculty_lecture_time
-        where (new.begin_time, new.end_time) overlaps (faculty_lecture_time.begin_time, faculty_lecture_time.end_time)
-    ) > 0
-    THEN 
-        raise exception 'collution with lecture time';
-    END IF; 
+CREATE or replace TRIGGER check_metting_overlapping 
+    BEFORE INSERT on meetings
+    FOR EACH ROW
+    EXECUTE PROCEDURE trigger_function_overlapping_time(); 
 
-    return new; 
-END;
-$$
 
 
 
@@ -270,4 +237,24 @@ INSERT INTO meetings VALUES
     ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:00:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
 
 INSERT INTO meetings VALUES
-    ('MATH132A', 2018, 'SPRING', 'A01', 'Discussion', '2018-3-25', '13:00:00', '13:50:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+    ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:20:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+
+INSERT INTO meetings VALUES
+    ('MATH132A', 2018, 'SPRING', 'A01', 'Discussion', '2018-3-25', '13:20:00', '13:50:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+
+-- correct insertion
+INSERT INTO meetings VALUES
+    ('CSE132A', 2018, 'SPRING', 'A00', 'Lab', '2018-3-23', '18:00:00', '19:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1'),
+    ('CSE132A', 2018, 'SPRING', 'A00', 'Special', '2018-3-23', '19:00:00', '20:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1') 
+    on conflict do nothing
+
+-- should be colluding
+INSERT INTO meetings VALUES
+    ('CSE132A', 2018, 'SPRING', 'A01', 'Lab', '2018-3-23', '18:00:00', '19:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+
+INSERT INTO meetings VALUES
+    ('CSE132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '19:20:00', '20:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')
+
+
+INSERT INTO meetings VALUES
+     ('MATH132A', 2018, 'SPRING', 'A00', 'Lecture', '2018-3-23', '13:20:00', '15:00:00', 'YES', 'RCLAS', 'RCLAS', 'Faculty1')

@@ -179,7 +179,7 @@
 			<td><%=course_faculty_quarter_RS.getInt("year_")%></td>
             <td><%=course_faculty_quarter_RS.getString("quarter")%></td>
             <td><%=course_faculty_quarter_RS.getString("grade")%></td>
-            <td><%=course_faculty_quarter_RS.getInt("count")%></td>
+            <td><%=course_faculty_quarter_RS.getInt("count_")%></td>
 		</tr>
 		<%
 		}
@@ -201,7 +201,7 @@
 			<td><%=course_faculty_RS.getString("course_number")%></td>
 			<td><%=course_faculty_RS.getString("faculty_name")%></td>
             <td><%=course_faculty_RS.getString("grade")%></td>
-            <td><%=course_faculty_RS.getInt("count")%></td>
+            <td><%=course_faculty_RS.getInt("count_")%></td>
 		</tr>
 		<%
 		}

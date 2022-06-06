@@ -1,9 +1,4 @@
 -- If the enrollment limit of a section has been reached then additional enrollments should be rejected. It is not required to update the waitlist
--- create Trigger
-CREATE TRIGGER enrollment_limit 
-    BEFORE INSERT on enrollment
-    FOR EACH ROW
-    EXECUTE PROCEDURE trigger_function_enrollment_limit(); 
 
 -- Trigger Functions
 CREATE or REPLACE FUNCTION trigger_function_enrollment_limit() 
@@ -52,11 +47,19 @@ BEGIN
         )
     )
     THEN 
-        raise exception 'enrollment limit has been reached';
+        raise exception 'Error 2: enrollment limit has been reached';
     END IF; 
     return new; 
 END;
-$$
+$$;
+
+-- create Trigger
+CREATE or replace TRIGGER enrollment_limit 
+    BEFORE INSERT on enrollment
+    FOR EACH ROW
+    EXECUTE PROCEDURE trigger_function_enrollment_limit(); 
+
+
 
 -- count number of students
 select count(*)

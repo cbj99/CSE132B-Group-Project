@@ -12,8 +12,8 @@ BEGIN
         INSERT INTO CPQG VALUES(NEW.course_number, NEW.faculty_name, NEW.year_, NEW.quarter, NEW.grade, 1 );
         RETURN NEW;
     END IF;
-end; 
-
+end
+$$;
 
 CREATE or replace TRIGGER CPQG_maintenance 
     AFTER INSERT on past_enrollment
